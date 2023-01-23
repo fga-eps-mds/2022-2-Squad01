@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ViewProps } from "react-native";
 import { TextGlobal } from "../Global";
 import { Container } from "./styles";

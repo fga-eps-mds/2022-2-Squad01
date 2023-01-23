@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { getStatusBarHeight, isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
+import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
 
 export const Container = styled.ScrollView`
   background-color: #1A1A1A;
@@ -14,7 +14,9 @@ export const MapContainer = styled.View`
   border-radius: 10px;
 `;
 
-export const TrajectContainer = styled.View`
+export const TrajectContainerButton = styled.TouchableOpacity``;
+
+export const TrajectContainer = styled.TouchableOpacity`
  background-color : #7E46FF;
  border-radius: 10px;
  margin-top: 32px;
@@ -33,10 +35,11 @@ export const Traject = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
 `;
 
 export const LocationTexts = styled.View`
-  margin-left: 18px;
+  width: 65%;
 `;
 
 export const Title = styled.Text`

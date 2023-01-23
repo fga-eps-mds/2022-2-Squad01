@@ -1,4 +1,5 @@
-import React, { StatusBar, View, Platform } from "react-native";
+/* eslint-disable indent */
+import React, { StatusBar, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import {
   Container,
@@ -21,11 +22,13 @@ import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
 import HomeIcon from "../../assets/home";
-import SchoolIcon from "../../assets/school";
+import CarLupa from "../../assets/carLupa";
+import Volante from "../../assets/volante";
 import ClockIcon from "../../assets/clock";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { api } from "../../services/api";
 import MapViewDirections from "react-native-maps-directions";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 
 export function Home() {
@@ -80,7 +83,7 @@ export function Home() {
   return (
     <Container>
       <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Estudantes perto de você</Title>
+      <Title>Usuarios do Vambora</Title>
       <MapContainer>
         <MapView
           style={{
@@ -134,24 +137,36 @@ export function Home() {
         </MapView>
       </MapContainer>
       <TrajectContainer>
-        <TrajectTitle>Seu trajeto padrão</TrajectTitle>
         <Traject>
-          <HomeIcon color="#fafafa" />
+          <Volante color="#fafafa" />
           <LocationTexts>
-            <TrajectText>Casa</TrajectText>
-            <TrajectSubText>Gama</TrajectSubText>
+            <TrajectText>Oferecer Carona</TrajectText>
+            <TrajectSubText>
+              Que tal diminuir seus custos enquanto ajuda outras pessoas?
+            </TrajectSubText>
           </LocationTexts>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color="#fafafa"
+          />
         </Traject>
-        <Traject
-          style={{
-            marginTop: 20,
-          }}
-        >
-          <SchoolIcon />
+      </TrajectContainer>
+      <TrajectContainer>
+        <Traject>
+          <CarLupa color="#fafafa" />
           <LocationTexts>
-            <TrajectText>Universidade de Brasilia</TrajectText>
-            <TrajectSubText>Campus Gama</TrajectSubText>
+            <TrajectText>Receber Carona</TrajectText>
+            <TrajectSubText>
+              Procure por pessoas que moram perto de você e vão para o mesmo
+              campus.
+            </TrajectSubText>
           </LocationTexts>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color="#fafafa"
+          />
         </Traject>
       </TrajectContainer>
 
