@@ -12,15 +12,19 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(uuid())
-  email            String   @unique
+  id String @id @default(uuid())
+
+  email            String  @unique
   name             String
-  enrollment       String   @unique
+  enrollment       String  @unique
   password         String
   verificationCode Int
-  isVerified       Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  isVerified       Boolean @default(false)
+  cellphone        String
+  instagram        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   friends         User[] @relation("friends")
   friendsRelation User[] @relation("friends")

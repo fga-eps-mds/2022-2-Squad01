@@ -33,7 +33,7 @@ class CreateRouteUseCase {
       destination,
       originNeighborhood: originNeighborhood,
       destinationName,
-      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").split(" ").join("-"),
     })
 
     return route

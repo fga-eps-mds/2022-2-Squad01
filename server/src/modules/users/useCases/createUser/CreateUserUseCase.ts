@@ -9,6 +9,8 @@ interface IRequest {
   name: string,
   enrollment: string,
   password: string,
+  cellphone: string,
+  instagram?: string,
 }
 
 @injectable()
@@ -19,8 +21,8 @@ class CreateUserUseCase {
     @inject("MailAdapter")
     private mailAdapter: IMailAdapter
   ) { }
-  async execute({ email, name, enrollment, password }: IRequest) {
-    if (!email || !name || !enrollment || !password) {
+  async execute({ email, name, enrollment, password, cellphone, instagram }: IRequest) {
+    if (!email || !name || !enrollment || !password || !cellphone) {
       throw new AppError("Missing parameters")
     }
 
@@ -45,19 +47,19 @@ class CreateUserUseCase {
 
     console.log("Tentando enviar o e-mail");
 
-    await this.mailAdapter.sendMail!({
-      subject: "Seja bem-vindo(a) ao Vambora!",
-      body: [
-        `<body style="background-color: #8257e6; padding: 50px; color: #ffffff">`,
-        `<div style="text-align: center;">`,
-        `<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 50px;">Olá ${name.split(" ")[0]}, seja bem-vindo(a) ao Vambora!</h1>`,
-        `<h2>Seu código de verificação é:</h2>`,
-        `<h2><strong>${verificationCode}</strong></h2>`,
-        `</div>`,
-        `</body>`,
-      ].join("\n"),
-      user_email: email
-    })
+    // await this.mailAdapter.sendMail!({
+    //   subject: "Seja bem-vindo(a) ao Vambora!",
+    //   body: [
+    //     `<body style="background-color: #8257e6; padding: 50px; color: #ffffff">`,
+    //     `<div style="text-align: center;">`,
+    //     `<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 50px;">Olá ${name.split(" ")[0]}, seja bem-vindo(a) ao Vambora!</h1>`,
+    //     `<h2>Seu código de verificação é:</h2>`,
+    //     `<h2><strong>${verificationCode}</strong></h2>`,
+    //     `</div>`,
+    //     `</body>`,
+    //   ].join("\n"),
+    //   user_email: email
+    // })
 
     console.log("E-mail enviado com sucesso!");
 
@@ -66,7 +68,9 @@ class CreateUserUseCase {
       name,
       enrollment,
       password: hashedPassword,
-      verificationCode: parseInt(verificationCode)
+      verificationCode: parseInt(verificationCode),
+      cellphone,
+      instagram
     })
 
     return user

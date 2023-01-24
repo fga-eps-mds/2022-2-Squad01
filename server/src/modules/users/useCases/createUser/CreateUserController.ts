@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 
 class CreateUserController {
   async handle(req: Request, res: Response) {
-    const { email, name, enrollment, password } = req.body
+    const { email, name, enrollment, password, cellphone, instagram } = req.body
 
     const createUserUseCase = container.resolve(CreateUserUseCase)
 
@@ -12,7 +12,9 @@ class CreateUserController {
       email,
       name,
       enrollment,
-      password
+      password,
+      cellphone,
+      instagram
     })
 
     return res.status(201).json({ message: "User created sucessfully", id: user.id })

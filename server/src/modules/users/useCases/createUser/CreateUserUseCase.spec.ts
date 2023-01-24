@@ -24,6 +24,8 @@ describe("Create User", () => {
       email: "matricula@aluno.unb.br",
       password: "Senha123",
       enrollment: "matricula",
+      cellphone: "61999999999",
+      instagram: "instagram",
     })
 
     expect(user).toHaveProperty("id")
@@ -35,6 +37,8 @@ describe("Create User", () => {
       email: "matricula@aluno.unb.br",
       password: "Senha123",
       enrollment: "matricula",
+      cellphone: "61999999999",
+      instagram: "instagram",
     })
 
     await expect(
@@ -43,6 +47,8 @@ describe("Create User", () => {
         email: "matricula@aluno.unb.br",
         password: "Senha123",
         enrollment: "matricula",
+        cellphone: "61999999999",
+        instagram: "instagram",
       })
     ).rejects.toThrow()
   })
@@ -53,6 +59,8 @@ describe("Create User", () => {
       email: "matricula@aluno.uniesquina.br",
       password: "Senha123",
       enrollment: "matricula",
+      cellphone: "61999999999",
+      instagram: "instagram",
     })).rejects.toThrow()
   })
 
@@ -62,6 +70,8 @@ describe("Create User", () => {
       email: "matricula@aluno.uniesquina.br",
       password: "senha",
       enrollment: "matricula",
+      cellphone: "61999999999",
+      instagram: "instagram",
     })).rejects.toThrow()
   })
 })
