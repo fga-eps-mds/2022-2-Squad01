@@ -6,4 +6,5 @@ export interface IRoutesRepository {
   findById(id: string): Promise<Route | null>;
   listByUser(userId: string): Promise<Route[] | null>;
   listAll(): Promise<Route[] | null>;
+  listByNeighborhood(neighborhood: string): Promise<Route[] | null>;
 }

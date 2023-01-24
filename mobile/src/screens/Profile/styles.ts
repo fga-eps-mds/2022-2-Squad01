@@ -1,14 +1,19 @@
 import styled from "styled-components/native";
 import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
 
-
 export const Container = styled.View`
   background-color: #1A1A1A;
   flex: 1;
   padding: 24px 0px 0px 0px;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
-  align-items : center;
+  align-items: center;
 `;
+
+export const UserInfoContainer = styled.View`
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`
 
 export const ProfilePicture = styled.View`
   width : 200px;
@@ -35,10 +40,10 @@ export const UserNameText = styled.Text`
   color : #fff;
 `;
 
-export const ContatsUserContainer = styled.View`
+export const ContactsUserContainer = styled.View`
   background-color: #7E46FF;
   border-radius: 10px;
-  width: 90%;
+  width: 80%;
   padding: 20px;
   margin-top: 40px;
 `;
@@ -60,13 +65,29 @@ export const ContactUser = styled.Text`
   font-family : "Inter-600";
   font-size : 18px;
   margin-left : 20px;
-  width: 80%;
 `;
 
 export const ContactContainer = styled.View`
   flex : 1;
   flex-direction: row;
   align-items : center;
+`;
+
+export const LogOutContainer = styled.TouchableOpacity`
+  width: 80%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  border: 1px solid #FF0000;
+  padding: 8px 10px;
+  border-radius: 5px;
+`;
+
+export const LogOutText = styled.Text`
+  color : #FF0000;
+  font-family : "Inter-600";
+  font-size : 18px;
 `;
 
 export const IconCopy = styled.TouchableOpacity``;

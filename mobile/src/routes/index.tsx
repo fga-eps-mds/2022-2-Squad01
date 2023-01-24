@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Welcome from "../screens/Welcome";
@@ -13,8 +13,13 @@ import { FirstRoute } from "../screens/FirstRoute";
 import { Home } from "../screens/Home";
 import { CustomBottomTabs } from "./CustomBottomTabs";
 import { Profile } from "../screens/Profile";
+<<<<<<< HEAD
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../services/api";
+=======
 import { OfferRide } from "../screens/OfferRide";
 import { ReceiveRide } from "../screens/ReceiveRide";
+>>>>>>> 1a28c20702b93850f8a27b4a5e55c9f2c7fcebd4
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();
