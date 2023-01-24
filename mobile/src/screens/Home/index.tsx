@@ -110,7 +110,7 @@ export function Home() {
   return (
     <Container>
       <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Usuarios do Vambora</Title>
+      <Title>Usuários do Vambora</Title>
       <MapContainer>
         <MapView
           style={{

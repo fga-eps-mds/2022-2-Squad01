@@ -46,7 +46,7 @@ function StackRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Welcome"
+      initialRouteName="Home  "
     >
       <Stack.Screen name="BottomTabs" component={TabRoutes} />
       <Tab.Screen name="FirstRoute" component={FirstRoute} />

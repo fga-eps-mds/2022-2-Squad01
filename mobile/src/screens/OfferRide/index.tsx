@@ -5,7 +5,11 @@ import {
   MapContainer,
   Title,
   TitleText,
+  TrajectContent,
+  TrajectContentTexts,
   TrajectEditText,
+  TrajectSubTextTitle,
+  TrajectTextTitle,
   UserTrajectContainer,
   UserTrajectEdit,
   UserTrajectText,
@@ -18,7 +22,7 @@ import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
 import MapViewDirections from "react-native-maps-directions";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export function OfferRide() {
@@ -146,6 +150,42 @@ export function OfferRide() {
             />
           </UserTrajectEdit>
         </UserTrajectTitle>
+        <TrajectContent>
+          <MaterialCommunityIcons name="home" color="#fff" size={35} />
+          <TrajectContentTexts>
+            <TrajectTextTitle>Casa</TrajectTextTitle>
+            <TrajectSubTextTitle>Gama</TrajectSubTextTitle>
+          </TrajectContentTexts>
+        </TrajectContent>
+        <TrajectContent>
+          <MaterialCommunityIcons name="school" color="#fff" size={35} />
+          <TrajectContentTexts>
+            <TrajectTextTitle>Universidade de Brasilia</TrajectTextTitle>
+            <TrajectSubTextTitle>Campus Gama</TrajectSubTextTitle>
+          </TrajectContentTexts>
+        </TrajectContent>
+        <TrajectContent>
+          <MaterialCommunityIcons
+            name="map-marker-distance"
+            color="#fff"
+            size={35}
+          />
+          <TrajectContentTexts>
+            <TrajectTextTitle>Distancia</TrajectTextTitle>
+            <TrajectSubTextTitle>6 km</TrajectSubTextTitle>
+          </TrajectContentTexts>
+        </TrajectContent>
+        <TrajectContent>
+          <MaterialCommunityIcons
+            name="progress-clock"
+            color="#fff"
+            size={35}
+          />
+          <TrajectContentTexts>
+            <TrajectTextTitle>Duração Media</TrajectTextTitle>
+            <TrajectSubTextTitle>15 min</TrajectSubTextTitle>
+          </TrajectContentTexts>
+        </TrajectContent>
       </UserTrajectContainer>
     </Container>
   );
