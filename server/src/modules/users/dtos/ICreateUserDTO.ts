@@ -4,4 +4,6 @@ export interface ICreateUserDTO {
   enrollment: string,
   password: string,
   verificationCode: number
+  cellphone: string,
+  instagram?: string,
 }

@@ -4,6 +4,7 @@ import { IRoutesRepository } from "../../IRoutesRepository";
 import { prisma } from "prisma";
 
 class PrismaRoutesRepository implements IRoutesRepository {
+
   async create(data: ICreateRouteDTO): Promise<Route> {
     const { distance, duration, originName, destination, origin, userId, originNeighborhood, originNeighborhoodSlug, destinationName } = data
 
@@ -43,12 +44,19 @@ class PrismaRoutesRepository implements IRoutesRepository {
 
     return routes
   }
+
   async listByNeighborhood(neighborhood: string): Promise<Route[]> {
     const routes = await prisma.route.findMany({
       where: {
         originNeighborhood: neighborhood
       }
     })
+
+    return routes
+  }
+
+  async listAll(): Promise<Route[] | null> {
+    const routes = await prisma.route.findMany()
 
     return routes
   }

@@ -17,42 +17,71 @@ import InstagramIcon from "../../assets/Instagram";
 import CopyIcon from "../../assets/copy";
 
 import * as Clipboard from "expo-clipboard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 export function Profile() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [enrollment, setEnrollment] = useState("");
+  const [cellphone, setCellphone] = useState("");
+  const [instagram, setInstagram] = useState("");
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const user = await AsyncStorage.getItem("@vambora:user");
+
+      if (user) {
+        const { email, name, enrollment, cellphone, instagram } =
+          JSON.parse(user);
+
+        setEmail(email);
+        setName(name);
+        setEnrollment(enrollment);
+        setCellphone(cellphone);
+        setInstagram(instagram);
+      }
+    }
+
+    getUserInfo();
+  }, []);
   return (
     <Container>
       <ProfilePicture>
-        <ProfileText>BM</ProfileText>
+        {name.length > 0 && (
+          <ProfileText>
+            {name.split(" ")[0][0]}
+            {name.split(" ")[name.split(" ").length - 1][0]}
+          </ProfileText>
+        )}
       </ProfilePicture>
-      <UserNameText>Bruno Medeiros de Oliveira</UserNameText>
+      <UserNameText>{name}</UserNameText>
       <ContatsUserContainer>
         <ContactTitle>Contatos</ContactTitle>
         <ContactsUserContent>
           <ContactContainer>
             <TelePhoneIcon />
-            <ContactUser>(61)9 9109-2610</ContactUser>
+            <ContactUser>{cellphone}</ContactUser>
           </ContactContainer>
-          <IconCopy onPress={() => Clipboard.setString("(61)9 9109-2610")}>
+          <IconCopy onPress={() => Clipboard.setStringAsync(cellphone)}>
             <CopyIcon />
           </IconCopy>
         </ContactsUserContent>
         <ContactsUserContent>
           <ContactContainer>
             <EmailIcon />
-            <ContactUser>brunomedo4@aluno.unb.br</ContactUser>
+            <ContactUser>{email}</ContactUser>
           </ContactContainer>
-          <IconCopy
-            onPress={() => Clipboard.setString("brunomedo4@aluno.unb.br")}
-          >
+          <IconCopy onPress={() => Clipboard.setStringAsync(email)}>
             <CopyIcon />
           </IconCopy>
         </ContactsUserContent>
         <ContactsUserContent>
           <ContactContainer>
             <InstagramIcon />
-            <ContactUser>@brunomed</ContactUser>
+            <ContactUser>{instagram}</ContactUser>
           </ContactContainer>
-          <IconCopy onPress={() => Clipboard.setString("@brunomed")}>
+          <IconCopy onPress={() => Clipboard.setStringAsync(instagram)}>
             <CopyIcon />
           </IconCopy>
         </ContactsUserContent>

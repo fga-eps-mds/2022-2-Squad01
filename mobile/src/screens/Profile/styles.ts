@@ -28,7 +28,6 @@ export const ProfileText = styled.Text`
   font-size : 48px;
 `;
 
-
 export const UserNameText = styled.Text`
   margin-top : 50px;
   font-family : "Inter-700";
@@ -37,11 +36,11 @@ export const UserNameText = styled.Text`
 `;
 
 export const ContatsUserContainer = styled.View`
-  background-color : #7E46FF;
-  border-radius : 10px;
-  width :80%;
-  padding : 20px;
-  margin-top : 40px;
+  background-color: #7E46FF;
+  border-radius: 10px;
+  width: 90%;
+  padding: 20px;
+  margin-top: 40px;
 `;
 
 export const ContactTitle = styled.Text`
@@ -60,7 +59,7 @@ export const ContactUser = styled.Text`
   color : #fff;
   font-family : "Inter-600";
   font-size : 18px;
-  margin-left : 12px;
+  margin-left : 20px;
   width: 80%;
 `;
 

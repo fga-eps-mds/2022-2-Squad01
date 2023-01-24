@@ -5,7 +5,7 @@ import { IUsersRepository } from '../../IUsersRepository';
 
 class PrismaUsersRepository implements IUsersRepository {
   async create(data: ICreateUserDTO): Promise<User> {
-    const { email, name, enrollment, password, verificationCode } = data;
+    const { email, name, enrollment, password, verificationCode, cellphone, instagram } = data;
 
     const user = await prisma.user.create({
       data: {
@@ -14,6 +14,8 @@ class PrismaUsersRepository implements IUsersRepository {
         enrollment,
         password,
         verificationCode,
+        cellphone,
+        instagram
       },
     });
 
@@ -62,7 +64,7 @@ class PrismaUsersRepository implements IUsersRepository {
     });
   }
 
-  async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, verificationCode: number): Promise<User> {
+  async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, cellphone: string, instagram: string): Promise<User> {
     const user = await prisma.user.update({
       where: {
         id: user_id,
@@ -72,7 +74,8 @@ class PrismaUsersRepository implements IUsersRepository {
         name,
         enrollment,
         password,
-        verificationCode,
+        cellphone,
+        instagram
       }
     })
 
