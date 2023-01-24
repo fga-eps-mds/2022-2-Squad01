@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Welcome from "../screens/Welcome";
@@ -13,6 +13,8 @@ import { FirstRoute } from "../screens/FirstRoute";
 import { Home } from "../screens/Home";
 import { CustomBottomTabs } from "./CustomBottomTabs";
 import { Profile } from "../screens/Profile";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../services/api";
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();

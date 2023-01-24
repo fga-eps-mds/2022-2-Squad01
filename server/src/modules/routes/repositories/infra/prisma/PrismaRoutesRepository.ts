@@ -48,7 +48,7 @@ class PrismaRoutesRepository implements IRoutesRepository {
   async listByNeighborhood(neighborhood: string): Promise<Route[]> {
     const routes = await prisma.route.findMany({
       where: {
-        originNeighborhood: neighborhood
+        originNeighborhoodSlug: neighborhood
       }
     })
 
