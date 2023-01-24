@@ -28,9 +28,12 @@ import { api } from "../../services/api";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useNavigation } from "@react-navigation/native";
 
 export function Home() {
   const mapRef = useRef(null);
+  const navigation = useNavigation<any>();
+
   const [origin, setOrigin] = useState({
     latitude: 0,
     longitude: 0,
@@ -107,7 +110,7 @@ export function Home() {
   return (
     <Container>
       <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Usuarios do Vambora</Title>
+      <Title>Usuários do Vambora</Title>
       <MapContainer>
         <MapView
           style={{
@@ -171,7 +174,7 @@ export function Home() {
           ))}
         </MapView>
       </MapContainer>
-      <TrajectContainer>
+      <TrajectContainer onPress={() => navigation.navigate("OfferRide")}>
         <Traject>
           <Volante color="#fafafa" />
           <LocationTexts>
@@ -187,7 +190,7 @@ export function Home() {
           />
         </Traject>
       </TrajectContainer>
-      <TrajectContainer>
+      <TrajectContainer onPress={() => navigation.navigate("ReceiveRide")}>
         <Traject>
           <CarLupa color="#fafafa" />
           <LocationTexts>

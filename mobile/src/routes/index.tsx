@@ -13,8 +13,13 @@ import { FirstRoute } from "../screens/FirstRoute";
 import { Home } from "../screens/Home";
 import { CustomBottomTabs } from "./CustomBottomTabs";
 import { Profile } from "../screens/Profile";
+<<<<<<< HEAD
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "../services/api";
+=======
+import { OfferRide } from "../screens/OfferRide";
+import { ReceiveRide } from "../screens/ReceiveRide";
+>>>>>>> 1a28c20702b93850f8a27b4a5e55c9f2c7fcebd4
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();
@@ -46,7 +51,7 @@ function StackRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Welcome"
+      initialRouteName="Home  "
     >
       <Stack.Screen name="BottomTabs" component={TabRoutes} />
       <Tab.Screen name="FirstRoute" component={FirstRoute} />
@@ -58,6 +63,8 @@ function StackRoutes() {
       /> */}
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="VerificationCode" component={VerificationCode} />
+      <Stack.Screen name="OfferRide" component={OfferRide} />
+      <Stack.Screen name="ReceiveRide" component={ReceiveRide} />
     </Stack.Navigator>
   );
 }
