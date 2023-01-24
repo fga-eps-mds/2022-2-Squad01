@@ -1,36 +1,27 @@
 /* eslint-disable indent */
-import React, { StatusBar, View } from "react-native";
-import { useEffect, useRef, useState } from "react";
 import {
+  BackIcon,
   Container,
-  TrajectContainer,
-  Title,
-  TrajectText,
-  TrajectSubText,
-  LocationTexts,
-  Traject,
   MapContainer,
-  LastMatchsText,
-  LastMatchContainer,
-  LastMathsContainerText,
-  Separator,
-  LastRideText,
-  RideTypeText,
+  Title,
+  TitleText,
+  TrajectEditText,
+  UserTrajectContainer,
+  UserTrajectEdit,
+  UserTrajectText,
+  UserTrajectTitle,
 } from "./styles";
+import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useEffect, useRef, useState } from "react";
+import { api } from "../../services/api";
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
-import CarLupa from "../../assets/carLupa";
-import Volante from "../../assets/volante";
-import ClockIcon from "../../assets/clock";
-import { getBottomSpace } from "react-native-iphone-x-helper";
-import { api } from "../../services/api";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 
-export function Home() {
+export function OfferRide() {
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
 
@@ -83,8 +74,13 @@ export function Home() {
 
   return (
     <Container>
-      <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Usuarios do Vambora</Title>
+      <Title>
+        <BackIcon onPress={() => navigation.navigate("Home")}>
+          <MaterialCommunityIcons name="chevron-left" color="#fff" size={35} />
+        </BackIcon>
+        <TitleText>Oferecer Carona</TitleText>
+      </Title>
+
       <MapContainer>
         <MapView
           style={{
@@ -137,80 +133,20 @@ export function Home() {
           />
         </MapView>
       </MapContainer>
-      <TrajectContainer onPress={() => navigation.navigate("OfferRide")}>
-        <Traject>
-          <Volante color="#fafafa" />
-          <LocationTexts>
-            <TrajectText>Oferecer Carona</TrajectText>
-            <TrajectSubText>
-              Que tal diminuir seus custos enquanto ajuda outras pessoas?
-            </TrajectSubText>
-          </LocationTexts>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={24}
-            color="#fafafa"
-          />
-        </Traject>
-      </TrajectContainer>
-      <TrajectContainer onPress={() => navigation.navigate("ReceiveRide")}>
-        <Traject>
-          <CarLupa color="#fafafa" />
-          <LocationTexts>
-            <TrajectText>Receber Carona</TrajectText>
-            <TrajectSubText>
-              Procure por pessoas que moram perto de você e vão para o mesmo
-              campus.
-            </TrajectSubText>
-          </LocationTexts>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={24}
-            color="#fafafa"
-          />
-        </Traject>
-      </TrajectContainer>
 
-      <View
-        style={{
-          marginBottom: 40 + getBottomSpace(),
-        }}
-      >
-        <LastMatchsText>Suas ultimas caronas</LastMatchsText>
-
-        <LastMatchContainer>
-          <ClockIcon />
-          <LastMathsContainerText>
-            <LastRideText>Casa {"->"} Campus Gama</LastRideText>
-            <RideTypeText>Motorista</RideTypeText>
-          </LastMathsContainerText>
-        </LastMatchContainer>
-        <Separator />
-        <LastMatchContainer>
-          <ClockIcon />
-          <LastMathsContainerText>
-            <LastRideText>Casa {"->"} Campus Darcy Ribeiro</LastRideText>
-            <RideTypeText>Motorista</RideTypeText>
-          </LastMathsContainerText>
-        </LastMatchContainer>
-        <Separator />
-        <LastMatchContainer>
-          <ClockIcon />
-          <LastMathsContainerText>
-            <LastRideText>Casa {"->"} Campus Ceilandia</LastRideText>
-            <RideTypeText>Motorista</RideTypeText>
-          </LastMathsContainerText>
-        </LastMatchContainer>
-        <Separator />
-        <LastMatchContainer>
-          <ClockIcon />
-          <LastMathsContainerText>
-            <LastRideText>Casa {"->"} Campus Planaltina</LastRideText>
-            <RideTypeText>Motorista</RideTypeText>
-          </LastMathsContainerText>
-        </LastMatchContainer>
-        <Separator />
-      </View>
+      <UserTrajectContainer>
+        <UserTrajectTitle>
+          <UserTrajectText>Seu Trajeto</UserTrajectText>
+          <UserTrajectEdit>
+            <TrajectEditText>Editar</TrajectEditText>
+            <MaterialCommunityIcons
+              name="home-edit"
+              color="#FFFFFFBF"
+              size={30}
+            />
+          </UserTrajectEdit>
+        </UserTrajectTitle>
+      </UserTrajectContainer>
     </Container>
   );
 }

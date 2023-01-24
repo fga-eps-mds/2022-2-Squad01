@@ -14,7 +14,6 @@ export const MapContainer = styled.View`
   border-radius: 10px;
 `;
 
-export const TrajectContainerButton = styled.TouchableOpacity``;
 
 export const TrajectContainer = styled.TouchableOpacity`
  background-color : #7E46FF;

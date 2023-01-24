@@ -13,6 +13,8 @@ import { FirstRoute } from "../screens/FirstRoute";
 import { Home } from "../screens/Home";
 import { CustomBottomTabs } from "./CustomBottomTabs";
 import { Profile } from "../screens/Profile";
+import { OfferRide } from "../screens/OfferRide";
+import { ReceiveRide } from "../screens/ReceiveRide";
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +26,7 @@ function TabRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Profile"
+      initialRouteName="Home"
       tabBar={(props: BottomTabBarProps) => {
         return <CustomBottomTabs {...props} />;
       }}
@@ -56,6 +58,8 @@ function StackRoutes() {
       /> */}
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="VerificationCode" component={VerificationCode} />
+      <Stack.Screen name="OfferRide" component={OfferRide} />
+      <Stack.Screen name="ReceiveRide" component={ReceiveRide} />
     </Stack.Navigator>
   );
 }
