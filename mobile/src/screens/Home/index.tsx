@@ -16,12 +16,10 @@ import {
   Separator,
   LastRideText,
   RideTypeText,
-  TrajectTitle,
 } from "./styles";
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
-import HomeIcon from "../../assets/home";
 import CarLupa from "../../assets/carLupa";
 import Volante from "../../assets/volante";
 import ClockIcon from "../../assets/clock";
@@ -41,6 +39,7 @@ export function Home() {
     latitude: 0,
     longitude: 0,
   });
+  const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     async function getUserRoute() {
@@ -63,7 +62,32 @@ export function Home() {
       }
     }
 
+    async function getAllUsers() {
+      try {
+        const response = await api.get("/route/all");
+
+        response.data.routes.forEach((route) => {
+          setAllUsers((oldArray) => [
+            ...oldArray,
+            {
+              origin: {
+                latitude: route.origin[0],
+                longitude: route.origin[1],
+              },
+              destination: {
+                latitude: route.destination[0],
+                longitude: route.destination[1],
+              },
+            },
+          ]);
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
     getUserRoute();
+    getAllUsers();
   }, []);
 
   useEffect(() => {
@@ -134,6 +158,17 @@ export function Home() {
             title="Destino"
             identifier="destination"
           />
+          {allUsers.map((user, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: user.origin.latitude,
+                longitude: user.origin.longitude,
+              }}
+              title={`Usuário ${index + 1}`}
+              identifier={`user${index + 1}`}
+            />
+          ))}
         </MapView>
       </MapContainer>
       <TrajectContainer>

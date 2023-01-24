@@ -24,7 +24,7 @@ function TabRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Profile"
+      initialRouteName="Home"
       tabBar={(props: BottomTabBarProps) => {
         return <CustomBottomTabs {...props} />;
       }}
@@ -44,7 +44,7 @@ function StackRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Início"
+      initialRouteName="Welcome"
     >
       <Stack.Screen name="BottomTabs" component={TabRoutes} />
       <Tab.Screen name="FirstRoute" component={FirstRoute} />

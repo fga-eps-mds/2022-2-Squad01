@@ -3,13 +3,13 @@ import React from "react-native";
 import { Container, Tabs } from "./styles";
 import { TextGlobal } from "../../components/Global";
 
-import Profile from "../../assets/profile";
-import Home from "../../assets/home";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useState } from "react";
 
 interface ITab {
   name: string;
   routeName: string;
-  icon: (props) => JSX.Element;
+  icon: string;
 }
 
 export function CustomBottomTabs({ navigation }) {
@@ -17,26 +17,35 @@ export function CustomBottomTabs({ navigation }) {
     {
       name: "Início",
       routeName: "Home",
-      icon: Home,
+      icon: "home",
     },
     {
       name: "Perfil",
       routeName: "Profile",
-      icon: Profile,
+      icon: "account",
     },
   ];
+  const [selectedTab, setSelectedTab] = useState("Home");
+
+  function handleNavigate(routeName: string) {
+    navigation.navigate(routeName);
+    setSelectedTab(routeName);
+  }
 
   return (
     <Container>
       {screens.map((screen, index) => {
-        const Icon = screen.icon;
         return (
-          <Tabs
-            key={index}
-            onPress={() => navigation.navigate(screen.routeName)}
-          >
-            <Icon />
-            <TextGlobal color="#ABABAB" weight="700">
+          <Tabs key={index} onPress={() => handleNavigate(screen.routeName)}>
+            <MaterialCommunityIcons
+              name={screen.icon as "home" | "account"}
+              size={35}
+              color={selectedTab === screen.routeName ? "#8257E6" : "#ABABAB"}
+            />
+            <TextGlobal
+              color={selectedTab === screen.routeName ? "#8257E6" : "#ABABAB"}
+              weight="700"
+            >
               {screen.name}
             </TextGlobal>
           </Tabs>
