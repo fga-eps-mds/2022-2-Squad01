@@ -1,7 +1,13 @@
 /* eslint-disable indent */
 import {
+  AboutCarContainer,
+  AboutCarSubTitle,
+  AboutCarText,
+  AboutCarTitle,
   BackIcon,
+  CarInfoInput,
   Container,
+  InfoCarForm,
   MapContainer,
   Title,
   TitleText,
@@ -187,6 +193,27 @@ export function OfferRide() {
           </TrajectContentTexts>
         </TrajectContent>
       </UserTrajectContainer>
+      <AboutCarContainer>
+        <AboutCarTitle>Informações sobre o carro</AboutCarTitle>
+        <AboutCarSubTitle>
+          Coletamos essas informações para uma maior segurança tanto do
+          motorista quanto dos passageiros.
+        </AboutCarSubTitle>
+        <InfoCarForm>
+          <AboutCarText>Marca</AboutCarText>
+          <CarInfoInput></CarInfoInput>
+          <AboutCarText>Modelo</AboutCarText>
+          <CarInfoInput></CarInfoInput>
+          <AboutCarText>Ano</AboutCarText>
+          <CarInfoInput keyboardType="number-pad"> </CarInfoInput>
+          <AboutCarText>Cor</AboutCarText>
+          <CarInfoInput></CarInfoInput>
+          <AboutCarText>Placa</AboutCarText>
+          <CarInfoInput></CarInfoInput>
+          <AboutCarText>Assentos livres</AboutCarText>
+          <CarInfoInput keyboardType="number-pad"></CarInfoInput>
+        </InfoCarForm>
+      </AboutCarContainer>
     </Container>
   );
 }

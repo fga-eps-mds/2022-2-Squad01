@@ -82,3 +82,43 @@ export const TrajectSubTextTitle = styled.Text`
 `;
 
 
+export const AboutCarContainer = styled.View`
+  background-color: #222222;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+`;
+
+export const AboutCarTitle = styled.Text`
+  font-family: "Inter-700";
+  color: #FFF;
+  font-size: 20px;
+`;
+
+export const AboutCarSubTitle = styled.Text`
+  color: #EFEFEF80;
+  font-family: "Inter-500";
+`;
+
+export const InfoCarForm = styled.View`
+  margin-top: 20px;
+`;
+
+export const AboutCarText = styled.Text`
+  color: #fff;
+  font-family: "Inter-600";
+  font-size: 18px;
+  margin-top: 5px;
+`;
+
+export const CarInfo = styled.Text``;
+
+export const CarInfoInput = styled.TextInput`
+  color: #fff;
+  font-family: "Inter-500";
+  font-size: 15px;
+  border-bottom-width: 2px;
+  border-color: #ABABAB80;
+  padding: 3px 0;
+`;
