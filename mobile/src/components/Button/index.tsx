@@ -13,7 +13,7 @@ interface ButtonProps extends ViewProps {
 export function Button({
   children,
   onPress,
-  backgroundColor = "#8257e5",
+  backgroundColor = "#7E46FF",
   color = "#fff",
   disabled = false,
 }: ButtonProps) {

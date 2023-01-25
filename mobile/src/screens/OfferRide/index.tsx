@@ -7,6 +7,7 @@ import {
   BackIcon,
   CarInfoInput,
   Container,
+  CreateRouteButton,
   InfoCarForm,
   MapContainer,
   Title,
@@ -20,6 +21,7 @@ import {
   UserTrajectEdit,
   UserTrajectText,
   UserTrajectTitle,
+  Overlay,
 } from "./styles";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useEffect, useRef, useState } from "react";
@@ -30,10 +32,15 @@ import mapStyle from "../mapStyle.json";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Button } from "../../components/Button";
+import { TextGlobal } from "../../components/Global";
+import { Platform } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export function OfferRide() {
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
+  const height = useHeaderHeight();
 
   const [origin, setOrigin] = useState({
     latitude: 0,
@@ -200,20 +207,29 @@ export function OfferRide() {
           motorista quanto dos passageiros.
         </AboutCarSubTitle>
         <InfoCarForm>
-          <AboutCarText>Marca</AboutCarText>
-          <CarInfoInput></CarInfoInput>
-          <AboutCarText>Modelo</AboutCarText>
-          <CarInfoInput></CarInfoInput>
-          <AboutCarText>Ano</AboutCarText>
-          <CarInfoInput keyboardType="number-pad"> </CarInfoInput>
-          <AboutCarText>Cor</AboutCarText>
-          <CarInfoInput></CarInfoInput>
-          <AboutCarText>Placa</AboutCarText>
-          <CarInfoInput></CarInfoInput>
-          <AboutCarText>Assentos livres</AboutCarText>
-          <CarInfoInput keyboardType="number-pad"></CarInfoInput>
+          <Overlay behavior={Platform.OS == "ios" ? "padding" : "height"}>
+            <AboutCarText>Marca</AboutCarText>
+            <CarInfoInput></CarInfoInput>
+            <AboutCarText>Modelo</AboutCarText>
+            <CarInfoInput></CarInfoInput>
+            <AboutCarText>Ano</AboutCarText>
+            <CarInfoInput keyboardType="number-pad"> </CarInfoInput>
+            <AboutCarText>Cor</AboutCarText>
+            <CarInfoInput></CarInfoInput>
+            <AboutCarText>Placa</AboutCarText>
+            <CarInfoInput></CarInfoInput>
+            <AboutCarText>Assentos livres</AboutCarText>
+            <CarInfoInput keyboardType="number-pad"></CarInfoInput>
+          </Overlay>
         </InfoCarForm>
       </AboutCarContainer>
+      <CreateRouteButton>
+        <Button onPress={() => alert("Teste")}>
+          <TextGlobal color="#fff" size={23} weight="700">
+            Criar Carona
+          </TextGlobal>
+        </Button>
+      </CreateRouteButton>
     </Container>
   );
 }

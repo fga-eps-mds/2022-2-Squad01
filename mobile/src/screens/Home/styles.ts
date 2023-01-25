@@ -20,7 +20,7 @@ export const TrajectContainer = styled.TouchableOpacity`
  border-radius: 10px;
  margin-top: 32px;
  flex-direction: column;
- padding: 20px;
+ padding: 20px 14px;
 `;
 
 export const TrajectTitle = styled.Text`
@@ -58,6 +58,7 @@ export const TrajectSubText = styled.Text`
   color: #DBDBDB;
   font-family: "Inter-400";
   font-size : 15px;
+  margin-top: 3px;
 `;
 
 export const LastMatchsText = styled.Text`

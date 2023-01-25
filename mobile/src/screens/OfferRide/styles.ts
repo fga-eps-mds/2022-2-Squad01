@@ -1,11 +1,12 @@
 import styled from "styled-components/native";
-import { isIphoneX, getStatusBarHeight } from "react-native-iphone-x-helper";
+import { isIphoneX, getStatusBarHeight, getBottomSpace } from "react-native-iphone-x-helper";
 
 export const Container = styled.ScrollView`
   background-color: #1A1A1A;
   flex: 1;
   padding: 24px ;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
+
 `;
 
 export const MapContainer = styled.View`
@@ -32,7 +33,7 @@ export const UserTrajectContainer = styled.View`
   background-color: #7E46FF;
   border-radius: 10px;
   padding: 20px;
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 export const UserTrajectTitle = styled.View`
@@ -67,7 +68,7 @@ export const TrajectContent = styled.View`
 `;
 
 export const TrajectContentTexts = styled.View`
-  margin-left: 10px;
+  margin-left: 14px;
 `;
 
 export const TrajectTextTitle = styled.Text`
@@ -86,8 +87,7 @@ export const AboutCarContainer = styled.View`
   background-color: #222222;
   border-radius: 10px;
   padding: 20px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
 `;
 
 export const AboutCarTitle = styled.Text`
@@ -99,6 +99,7 @@ export const AboutCarTitle = styled.Text`
 export const AboutCarSubTitle = styled.Text`
   color: #EFEFEF80;
   font-family: "Inter-500";
+  margin-top: 10px;
 `;
 
 export const InfoCarForm = styled.View`
@@ -109,7 +110,7 @@ export const AboutCarText = styled.Text`
   color: #fff;
   font-family: "Inter-600";
   font-size: 18px;
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 
 export const CarInfo = styled.Text``;
@@ -121,4 +122,13 @@ export const CarInfoInput = styled.TextInput`
   border-bottom-width: 2px;
   border-color: #ABABAB80;
   padding: 3px 0;
+`;
+
+export const CreateRouteButton = styled.View`
+  margin-top: 30px;
+  padding-bottom: ${isIphoneX() ? getBottomSpace() + 70 : 40}px;
+`;
+
+export const Overlay = styled.KeyboardAvoidingView`
+  flex: 1;
 `;

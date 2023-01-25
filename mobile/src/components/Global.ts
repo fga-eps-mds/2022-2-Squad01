@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 
-
 interface TextProps {
   weight?: "500" | "600" | "700";
   color?: string;

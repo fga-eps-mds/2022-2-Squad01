@@ -29,6 +29,7 @@ import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
+import { TextGlobal } from "../../components/Global";
 
 export function Home() {
   const mapRef = useRef(null);
@@ -110,7 +111,12 @@ export function Home() {
   return (
     <Container>
       <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Usuários do Vambora</Title>
+      <Title>
+        Usuários do{" "}
+        <TextGlobal size={25} weight="700">
+          Vambora
+        </TextGlobal>
+      </Title>
       <MapContainer>
         <MapView
           style={{
