@@ -658,8 +658,119 @@
       }
     },
     "/routes/{id}": {
-
+      "patch": {
+        "summary": "update a route",
+        "tags": [
+          "Route"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "routeId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originName":{
+                    "type": "string"
+                  },
+                  "destinationName":{
+                    "type": "string"
+                  },
+                  "distance":{
+                    "type": "number"
+                  },
+                  "duration":{
+                    "type": "number"
+                  },
+                  "origin":{
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "destination":{
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "originNeighborhood":{
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "route updated sucessfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters"
+          }
+        }
+      }
     }
-    
   }
 }
