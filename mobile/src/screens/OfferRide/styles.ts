@@ -6,7 +6,6 @@ export const Container = styled.ScrollView`
   flex: 1;
   padding: 24px ;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
-
 `;
 
 export const MapContainer = styled.View`
@@ -81,7 +80,6 @@ export const TrajectSubTextTitle = styled.Text`
   color: #DBDBDB;
   font-size:15px;
 `;
-
 
 export const AboutCarContainer = styled.View`
   background-color: #222222;

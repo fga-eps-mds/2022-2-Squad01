@@ -224,7 +224,10 @@ export function FirstRoute() {
         )}
       </HalfContainer>
       <HalfContainer>
-        <RoutesContainer>
+        <RoutesContainer
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled={true}
+        >
           <Title>Vamos criar a sua primeira rota!</Title>
           <Label>De onde você irá sair?</Label>
           <View style={{ marginBottom: 12 }}>

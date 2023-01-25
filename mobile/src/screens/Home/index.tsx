@@ -30,6 +30,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import { TextGlobal } from "../../components/Global";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Home() {
   const mapRef = useRef(null);

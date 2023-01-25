@@ -95,6 +95,8 @@ export default function Register() {
       }
     } catch (error) {
       if (error.response === undefined) {
+        console.log(error);
+
         setErrorMessage(
           "Houve um erro no servidor, tente novamente mais tarde."
         );
