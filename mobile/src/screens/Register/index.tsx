@@ -105,6 +105,14 @@ export default function Register() {
         if (error.response.data.message === "User already exists!") {
           setErrorMessage("Um usuário já existe com esse e-mail!");
           setIsErrorModalOpen(true);
+        } else if (
+          error.response.data.message ===
+          "Password must contain at least 8 characters, one capital letter and one number"
+        ) {
+          setErrorMessage(
+            "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula e um número!"
+          );
+          setIsErrorModalOpen(true);
         } else {
           setErrorMessage("Erro ao criar usuário!");
           setIsErrorModalOpen(true);
