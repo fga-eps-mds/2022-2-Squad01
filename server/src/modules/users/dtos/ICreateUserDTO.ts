@@ -3,5 +3,7 @@ export interface ICreateUserDTO {
   name: string,
   enrollment: string,
   password: string,
+  cellphone: string,
+  instagram?: string,
   verificationCode: number
 }

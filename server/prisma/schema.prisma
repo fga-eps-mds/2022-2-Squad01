@@ -12,22 +12,22 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(uuid())
-  email            String   @unique
+  id               String        @id @default(uuid())
+  email            String        @unique
   name             String
-  enrollment       String   @unique
+  enrollment       String        @unique
   password         String
   verificationCode Int
-  isVerified       Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  friends         User[] @relation("friends")
-  friendsRelation User[] @relation("friends")
-
-  Ride         Ride?          @relation(fields: [rideId], references: [id])
-  rideId       String?
-  RefreshToken RefreshToken[]
+  isVerified       Boolean       @default(false)
+  cellphone        String
+  instagram        String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  friends          User[]        @relation("friends")
+  friendsRelation  User[]        @relation("friends")
+  Ride             Ride?         @relation(fields: [rideId], references: [id])
+  rideId           String?
+  RefreshToken     RefreshToken?
 
   @@map("users")
 }
@@ -35,15 +35,14 @@ model User {
 model RefreshToken {
   id        String @id @default(uuid())
   expiresIn Int
-  user      User   @relation(fields: [userId], references: [id])
-  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @unique
 
   @@map("refresh_token")
 }
 
 model Route {
-  id String @id @default(uuid())
-
+  id                     String   @id @default(uuid())
   originName             String
   destinationName        String
   distance               Int
@@ -52,17 +51,15 @@ model Route {
   origin                 String[]
   originNeighborhoodSlug String
   originNeighborhood     String
-
-  createdAt DateTime @default(now())
-  createdBy String
-  Ride      Ride[]
+  createdAt              DateTime @default(now())
+  createdBy              String
+  Ride                   Ride[]
 
   @@map("routes")
 }
 
 model Car {
-  id String @id @default(uuid())
-
+  id            String @id @default(uuid())
   brand         String
   model         String
   year          Int
@@ -74,19 +71,16 @@ model Car {
 }
 
 model Ride {
-  id String @id @default(uuid())
-
-  route   Route  @relation(fields: [routeId], references: [id])
-  routeId String
-
+  id              String   @id @default(uuid())
+  route           Route    @relation(fields: [routeId], references: [id])
+  routeId         String
   passangers      User[]
   driverId        String
   available_spots Int
-  car             Car    @relation(fields: [carId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  carId     String
+  car             Car      @relation(fields: [carId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  carId           String
 
   @@map("rides")
 }

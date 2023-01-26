@@ -5,7 +5,7 @@ import { IUsersRepository } from "../../IUsersRepository"
 
 class PrismaUsersRepository implements IUsersRepository {
   async create(data: ICreateUserDTO): Promise<User> {
-    const { email, name, enrollment, password, verificationCode } = data
+    const { email, name, enrollment, password, cellphone, instagram, verificationCode } = data
 
     const user = await prisma.user.create({
       data: {
@@ -13,6 +13,8 @@ class PrismaUsersRepository implements IUsersRepository {
         name,
         enrollment,
         password,
+        cellphone,
+        instagram,
         verificationCode,
       },
     })

@@ -9,6 +9,8 @@ interface IRequest {
   name: string,
   enrollment: string,
   password: string,
+  cellphone: string,
+  instagram: string
 }
 
 @injectable()
@@ -19,8 +21,8 @@ class CreateUserUseCase {
     @inject("MailAdapter")
     private mailAdapter: IMailAdapter
   ) { }
-  async execute({ email, name, enrollment, password }: IRequest) {
-    if (!email || !name || !enrollment || !password) {
+  async execute({ email, name, enrollment, password, cellphone, instagram }: IRequest) {
+    if (!email || !name || !enrollment || !password || !cellphone) {
       throw new AppError("Missing parameters")
     }
 
@@ -66,6 +68,8 @@ class CreateUserUseCase {
       name,
       enrollment,
       password: hashedPassword,
+      cellphone,
+      instagram,
       verificationCode: parseInt(verificationCode)
     })
 
