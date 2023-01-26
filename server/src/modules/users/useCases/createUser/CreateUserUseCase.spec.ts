@@ -1,9 +1,9 @@
-import 'reflect-metadata'
-import { beforeEach, describe, it, expect } from 'vitest'
-import { UsersRepositoryInMemory } from '@modules/users/repositories/in-memory/UsersRepositoryInMemory'
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
-import { IMailAdapter } from '@shared/adapters/mail-adapter'
-import { CreateUserUseCase } from './CreateUserUseCase'
+import "reflect-metadata"
+import { beforeEach, describe, it, expect } from "vitest"
+import { UsersRepositoryInMemory } from "@modules/users/repositories/in-memory/UsersRepositoryInMemory"
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { IMailAdapter } from "@shared/adapters/mail-adapter"
+import { CreateUserUseCase } from "./CreateUserUseCase"
 
 let usersRepositoryInMemory: IUsersRepository
 let createUserUseCase: CreateUserUseCase

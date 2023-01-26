@@ -1,14 +1,24 @@
-import { ICreateRouteDTO } from "@modules/routes/dtos/ICreateRouteDTO";
-import { Route } from "@prisma/client";
-import { IRoutesRepository } from "../../IRoutesRepository";
-import { prisma } from "prisma";
+import { ICreateRouteDTO } from "@modules/routes/dtos/ICreateRouteDTO"
+import { Route } from "@prisma/client"
+import { IRoutesRepository } from "../../IRoutesRepository"
+import { prisma } from "prisma"
 
 class PrismaRoutesRepository implements IRoutesRepository {
   listByNeighbordhood(neighbordhood: string): Promise<Route[] | null> {
     throw new Error("Method not implemented.");
   }
   async create(data: ICreateRouteDTO): Promise<Route> {
-    const { distance, duration, originName, destination, origin, userId, originNeighborhood, originNeighborhoodSlug, destinationName } = data
+    const {
+      distance,
+      duration,
+      originName,
+      destination,
+      origin,
+      userId,
+      originNeighborhood,
+      originNeighborhoodSlug,
+      destinationName,
+    } = data
 
     const route = await prisma.route.create({
       data: {
@@ -20,8 +30,8 @@ class PrismaRoutesRepository implements IRoutesRepository {
         createdBy: userId,
         originNeighborhood,
         originNeighborhoodSlug,
-        destinationName
-      }
+        destinationName,
+      },
     })
 
     return route
@@ -30,8 +40,8 @@ class PrismaRoutesRepository implements IRoutesRepository {
   async findById(id: string): Promise<Route | null> {
     const route = await prisma.route.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     })
 
     return route
@@ -40,8 +50,8 @@ class PrismaRoutesRepository implements IRoutesRepository {
   async listByUser(userId: string): Promise<Route[]> {
     const routes = await prisma.route.findMany({
       where: {
-        createdBy: userId
-      }
+        createdBy: userId,
+      },
     })
 
     return routes
@@ -69,11 +79,21 @@ class PrismaRoutesRepository implements IRoutesRepository {
   async listByNeighborhood(neighbordhoodSlug: string): Promise<Route[]> {
     const routes = await prisma.route.findMany({
       where: {
+
         originNeighborhoodSlug: neighbordhoodSlug
       }
+
     })
 
     return routes
+  }
+
+  async delete(id: string): Promise<void> {
+    await prisma.route.delete({
+      where: {
+        id,
+      },
+    })
   }
 }
 

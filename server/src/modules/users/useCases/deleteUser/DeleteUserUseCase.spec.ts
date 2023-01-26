@@ -1,10 +1,10 @@
-import 'reflect-metadata'
-import { beforeEach, describe, it, expect } from 'vitest'
-import { CreateUserUseCase } from '../createUser/CreateUserUseCase'
-import { UsersRepositoryInMemory } from '@modules/users/repositories/in-memory/UsersRepositoryInMemory'
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
-import { IMailAdapter } from '@shared/adapters/mail-adapter'
-import { DeleteUserUseCase } from './DeleteUserUseCase'
+import "reflect-metadata"
+import { beforeEach, describe, it, expect } from "vitest"
+import { CreateUserUseCase } from "../createUser/CreateUserUseCase"
+import { UsersRepositoryInMemory } from "@modules/users/repositories/in-memory/UsersRepositoryInMemory"
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { IMailAdapter } from "@shared/adapters/mail-adapter"
+import { DeleteUserUseCase } from "./DeleteUserUseCase"
 
 let usersRepositoryInMemory: IUsersRepository
 let createUserUseCase: CreateUserUseCase
@@ -37,6 +37,6 @@ describe("Create User", () => {
   })
 
   it("should not be able to delete an user that doesn't exists", async () => {
-    await expect(deleteUserUseCase.execute('invalid-user-id')).rejects.toThrowError()
+    await expect(deleteUserUseCase.execute("invalid-user-id")).rejects.toThrowError()
   })
 })

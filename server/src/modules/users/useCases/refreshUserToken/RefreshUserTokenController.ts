@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { RefreshUserTokenUseCase } from "./RefreshUserTokenUseCase";
-import { container } from "tsyringe";
+import { Request, Response } from "express"
+import { RefreshUserTokenUseCase } from "./RefreshUserTokenUseCase"
+import { container } from "tsyringe"
 
 class RefreshUserTokenController {
   async handle(req: Request, res: Response) {

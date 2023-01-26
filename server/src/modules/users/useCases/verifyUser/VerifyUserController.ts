@@ -1,10 +1,11 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { VerifyUserUseCase } from "./VerifyUserUseCase";
+import { Request, Response } from "express"
+import { container } from "tsyringe"
+import { VerifyUserUseCase } from "./VerifyUserUseCase"
 
 class VerifyUserController {
   async handle(req: Request, res: Response) {
-    const { verificationCode, user_id } = req.body
+    const { verificationCode } = req.body
+    const { user_id } = req.headers
 
     const verifyUserUseCase = container.resolve(VerifyUserUseCase)
 

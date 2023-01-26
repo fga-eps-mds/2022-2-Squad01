@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { LoginUserUseCase } from "./LoginUserUseCase";
+import { Request, Response } from "express"
+import { container } from "tsyringe"
+import { LoginUserUseCase } from "./LoginUserUseCase"
 
 class LoginUserController {
   async handle(req: Request, res: Response) {

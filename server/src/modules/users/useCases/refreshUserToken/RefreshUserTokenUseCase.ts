@@ -1,6 +1,4 @@
-import { GenerateRefreshToken } from "@modules/users/provider/GenerateRefreshToken"
-import { GenerateToken } from "@modules/users/provider/GenerateToken"
-import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { ITokenAdapter } from "@modules/users/adapters/token-adapter"
 import { AppError } from "@shared/errors/AppError"
 import dayjs from "dayjs"
 import { inject, injectable } from "tsyringe"
@@ -8,26 +6,23 @@ import { inject, injectable } from "tsyringe"
 @injectable()
 class RefreshUserTokenUseCase {
   constructor(
-    @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    @inject("TokenAdapter")
+    private tokenAdapter: ITokenAdapter
   ) { }
   async execute(refresh_token: string) {
-    const refreshToken = await this.usersRepository.findRefreshToken(refresh_token)
+    const refreshToken = await this.tokenAdapter.findRefreshToken(refresh_token)
 
     if (!refreshToken) {
       throw new AppError("Invalid refresh token")
     }
 
-    const generateToken = new GenerateToken()
-    const token = await generateToken.execute(refreshToken.userId)
-
+    const token = this.tokenAdapter.generateToken(refreshToken.userId)
     const isTokenExpired = dayjs().isAfter(dayjs.unix(refreshToken.expiresIn))
 
     if (isTokenExpired) {
-      await this.usersRepository.deleteUserRefreshToken(refreshToken.userId)
+      await this.tokenAdapter.deleteUserRefreshToken(refreshToken.userId)
 
-      const generateRefreshToken = new GenerateRefreshToken()
-      const newRefreshToken = await generateRefreshToken.execute(refreshToken.userId)
+      const newRefreshToken = this.tokenAdapter.generateRefreshToken(refreshToken.userId)
 
       return { token, refreshToken: newRefreshToken }
     }

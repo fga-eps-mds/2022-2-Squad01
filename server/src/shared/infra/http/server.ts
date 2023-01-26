@@ -1,9 +1,9 @@
 import "reflect-metadata"
-import 'express-async-errors'
-import swaggerUi from "swagger-ui-express";
+import "express-async-errors"
+import swaggerUi from "swagger-ui-express"
 
-import express, { NextFunction, Request, Response } from 'express'
-import cors from 'cors'
+import express, { NextFunction, Request, Response } from "express"
+import cors from "cors"
 import { router } from "./routes"
 import { AppError } from "@shared/errors/AppError"
 import swaggerFile from "../../../../swagger.json"
@@ -16,8 +16,9 @@ app.use(cors())
 
 app.use(router)
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({

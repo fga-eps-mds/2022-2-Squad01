@@ -1,10 +1,10 @@
-import { RefreshToken, User } from "@prisma/client";
-import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
-import { IUsersRepository } from "../IUsersRepository";
+import { RefreshToken, User } from "@prisma/client"
+import { ICreateUserDTO } from "../../dtos/ICreateUserDTO"
+import { IUsersRepository } from "../IUsersRepository"
 
 class UsersRepositoryInMemory implements IUsersRepository {
 
-  private usersRepository: User[] = [];
+  private usersRepository: User[] = []
   private refreshTokenRepository: RefreshToken[] = []
 
   async create(data: ICreateUserDTO): Promise<User> {
@@ -19,9 +19,9 @@ class UsersRepositoryInMemory implements IUsersRepository {
       verificationCode: Math.floor(Math.random() * 100000),
     })
 
-    this.usersRepository.push(user);
+    this.usersRepository.push(user)
 
-    return user;
+    return user
   }
 
   async findUser(email: string): Promise<User | null> {
@@ -38,7 +38,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
   async verifyUser(user_id: string): Promise<void> {
     this.usersRepository.forEach((user) => user.id === user_id && (user.isVerified = true))
-    return;
+    return
   }
 
   async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, verificationCode: number): Promise<User | null> {

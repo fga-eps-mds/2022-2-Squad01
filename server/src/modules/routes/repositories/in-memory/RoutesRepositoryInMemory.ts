@@ -1,12 +1,12 @@
-import { ICreateRouteDTO } from "@modules/routes/dtos/ICreateRouteDTO";
-import { Route } from "@prisma/client";
-import { IRoutesRepository } from "../IRoutesRepository";
+import { ICreateRouteDTO } from "@modules/routes/dtos/ICreateRouteDTO"
+import { Route } from "@prisma/client"
+import { IRoutesRepository } from "../IRoutesRepository"
 
 class RoutesRepostoryInMemory implements IRoutesRepository {
   private routesRepository: Route[] = []
 
   async create(data: ICreateRouteDTO): Promise<Route> {
-    const { originName, destinationName, originNeighborhoodSlug, destination, distance, duration, origin, originNeighborhood } = data;
+    const { originName, destinationName, originNeighborhoodSlug, destination, distance, duration, origin, originNeighborhood } = data
 
     const route: Route = Object.assign({
       id: Math.random().toString(36).substr(2, 9),
@@ -23,7 +23,7 @@ class RoutesRepostoryInMemory implements IRoutesRepository {
     })
 
     this.routesRepository.push(route)
-    return route;
+    return route
   }
 
   async findById(id: string): Promise<Route | null> {

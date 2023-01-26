@@ -1,9 +1,8 @@
-import { AppError } from "@shared/errors/AppError";
-import nodemailer from "nodemailer";
-import { IMailAdapter, SendMailData } from "../mail-adapter";
+import { AppError } from "@shared/errors/AppError"
+import nodemailer from "nodemailer"
+import { IMailAdapter, SendMailData } from "../mail-adapter"
 
-const dotenv = require("dotenv");
-dotenv.config();
+import "dotenv/config"
 
 const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -16,7 +15,7 @@ const transport = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false,
   },
-});
+})
 
 export class NodemailerMailAdapter implements IMailAdapter {
   async sendMail({ subject, body, user_email }: SendMailData) {
@@ -26,7 +25,7 @@ export class NodemailerMailAdapter implements IMailAdapter {
         to: user_email,
         subject: subject,
         html: body,
-      });
+      })
     } catch (error) {
       throw new AppError("Error sending email")
     }

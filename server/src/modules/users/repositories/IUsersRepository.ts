@@ -1,5 +1,5 @@
-import { RefreshToken, User } from '@prisma/client';
-import { ICreateUserDTO } from '../dtos/ICreateUserDTO';
+import { RefreshToken, User } from "@prisma/client"
+import { ICreateUserDTO } from "../dtos/ICreateUserDTO"
 
 export interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<User>;
@@ -9,6 +9,4 @@ export interface IUsersRepository {
   verifyUser(user_id: string): Promise<void>;
   updateUser(user_id: string, name?: string, email?: string, password?: string, enrollment?: string, verificationCode?: number): Promise<User | null>;
   deleteUser(user_id: string): Promise<void>;
-  findRefreshToken(refresh_token: string): Promise<RefreshToken | null>
-  deleteUserRefreshToken(user_id: string): Promise<void>
 }

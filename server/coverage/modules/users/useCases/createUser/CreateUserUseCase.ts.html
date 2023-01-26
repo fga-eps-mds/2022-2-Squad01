@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">97.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/72</span>
+                <span class='fraction'>74/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">97.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>72/72</span>
+                <span class='fraction'>74/76</span>
             </div>
         
             
@@ -134,7 +134,11 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -156,6 +160,10 @@
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -205,11 +213,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { inject, injectable } from "tsyringe";
-import * as brcypt from 'bcryptjs'
-import { AppError } from "@shared/errors/AppError";
-import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
-import { IMailAdapter } from "@shared/adapters/mail-adapter";
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { inject, injectable } from "tsyringe"
+import * as brcypt from "bcryptjs"
+import { AppError } from "@shared/errors/AppError"
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { IMailAdapter } from "@shared/adapters/mail-adapter"
 &nbsp;
 interface IRequest {
   email: string,
@@ -227,13 +235,17 @@ class CreateUserUseCase {
     private mailAdapter: IMailAdapter
   ) { }
   async execute({ email, name, enrollment, password }: IRequest) {
+    if (!email || !name || !enrollment || !password) {
+      throw new <span class="branch-0 cbranch-no" title="branch not covered" >AppError("Missing parameters")</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
     if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(password)) {
       throw new AppError("Password must contain at least 8 characters, one capital letter and one number")
     }
 &nbsp;
     const domain = email.split("@")[1]
 &nbsp;
-    if (domain !== 'aluno.unb.br' &amp;&amp; domain !== 'unb.br') {
+    if (domain !== "aluno.unb.br" &amp;&amp; domain !== "unb.br") {
       throw new AppError("Cannot create e-mail from outside UnB.")
     }
     const userExists = await this.usersRepository.findUser(email)
@@ -246,23 +258,23 @@ class CreateUserUseCase {
 &nbsp;
     const hashedPassword = await brcypt.hash(password, 10)
 &nbsp;
-    console.log("Tentando enviar o e-mail");
+    console.log("Tentando enviar o e-mail")
 &nbsp;
     await this.mailAdapter.sendMail!({
       subject: "Seja bem-vindo(a) ao Vambora!",
       body: [
-        `&lt;body style="background-color: #8257e6; padding: 50px; color: #ffffff"&gt;`,
-        `&lt;div style="text-align: center;"&gt;`,
+        "&lt;body style=\"background-color: #8257e6; padding: 50px; color: #ffffff\"&gt;",
+        "&lt;div style=\"text-align: center;\"&gt;",
         `&lt;h1 style="font-size: 24px; font-weight: bold; margin-bottom: 50px;"&gt;Olá ${name.split(" ")[0]}, seja bem-vindo(a) ao Vambora!&lt;/h1&gt;`,
-        `&lt;h2&gt;Seu código de verificação é:&lt;/h2&gt;`,
+        "&lt;h2&gt;Seu código de verificação é:&lt;/h2&gt;",
         `&lt;h2&gt;&lt;strong&gt;${verificationCode}&lt;/strong&gt;&lt;/h2&gt;`,
-        `&lt;/div&gt;`,
-        `&lt;/body&gt;`,
+        "&lt;/div&gt;",
+        "&lt;/body&gt;",
       ].join("\n"),
       user_email: email
     })
 &nbsp;
-    console.log("E-mail enviado com sucesso!");
+    console.log("E-mail enviado com sucesso!")
 &nbsp;
     const user = await this.usersRepository.create({
       email,
@@ -283,7 +295,7 @@ export { CreateUserUseCase }</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-05T13:39:29.474Z
+                at 2023-01-25T22:50:53.706Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

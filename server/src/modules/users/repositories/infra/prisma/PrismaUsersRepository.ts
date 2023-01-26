@@ -1,11 +1,11 @@
-import { RefreshToken, User } from '@prisma/client';
-import { prisma } from '../../../../../prisma';
-import { ICreateUserDTO } from '../../../dtos/ICreateUserDTO';
-import { IUsersRepository } from '../../IUsersRepository';
+import { User } from "@prisma/client"
+import { prisma } from "../../../../../prisma"
+import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO"
+import { IUsersRepository } from "../../IUsersRepository"
 
 class PrismaUsersRepository implements IUsersRepository {
   async create(data: ICreateUserDTO): Promise<User> {
-    const { email, name, enrollment, password, verificationCode } = data;
+    const { email, name, enrollment, password, verificationCode } = data
 
     const user = await prisma.user.create({
       data: {
@@ -15,9 +15,9 @@ class PrismaUsersRepository implements IUsersRepository {
         password,
         verificationCode,
       },
-    });
+    })
 
-    return user;
+    return user
   }
 
   async findUser(email: string): Promise<User | null> {
@@ -25,9 +25,9 @@ class PrismaUsersRepository implements IUsersRepository {
       where: {
         email,
       },
-    });
+    })
 
-    return userExists;
+    return userExists
   }
 
   async findUserById(user_id: string): Promise<User | null> {
@@ -35,9 +35,9 @@ class PrismaUsersRepository implements IUsersRepository {
       where: {
         id: user_id,
       },
-    });
+    })
 
-    return userExists;
+    return userExists
   }
 
   async getVerificationCode(user_id: string): Promise<number | null> {
@@ -45,9 +45,9 @@ class PrismaUsersRepository implements IUsersRepository {
       where: {
         id: user_id,
       },
-    });
+    })
 
-    return user?.verificationCode || null;
+    return user?.verificationCode || null
   }
 
   async verifyUser(user_id: string): Promise<void> {
@@ -59,7 +59,7 @@ class PrismaUsersRepository implements IUsersRepository {
         isVerified: true,
         verificationCode: 0,
       },
-    });
+    })
   }
 
   async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, verificationCode: number): Promise<User> {
@@ -76,7 +76,7 @@ class PrismaUsersRepository implements IUsersRepository {
       }
     })
 
-    return user;
+    return user
   }
 
   async deleteUser(user_id: string): Promise<void> {
@@ -86,24 +86,6 @@ class PrismaUsersRepository implements IUsersRepository {
       }
     })
   }
-
-  async findRefreshToken(refresh_token: string): Promise<RefreshToken | null> {
-    const refreshToken = await prisma.refreshToken.findFirst({
-      where: {
-        id: refresh_token
-      }
-    })
-
-    return refreshToken
-  }
-
-  async deleteUserRefreshToken(user_id: string): Promise<void> {
-    await prisma.refreshToken.deleteMany({
-      where: {
-        userId: user_id
-      }
-    })
-  }
 }
 
-export { PrismaUsersRepository };
+export { PrismaUsersRepository }
