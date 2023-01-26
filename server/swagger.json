@@ -1,8 +1,17 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "My API",
+    "title": "Vambora API",
     "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   },
   "paths": {
     "/user": {
@@ -307,7 +316,462 @@
           }
         }
       }
+    },
+    "/route": {
+      "post": {
+        "summary": "Create a route",
+        "tags": [
+          "Route"
+        ],
+        "description": "Create a route",
+        "security": {
+          "bearerAuth": []
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originName": {
+                    "type": "string"
+                  },
+                  "destinationName": {
+                    "type": "string"
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "origin": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "destination": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "originNeighborhood": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Route created sucessfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing parameters"
+          }
+        }
+      }
+    },
+    "/route/user": {
+      "get": {
+        "summary": "List a route by user",
+        "tags": [
+          "Route"
+        ],
+        "description": "List a route by user id",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originName": {
+                    "type": "string"
+                  },
+                  "destinationName": {
+                    "type": "string"
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "origin": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "destination": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "originNeighborhood": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User route sucessfully listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing parameters"
+          },
+          "404": {
+            "description": "Route not found"
+          }
+        }
+      }
+    },
+    "/route/{neighborhood}": {
+      "get": {
+        "summary": "List a route by neigborhood",
+        "tags": [
+          "Route"
+        ],
+        "description": "List a route by neighborhood",
+        "parameters": [
+          {
+            "name": "neighborhood",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originName": {
+                    "type": "string"
+                  },
+                  "destinationName": {
+                    "type": "string"
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "origin": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "destination": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "originNeighborhood": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Neighborhood route sucessfully listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route found"
+          }
+        }
+      }
+    },
+    "/route/{id}": {
+      "patch": {
+        "summary": "update a route",
+        "tags": [
+          "Route"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "routeId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originName": {
+                    "type": "string"
+                  },
+                  "destinationName": {
+                    "type": "string"
+                  },
+                  "distance": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "origin": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "destination": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "originNeighborhood": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "route updated sucessfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters"
+          }
+        }
+      }
     }
-  
   }
 }

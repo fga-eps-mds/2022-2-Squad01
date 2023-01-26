@@ -2,8 +2,6 @@ import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepositor
 import { AppError } from "@shared/errors/AppError"
 import { inject, injectable } from "tsyringe"
 
-
-
 @injectable()
 class ListRoutesByNeighborhoodUseCase {
   constructor(
@@ -11,14 +9,16 @@ class ListRoutesByNeighborhoodUseCase {
     private routesRepository: IRoutesRepository
   ) { }
 
-  async execute(neighborhood: string) {
-    const routes = await this.routesRepository.listByNeighborhood(neighborhood)
+  async execute(neighborhoodSlug: string) {
+    const routes = await this.routesRepository.listByNeighborhood(neighborhoodSlug);
+
 
     if (!routes) {
       throw new AppError("No routes found")
     }
 
-    return routes
+    return routes;
+
   }
 }
 

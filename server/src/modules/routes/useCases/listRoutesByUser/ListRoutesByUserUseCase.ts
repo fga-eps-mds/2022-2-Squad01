@@ -9,7 +9,7 @@ class ListRoutesByUserUseCase {
     private routesRepository: IRoutesRepository
   ) { }
 
-  async execute( userId: string) {
+  async execute(userId: string) {
     if (!userId) {
       throw new AppError("Missing parameters")
     }
@@ -22,7 +22,7 @@ class ListRoutesByUserUseCase {
 
     return route
   }
-  
+
 }
 
 export { ListRoutesByUserUseCase }
