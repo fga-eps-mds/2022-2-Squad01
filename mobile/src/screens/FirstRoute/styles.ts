@@ -8,7 +8,7 @@ interface ButtonProps {
   disabled: boolean
 }
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background: #262626;
 `;

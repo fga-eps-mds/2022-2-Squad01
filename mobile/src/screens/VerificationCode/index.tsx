@@ -75,10 +75,17 @@ export function VerificationCode() {
     try {
       const user = JSON.parse(await AsyncStorage.getItem("@vambora:user"));
 
-      const response = await api.post("/user/verify", {
-        verificationCode,
-        user_id: user.id,
-      });
+      const response = await api.post(
+        "/user/verify",
+        {
+          verificationCode,
+        },
+        {
+          headers: {
+            user_id: user.id,
+          },
+        }
+      );
 
       if (response.status === 200) {
         setIsLoading(false);

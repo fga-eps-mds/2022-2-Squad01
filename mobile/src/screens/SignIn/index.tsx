@@ -60,8 +60,6 @@ export default function SingIn() {
         refreshToken: response.data.refreshToken.id,
       };
 
-      console.log(user);
-
       await AsyncStorage.setItem("@vambora:user", JSON.stringify(user));
 
       if (!response.data.user.isVerified) {

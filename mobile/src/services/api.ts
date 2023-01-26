@@ -19,6 +19,7 @@ api.interceptors.request.use(async (req) => {
     const { token } = JSON.parse(user)
 
     req.headers = {
+      ...req.headers,
       Authorization: `Bearer ${token}`
     }
   }
