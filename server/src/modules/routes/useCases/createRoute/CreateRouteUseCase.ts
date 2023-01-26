@@ -11,7 +11,6 @@ interface IRequest {
   origin: string[],
   destination: string[],
   originNeighborhood: string,
-  originNeighborhoodSlug: string,
 }
 
 @injectable()
@@ -20,8 +19,8 @@ class CreateRouteUseCase {
     @inject("RoutesRepository")
     private routesRepository: IRoutesRepository,
   ) { }
-  async execute({ userId, originName, distance, duration, origin, destination, originNeighborhood, destinationName, originNeighborhoodSlug }: IRequest) {
-    if (!originName || !distance || !duration || !origin || !destination || !originNeighborhood || !destinationName || !originNeighborhoodSlug) {
+  async execute({ userId, originName, distance, duration, origin, destination, originNeighborhood, destinationName }: IRequest) {
+    if (!originName || !distance || !duration || !origin || !destination || !originNeighborhood || !destinationName) {
       throw new AppError("Missing parameters")
     }
 
@@ -38,9 +37,7 @@ class CreateRouteUseCase {
       destination,
       originNeighborhood: originNeighborhood,
       destinationName,
-
       originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").split(" ").join("-"),
-
     })
 
     return route
