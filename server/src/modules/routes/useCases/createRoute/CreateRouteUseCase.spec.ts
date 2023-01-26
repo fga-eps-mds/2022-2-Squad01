@@ -9,8 +9,8 @@ let createRouteUseCase: CreateRouteUseCase
 
 describe("Create Route Use Case", () => {
   beforeEach(() => {
-    // routesRepositoryInMemory = new RoutesRepostoryInMemory()
-    // createRouteUseCase = new CreateRouteUseCase(routesRepositoryInMemory)
+    routesRepositoryInMemory = new RoutesRepostoryInMemory()
+    createRouteUseCase = new CreateRouteUseCase(routesRepositoryInMemory)
   })
 
   it("should be able to create a new route", async () => {
