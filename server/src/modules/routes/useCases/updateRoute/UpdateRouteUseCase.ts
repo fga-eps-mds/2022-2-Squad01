@@ -17,8 +17,10 @@ interface IRequest {
 
 @injectable()
 class UpdateRouteUseCase {
-  constructor(@inject("RoutesRepository")
-  private routesRepository: IRoutesRepository) { }
+  constructor(
+    @inject("RoutesRepository")
+    private routesRepository: IRoutesRepository
+  ) { }
 
   async execute({ routeId, originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug }: IRequest): Promise<Route | null> {
     const route = await this.routesRepository.findById(routeId)

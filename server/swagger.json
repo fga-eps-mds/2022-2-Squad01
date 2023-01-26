@@ -4,6 +4,15 @@
     "title": "Vambora API",
     "version": "1.0.0"
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
   "paths": {
     "/user": {
       "post": {
@@ -308,54 +317,47 @@
         }
       }
     },
-    "/routes": {
+    "/route": {
       "post": {
         "summary": "Create a route",
         "tags": [
           "Route"
         ],
         "description": "Create a route",
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "security": {
+          "bearerAuth": []
+        },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "originName":{
+                  "originName": {
                     "type": "string"
                   },
-                  "destinationName":{
+                  "destinationName": {
                     "type": "string"
                   },
-                  "distance":{
+                  "distance": {
                     "type": "number"
                   },
-                  "duration":{
+                  "duration": {
                     "type": "number"
                   },
-                  "origin":{
+                  "origin": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "destination":{
+                  "destination": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "originNeighborhood":{
+                  "originNeighborhood": {
                     "type": "string"
                   }
                 }
@@ -423,8 +425,7 @@
         }
       }
     },
-
-    "/routes/user": {
+    "/route/user": {
       "get": {
         "summary": "List a route by user",
         "tags": [
@@ -447,31 +448,31 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "originName":{
+                  "originName": {
                     "type": "string"
                   },
-                  "destinationName":{
+                  "destinationName": {
                     "type": "string"
                   },
-                  "distance":{
+                  "distance": {
                     "type": "number"
                   },
-                  "duration":{
+                  "duration": {
                     "type": "number"
                   },
-                  "origin":{
+                  "origin": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "destination":{
+                  "destination": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "originNeighborhood":{
+                  "originNeighborhood": {
                     "type": "string"
                   }
                 }
@@ -481,7 +482,7 @@
         },
         "responses": {
           "200": {
-            "description": "User routes sucessfully listed",
+            "description": "User route sucessfully listed",
             "content": {
               "application/json": {
                 "schema": {
@@ -542,7 +543,7 @@
         }
       }
     },
-    "/routes/{neighborhood}": {
+    "/route/{neighborhood}": {
       "get": {
         "summary": "List a route by neigborhood",
         "tags": [
@@ -565,31 +566,31 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "originName":{
+                  "originName": {
                     "type": "string"
                   },
-                  "destinationName":{
+                  "destinationName": {
                     "type": "string"
                   },
-                  "distance":{
+                  "distance": {
                     "type": "number"
                   },
-                  "duration":{
+                  "duration": {
                     "type": "number"
                   },
-                  "origin":{
+                  "origin": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "destination":{
+                  "destination": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "originNeighborhood":{
+                  "originNeighborhood": {
                     "type": "string"
                   }
                 }
@@ -599,7 +600,7 @@
         },
         "responses": {
           "200": {
-            "description": "Neighborhood routes sucessfully listed",
+            "description": "Neighborhood route sucessfully listed",
             "content": {
               "application/json": {
                 "schema": {
@@ -652,12 +653,12 @@
             }
           },
           "404": {
-            "description": "No routes found"
+            "description": "No route found"
           }
         }
       }
     },
-    "/routes/{id}": {
+    "/route/{id}": {
       "patch": {
         "summary": "update a route",
         "tags": [
@@ -680,31 +681,31 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "originName":{
+                  "originName": {
                     "type": "string"
                   },
-                  "destinationName":{
+                  "destinationName": {
                     "type": "string"
                   },
-                  "distance":{
+                  "distance": {
                     "type": "number"
                   },
-                  "duration":{
+                  "duration": {
                     "type": "number"
                   },
-                  "origin":{
+                  "origin": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "destination":{
+                  "destination": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "originNeighborhood":{
+                  "originNeighborhood": {
                     "type": "string"
                   }
                 }

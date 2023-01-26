@@ -11,6 +11,7 @@ interface IRequest {
   origin: string[],
   destination: string[],
   originNeighborhood: string,
+  originNeighborhoodSlug: string,
 }
 
 @injectable()
@@ -19,9 +20,13 @@ class CreateRouteUseCase {
     @inject("RoutesRepository")
     private routesRepository: IRoutesRepository,
   ) { }
-  async execute({ userId, originName, distance, duration, origin, destination, originNeighborhood, destinationName }: IRequest) {
-    if (!originName || !distance || !duration || !origin || !destination || !originNeighborhood || !destinationName) {
+  async execute({ userId, originName, distance, duration, origin, destination, originNeighborhood, destinationName, originNeighborhoodSlug }: IRequest) {
+    if (!originName || !distance || !duration || !origin || !destination || !originNeighborhood || !destinationName || !originNeighborhoodSlug) {
       throw new AppError("Missing parameters")
+    }
+
+    if (origin === destination || originName === destinationName) {
+      throw new AppError("Origin and destination cannot be the same")
     }
 
     const route = await this.routesRepository.create({
@@ -33,7 +38,7 @@ class CreateRouteUseCase {
       destination,
       originNeighborhood: originNeighborhood,
       destinationName,
-      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
+      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").split(" ").join("-"),
     })
 
     return route
