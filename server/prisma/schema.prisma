@@ -29,18 +29,20 @@ model User {
   friends         User[] @relation("friends")
   friendsRelation User[] @relation("friends")
 
-  Ride         Ride?          @relation(fields: [rideId], references: [id])
-  rideId       String?
-  RefreshToken RefreshToken[]
+  Ride   Ride?   @relation(fields: [rideId], references: [id])
+  rideId String?
+
+  RefreshToken RefreshToken?
 
   @@map("users")
 }
 
 model RefreshToken {
-  id        String @id @default(uuid())
+  id String @id @default(uuid())
+
   expiresIn Int
   user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  userId    String @unique
 
   @@map("refresh_token")
 }
