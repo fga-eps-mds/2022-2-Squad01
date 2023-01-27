@@ -1,12 +1,12 @@
-import { Router } from "express";
-import ensureAuthenticated from "@shared/middlewares/ensureAuthenticated";
+import { Router } from "express"
+import ensureAuthenticated from "@shared/middlewares/ensureAuthenticated"
 
-import { CreateRouteController } from "@modules/routes/useCases/createRoute/CreateRouteController";
-import { ListRoutesController } from "@modules/routes/useCases/listRoutes/ListRoutesController";
-import { UpdateRouteController } from "@modules/routes/useCases/updateRoute/UpdateRouteController";
-import { ListRoutesByNeighborhoodController } from "@modules/routes/useCases/listRoutesByNeighborhoodUseCase/ListRoutesByNeighborhoodController";
-import { ListRoutesByUserController } from "@modules/routes/useCases/listRoutesByUser/ListRoutesByUserController";
-import { DeleteRouteController } from "@modules/routes/useCases/deleteRoute/DeleteRouteController";
+import { CreateRouteController } from "@modules/routes/useCases/createRoute/CreateRouteController"
+import { ListRoutesController } from "@modules/routes/useCases/listRoutes/ListRoutesController"
+import { UpdateRouteController } from "@modules/routes/useCases/updateRoute/UpdateRouteController"
+import { ListRoutesByNeighborhoodController } from "@modules/routes/useCases/listRoutesByNeighborhoodUseCase/ListRoutesByNeighborhoodController"
+import { ListRoutesByUserController } from "@modules/routes/useCases/listRoutesByUser/ListRoutesByUserController"
+import { DeleteRouteController } from "@modules/routes/useCases/deleteRoute/DeleteRouteController"
 
 export const routesRoutes = Router()
 
