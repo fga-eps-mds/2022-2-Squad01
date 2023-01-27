@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Welcome from "../screens/Welcome";
@@ -12,6 +12,11 @@ import {
 import { FirstRoute } from "../screens/FirstRoute";
 import { Home } from "../screens/Home";
 import { CustomBottomTabs } from "./CustomBottomTabs";
+import { Profile } from "../screens/Profile";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../services/api";
+import { OfferRide } from "../screens/OfferRide";
+import { ReceiveRide } from "../screens/ReceiveRide";
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();
@@ -23,15 +28,16 @@ function TabRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Início"
+      initialRouteName="Home"
       tabBar={(props: BottomTabBarProps) => {
         return <CustomBottomTabs {...props} />;
       }}
     >
-      <Tab.Screen name="Início" component={Home} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FirstRoute" component={Home} />
       <Tab.Screen name="Register" component={Home} />
       <Tab.Screen name="VerificationCode" component={Home} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
@@ -54,6 +60,8 @@ function StackRoutes() {
       /> */}
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="VerificationCode" component={VerificationCode} />
+      <Stack.Screen name="OfferRide" component={OfferRide} />
+      <Stack.Screen name="ReceiveRide" component={ReceiveRide} />
     </Stack.Navigator>
   );
 }

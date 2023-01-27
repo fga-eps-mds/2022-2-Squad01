@@ -8,11 +8,9 @@ class VerifyUserController {
     const { user_id } = req.headers
 
     const verifyUserUseCase = container.resolve(VerifyUserUseCase)
-
     await verifyUserUseCase.execute({ verificationCode, user_id: user_id as string })
 
     return res.status(200).json({ message: "Successfully verified user" })
-
   }
 }
 

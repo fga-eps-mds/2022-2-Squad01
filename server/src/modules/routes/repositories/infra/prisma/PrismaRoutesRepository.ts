@@ -4,9 +4,6 @@ import { IRoutesRepository } from "../../IRoutesRepository"
 import { prisma } from "prisma"
 
 class PrismaRoutesRepository implements IRoutesRepository {
-  listByNeighbordhood(neighbordhood: string): Promise<Route[] | null> {
-    throw new Error("Method not implemented.");
-  }
   async create(data: ICreateRouteDTO): Promise<Route> {
     const {
       distance,
@@ -57,6 +54,16 @@ class PrismaRoutesRepository implements IRoutesRepository {
     return routes
   }
 
+  async listByNeighborhood(neighborhood: string): Promise<Route[]> {
+    const routes = await prisma.route.findMany({
+      where: {
+        originNeighborhoodSlug: neighborhood
+      }
+    })
+
+    return routes
+  }
+
   async updateRoute(id: string, originName?: string, destinationName?: string, distance?: number, duration?: number, origin?: string[], destination?: string[], originNeighborhood?: string, originNeighborhoodSlug?: string): Promise<Route | null> {
     const route = await prisma.route.update({
       where: {
@@ -76,14 +83,8 @@ class PrismaRoutesRepository implements IRoutesRepository {
     return route
   }
 
-  async listByNeighborhood(neighbordhoodSlug: string): Promise<Route[]> {
-    const routes = await prisma.route.findMany({
-      where: {
-
-        originNeighborhoodSlug: neighbordhoodSlug
-      }
-
-    })
+  async listAll(): Promise<Route[] | null> {
+    const routes = await prisma.route.findMany()
 
     return routes
   }

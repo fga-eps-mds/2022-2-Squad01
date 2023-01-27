@@ -6,4 +6,6 @@ export interface ICreateUserDTO {
   cellphone: string,
   instagram?: string,
   verificationCode: number
+  cellphone: string,
+  instagram?: string,
 }

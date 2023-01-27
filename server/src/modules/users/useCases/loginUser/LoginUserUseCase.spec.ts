@@ -58,6 +58,8 @@ describe("Create User", () => {
       email,
       password,
       enrollment: "matricula",
+      cellphone: "123456789",
+
     })
 
     await verifyUserUseCase.execute({
@@ -99,6 +101,7 @@ describe("Create User", () => {
       email,
       password,
       enrollment: "matricula",
+      cellphone: "123456789",
     })
 
     await verifyUserUseCase.execute({
@@ -121,6 +124,7 @@ describe("Create User", () => {
       email,
       password,
       enrollment: "matricula",
+      cellphone: "123456789",
     })
 
     await verifyUserUseCase.execute({

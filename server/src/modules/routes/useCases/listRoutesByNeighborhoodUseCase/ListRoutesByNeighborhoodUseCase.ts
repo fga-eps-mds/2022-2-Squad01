@@ -9,16 +9,14 @@ class ListRoutesByNeighborhoodUseCase {
     private routesRepository: IRoutesRepository
   ) { }
 
-  async execute(neighborhoodSlug: string) {
-    const routes = await this.routesRepository.listByNeighborhood(neighborhoodSlug);
-
+  async execute(neighborhood: string) {
+    const routes = await this.routesRepository.listByNeighborhood(neighborhood);
 
     if (!routes) {
       throw new AppError("No routes found")
     }
 
     return routes;
-
   }
 }
 

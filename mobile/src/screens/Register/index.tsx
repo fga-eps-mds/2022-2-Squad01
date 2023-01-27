@@ -28,6 +28,8 @@ export default function Register() {
   const [enrollment, setEnrollment] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cellphone, setCellphone] = useState("");
+  const [instagram, setInstagram] = useState("@");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -45,8 +47,16 @@ export default function Register() {
     }
   }
 
+  function maskCellphone(e: any) {
+    let value = e.replace(/\D/g, "");
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+
+    setCellphone(value);
+  }
+
   async function handleRegister() {
-    if (!name || !enrollment || !email || !password) {
+    if (!name || !enrollment || !email || !password || !cellphone) {
       setErrorMessage("Preencha todos os campos!");
       setIsErrorModalOpen(true);
       return;
@@ -69,6 +79,8 @@ export default function Register() {
         name,
         enrollment,
         password,
+        cellphone,
+        instagram,
       });
 
       if (response.status === 201) {
@@ -83,6 +95,8 @@ export default function Register() {
       }
     } catch (error) {
       if (error.response === undefined) {
+        console.log(error);
+
         setErrorMessage(
           "Houve um erro no servidor, tente novamente mais tarde."
         );
@@ -90,6 +104,14 @@ export default function Register() {
       } else {
         if (error.response.data.message === "User already exists!") {
           setErrorMessage("Um usuário já existe com esse e-mail!");
+          setIsErrorModalOpen(true);
+        } else if (
+          error.response.data.message ===
+          "Password must contain at least 8 characters, one capital letter and one number"
+        ) {
+          setErrorMessage(
+            "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula e um número!"
+          );
           setIsErrorModalOpen(true);
         } else {
           setErrorMessage("Erro ao criar usuário!");
@@ -118,26 +140,38 @@ export default function Register() {
               Registrar-se
             </TextGlobal>
             <Inputs>
-              <Title>Nome Completo</Title>
+              <Title>Nome Completo *</Title>
               <InputText
                 onChangeText={setName}
                 autoComplete="off"
                 autoCorrect={false}
               />
-              <Title>Matrícula</Title>
+              <Title>Matrícula *</Title>
               <InputText
                 keyboardType="number-pad"
                 onChangeText={(e) => fillEmail(e)}
               />
-              <Title>E-mail institucional</Title>
+              <Title>E-mail institucional *</Title>
               <InputText
                 keyboardType="email-address"
                 onChangeText={setEmail}
                 value={email}
                 autoCorrect={false}
               />
-              <Title>Senha</Title>
+              <Title>Senha *</Title>
               <InputText onChangeText={setPassword} secureTextEntry={true} />
+              <Title>Telefone *</Title>
+              <InputText
+                onChangeText={maskCellphone}
+                value={cellphone}
+                autoCorrect={false}
+              />
+              <Title>Instagram</Title>
+              <InputText
+                onChangeText={setInstagram}
+                value={instagram}
+                autoCorrect={false}
+              />
               <NoRegisterText>
                 Já Possui Conta?
                 <LinkText onPress={handleNavigationToLogin}>

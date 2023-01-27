@@ -58,7 +58,9 @@ class LoginUserUseCase {
       email: user.email,
       name: user.name,
       enrollment: user.enrollment,
-      isVerified: user.isVerified
+      isVerified: user.isVerified,
+      cellphone: user.cellphone,
+      instagram: user.instagram,
     }
 
     return { token, refreshToken, user: filteredUserData }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../components/Button";
 import { TextGlobal } from "../../components/Global";
 import {
@@ -51,7 +51,11 @@ export default function SingIn() {
 
       const user = {
         id: response.data.user.id,
+        name: response.data.user.name,
         email: response.data.user.email,
+        enrollment: response.data.user.enrollment,
+        cellphone: response.data.user.cellphone,
+        instagram: response.data.user.instagram,
         token: response.data.token,
         refreshToken: response.data.refreshToken.id,
       };
@@ -88,10 +92,6 @@ export default function SingIn() {
 
   function handleEmail(e: any) {
     setEmail(e);
-
-    if (e.length >= 9) {
-      setEmail(e + "@aluno.unb.br");
-    }
   }
 
   return (

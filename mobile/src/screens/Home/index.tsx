@@ -1,4 +1,5 @@
-import React, { StatusBar, View, Platform } from "react-native";
+/* eslint-disable indent */
+import React, { StatusBar, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import {
   Container,
@@ -15,21 +16,26 @@ import {
   Separator,
   LastRideText,
   RideTypeText,
-  TrajectTitle,
 } from "./styles";
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
-import HomeIcon from "../../assets/home";
-import SchoolIcon from "../../assets/school";
+import CarLupa from "../../assets/carLupa";
+import Volante from "../../assets/volante";
 import ClockIcon from "../../assets/clock";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { api } from "../../services/api";
 import MapViewDirections from "react-native-maps-directions";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useNavigation } from "@react-navigation/native";
+import { TextGlobal } from "../../components/Global";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Home() {
   const mapRef = useRef(null);
+  const navigation = useNavigation<any>();
+
   const [origin, setOrigin] = useState({
     latitude: 0,
     longitude: 0,
@@ -38,6 +44,7 @@ export function Home() {
     latitude: 0,
     longitude: 0,
   });
+  const [allUsers, setAllUsers] = useState([]);
 
   useEffect(() => {
     async function getUserRoute() {
@@ -60,7 +67,32 @@ export function Home() {
       }
     }
 
+    async function getAllUsers() {
+      try {
+        const response = await api.get("/route/all");
+
+        response.data.routes.forEach((route) => {
+          setAllUsers((oldArray) => [
+            ...oldArray,
+            {
+              origin: {
+                latitude: route.origin[0],
+                longitude: route.origin[1],
+              },
+              destination: {
+                latitude: route.destination[0],
+                longitude: route.destination[1],
+              },
+            },
+          ]);
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
     getUserRoute();
+    getAllUsers();
   }, []);
 
   useEffect(() => {
@@ -80,7 +112,12 @@ export function Home() {
   return (
     <Container>
       <StatusBar backgroundColor="#222" barStyle="light-content" />
-      <Title>Estudantes perto de você</Title>
+      <Title>
+        Usuários do{" "}
+        <TextGlobal size={25} weight="700">
+          Vambora
+        </TextGlobal>
+      </Title>
       <MapContainer>
         <MapView
           style={{
@@ -131,27 +168,50 @@ export function Home() {
             title="Destino"
             identifier="destination"
           />
+          {allUsers.map((user, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: user.origin.latitude,
+                longitude: user.origin.longitude,
+              }}
+              title={`Usuário ${index + 1}`}
+              identifier={`user${index + 1}`}
+            />
+          ))}
         </MapView>
       </MapContainer>
-      <TrajectContainer>
-        <TrajectTitle>Seu trajeto padrão</TrajectTitle>
+      <TrajectContainer onPress={() => navigation.navigate("OfferRide")}>
         <Traject>
-          <HomeIcon color="#fafafa" />
+          <Volante color="#fafafa" />
           <LocationTexts>
-            <TrajectText>Casa</TrajectText>
-            <TrajectSubText>Gama</TrajectSubText>
+            <TrajectText>Oferecer Carona</TrajectText>
+            <TrajectSubText>
+              Que tal diminuir seus custos enquanto ajuda outras pessoas?
+            </TrajectSubText>
           </LocationTexts>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color="#fafafa"
+          />
         </Traject>
-        <Traject
-          style={{
-            marginTop: 20,
-          }}
-        >
-          <SchoolIcon />
+      </TrajectContainer>
+      <TrajectContainer onPress={() => navigation.navigate("ReceiveRide")}>
+        <Traject>
+          <CarLupa color="#fafafa" />
           <LocationTexts>
-            <TrajectText>Universidade de Brasilia</TrajectText>
-            <TrajectSubText>Campus Gama</TrajectSubText>
+            <TrajectText>Receber Carona</TrajectText>
+            <TrajectSubText>
+              Procure por pessoas que moram perto de você e vão para o mesmo
+              campus.
+            </TrajectSubText>
           </LocationTexts>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color="#fafafa"
+          />
         </Traject>
       </TrajectContainer>
 

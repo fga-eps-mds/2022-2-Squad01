@@ -41,14 +41,15 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return
   }
 
-  async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, verificationCode: number): Promise<User | null> {
+  async updateUser(user_id: string, name: string, email: string, password: string, enrollment: string, cellphone: string, instagram: string): Promise<User | null> {
     const user = this.usersRepository.find((user) => {
       if (user.id === user_id) {
         user.name = name
         user.email = email
         user.enrollment = enrollment
         user.password = password
-        user.verificationCode = verificationCode
+        user.cellphone = cellphone
+        user.instagram = instagram
       }
 
       return user

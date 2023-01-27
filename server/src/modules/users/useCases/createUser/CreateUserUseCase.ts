@@ -10,7 +10,7 @@ interface IRequest {
   enrollment: string,
   password: string,
   cellphone: string,
-  instagram: string
+  instagram?: string,
 }
 
 @injectable()

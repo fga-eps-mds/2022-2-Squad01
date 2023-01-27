@@ -15,6 +15,8 @@ PODS:
     - ExpoModulesCore
   - Expo (47.0.8):
     - ExpoModulesCore
+  - ExpoClipboard (4.0.1):
+    - ExpoModulesCore
   - ExpoKeepAwake (11.0.1):
     - ExpoModulesCore
   - ExpoModulesCore (1.0.3):
@@ -335,6 +337,7 @@ DEPENDENCIES:
   - EXFont (from `../node_modules/expo-font/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
   - Expo (from `../node_modules/expo`)
+  - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
@@ -398,6 +401,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-location/ios"
   Expo:
     :path: "../node_modules/expo"
+  ExpoClipboard:
+    :path: "../node_modules/expo-clipboard/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
@@ -485,6 +490,7 @@ SPEC CHECKSUMS:
   EXFont: 319606bfe48c33b5b5063fb0994afdc496befe80
   EXLocation: 7d08926d931f4fb619bfa25e73669f1e19b102c6
   Expo: 36b5f625d36728adbdd1934d4d57182f319ab832
+  ExpoClipboard: 334921ae215b4be261e393e6fdd9050025008a20
   ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
   ExpoModulesCore: b5d21c8880afda6fb6ee95469f9ac2ec9b98e995
   EXSplashScreen: 3e989924f61a8dd07ee4ea584c6ba14be9b51949

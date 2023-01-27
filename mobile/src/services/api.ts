@@ -9,16 +9,19 @@ if (!LOCALHOST) {
 }
 
 export const api = axios.create({
-  baseURL: `http://${LOCALHOST}:${port}`,
+  baseURL: `http://${LOCALHOST}:3333`,
 });
 
 api.interceptors.request.use(async (req) => {
   const user = await AsyncStorage.getItem("@vambora:user")
 
-  const { token } = JSON.parse(user)
+  if (user) {
+    const { token } = JSON.parse(user)
 
-  req.headers = {
-    Authorization: `Bearer ${token}`
+    req.headers = {
+      ...req.headers,
+      Authorization: `Bearer ${token}`
+    }
   }
 
   return req
