@@ -30,6 +30,7 @@ describe("Create User", () => {
       email: "matricula@aluno.unb.br",
       password: "Senha123",
       enrollment: "matricula",
+      cellphone: "123456789",
     })
 
     await updateUserUseCase.execute({
