@@ -1,6 +1,6 @@
-import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepository";
-import { AppError } from "@shared/errors/AppError";
-import { inject, injectable } from "tsyringe";
+import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepository"
+import { AppError } from "@shared/errors/AppError"
+import { inject, injectable } from "tsyringe"
 
 interface IRequest {
   userId: string,
@@ -22,6 +22,10 @@ class CreateRouteUseCase {
   async execute({ userId, originName, distance, duration, origin, destination, originNeighborhood, destinationName }: IRequest) {
     if (!originName || !distance || !duration || !origin || !destination || !originNeighborhood || !destinationName) {
       throw new AppError("Missing parameters")
+    }
+
+    if (origin === destination || originName === destinationName) {
+      throw new AppError("Origin and destination cannot be the same")
     }
 
     const route = await this.routesRepository.create({

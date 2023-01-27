@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { ListRoutesByNeighborhoodUseCase } from "./ListRoutesByNeighborhoodUseCase";
+import { Request, Response } from "express"
+import { container } from "tsyringe"
+import { ListRoutesByNeighborhoodUseCase } from "./ListRoutesByNeighborhoodUseCase"
 
 class ListRoutesByNeighborhoodController {
   async handle(req: Request, res: Response) {
-    const { neighborhood } = req.params;
+    const { neighborhood } = req.params
 
     const listRouteByNeighborhoodUseCase = container.resolve(ListRoutesByNeighborhoodUseCase)
     const route = await listRouteByNeighborhoodUseCase.execute(neighborhood)

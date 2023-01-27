@@ -1,10 +1,9 @@
-import { inject, injectable } from "tsyringe";
-import * as bcrypt from 'bcryptjs'
-import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
-import { AppError } from "@shared/errors/AppError";
-import { GenerateRefreshToken } from "@modules/users/provider/GenerateRefreshToken";
-import { RefreshToken } from "@prisma/client";
-import { GenerateToken } from "@modules/users/provider/GenerateToken";
+import { inject, injectable } from "tsyringe"
+import * as bcrypt from "bcryptjs"
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { AppError } from "@shared/errors/AppError"
+import { RefreshToken } from "@prisma/client"
+import { ITokenAdapter } from "@modules/users/adapters/token-adapter"
 
 interface IRequest {
   email: string;
@@ -26,7 +25,9 @@ interface IResponse {
 class LoginUserUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject("TokenAdapter")
+    private tokenAdapter: ITokenAdapter,
   ) { }
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findUser(email)
@@ -46,13 +47,11 @@ class LoginUserUseCase {
       throw new AppError("Invalid credentials")
     }
 
-    const generateToken = new GenerateToken()
-    const token = await generateToken.execute(user.id)
+    const token = this.tokenAdapter.generateToken(user.id)
 
-    await this.usersRepository.deleteUserRefreshToken(user.id)
+    await this.tokenAdapter.deleteUserRefreshToken(user.id)
 
-    const generateRefreshToken = new GenerateRefreshToken()
-    const refreshToken = await generateRefreshToken.execute(user.id)
+    const refreshToken = await this.tokenAdapter.generateRefreshToken(user.id)
 
     const filteredUserData = {
       id: user.id,

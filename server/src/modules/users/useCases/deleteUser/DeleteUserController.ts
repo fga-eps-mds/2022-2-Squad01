@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { DeleteUserUseCase } from "./DeleteUserUseCase";
-import { container } from "tsyringe";
+import { Request, Response } from "express"
+import { DeleteUserUseCase } from "./DeleteUserUseCase"
+import { container } from "tsyringe"
 
 class DeleteUserController {
   async handle(req: Request, res: Response) {

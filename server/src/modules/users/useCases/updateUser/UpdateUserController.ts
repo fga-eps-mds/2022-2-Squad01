@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { AppError } from "@shared/errors/AppError";
-import { UpdateUserUseCase } from "./UpdateUserUseCase";
+import { Request, Response } from "express"
+import { container } from "tsyringe"
+import { AppError } from "@shared/errors/AppError"
+import { UpdateUserUseCase } from "./UpdateUserUseCase"
 
 
 class UpdateUserController {
@@ -10,7 +10,7 @@ class UpdateUserController {
     const { name, email, password, enrollment, cellphone, instagram } = req.body;
 
     if (!user_id) {
-      throw new AppError('Invalid parameters');
+      throw new AppError("Invalid parameters")
     }
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase)

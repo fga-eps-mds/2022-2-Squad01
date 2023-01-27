@@ -1,6 +1,6 @@
-import { inject, injectable } from "tsyringe";
-import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
-import { AppError } from "@shared/errors/AppError";
+import { inject, injectable } from "tsyringe"
+import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
+import { AppError } from "@shared/errors/AppError"
 
 interface IRequest {
   verificationCode: string;
@@ -14,10 +14,10 @@ class VerifyUserUseCase {
     private usersRepository: IUsersRepository
   ) { }
   async execute({ verificationCode, user_id }: IRequest) {
-    const userVerificationCode = await this.usersRepository.getVerificationCode(user_id);
+    const userVerificationCode = await this.usersRepository.getVerificationCode(user_id)
 
     if (!userVerificationCode || !user_id) {
-      throw new AppError("User not found");
+      throw new AppError("User not found")
     }
 
     if (userVerificationCode === parseInt(verificationCode)) {

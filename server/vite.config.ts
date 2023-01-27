@@ -1,15 +1,17 @@
-import { defineConfig } from 'vitest/config'
-import { alias } from './alias'
+import { defineConfig } from "vitest/config"
+import { alias } from "./alias"
 
 export default defineConfig({
   test: {
+    
     coverage: {
-      provider: 'c8'
+      reporter: ["html", "text", "json-summary", "json"],
+      provider: "c8",
     }
   },
-  root: '.',
+  root: ".",
   esbuild: {
-    tsconfigRaw: '{}',
+    tsconfigRaw: "{}",
   },
   resolve: {
     alias,

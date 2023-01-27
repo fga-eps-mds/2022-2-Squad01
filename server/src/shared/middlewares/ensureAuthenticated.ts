@@ -1,6 +1,9 @@
-import { AppError } from "@shared/errors/AppError";
-import { NextFunction, Request, Response } from "express";
-import * as jwt from 'jsonwebtoken'
+import { AppError } from "@shared/errors/AppError"
+import { NextFunction, Request, Response } from "express"
+import * as jwt from "jsonwebtoken"
+interface IJWTPayload {
+  id: string
+}
 
 export default function ensureAuthenticated(
   req: Request,
@@ -19,7 +22,7 @@ export default function ensureAuthenticated(
     throw new AppError("Unauthorized", 401)
   }
 
-  jwt.verify(token, process.env.JWT_SECRET!, (err: any, decoded: any) => {
+  jwt.verify(token, process.env.JWT_SECRET!, (err , decoded) => {
     if (err) {
       if (err.message === "jwt expired") {
         throw new AppError("Expired Token", 401)
@@ -28,8 +31,8 @@ export default function ensureAuthenticated(
       }
     }
 
-    req.user = decoded.id;
+    req.user = (decoded as IJWTPayload).id
 
-    return next();
-  });
+    return next()
+  })
 }

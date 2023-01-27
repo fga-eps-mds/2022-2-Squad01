@@ -48,8 +48,7 @@ model RefreshToken {
 }
 
 model Route {
-  id String @id @default(uuid())
-
+  id                     String   @id @default(uuid())
   originName             String
   destinationName        String
   distance               Int
@@ -58,17 +57,15 @@ model Route {
   origin                 String[]
   originNeighborhoodSlug String
   originNeighborhood     String
-
-  createdAt DateTime @default(now())
-  createdBy String
-  Ride      Ride[]
+  createdAt              DateTime @default(now())
+  createdBy              String
+  Ride                   Ride[]
 
   @@map("routes")
 }
 
 model Car {
-  id String @id @default(uuid())
-
+  id            String @id @default(uuid())
   brand         String
   model         String
   year          Int
@@ -80,19 +77,16 @@ model Car {
 }
 
 model Ride {
-  id String @id @default(uuid())
-
-  route   Route  @relation(fields: [routeId], references: [id])
-  routeId String
-
+  id              String   @id @default(uuid())
+  route           Route    @relation(fields: [routeId], references: [id])
+  routeId         String
   passangers      User[]
   driverId        String
   available_spots Int
-  car             Car    @relation(fields: [carId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  carId     String
+  car             Car      @relation(fields: [carId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  carId           String
 
   @@map("rides")
 }

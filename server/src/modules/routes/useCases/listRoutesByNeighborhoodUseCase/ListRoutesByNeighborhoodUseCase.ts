@@ -1,8 +1,6 @@
-import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepository";
-import { AppError } from "@shared/errors/AppError";
-import { inject, injectable } from "tsyringe";
-
-
+import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepository"
+import { AppError } from "@shared/errors/AppError"
+import { inject, injectable } from "tsyringe"
 
 @injectable()
 class ListRoutesByNeighborhoodUseCase {

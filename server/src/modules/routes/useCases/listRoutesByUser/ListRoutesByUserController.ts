@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import { ListRoutesByUserUseCase } from "./ListRoutesByUserUseCase";
+import { Request, Response } from "express"
+import { container } from "tsyringe"
+import { ListRoutesByUserUseCase } from "./ListRoutesByUserUseCase"
 
 class ListRoutesByUserController {
   async handle(req: Request, res: Response) {

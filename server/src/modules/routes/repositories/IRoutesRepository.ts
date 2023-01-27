@@ -1,5 +1,5 @@
-import { Route } from "@prisma/client";
-import { ICreateRouteDTO } from "../dtos/ICreateRouteDTO";
+import { Route } from "@prisma/client"
+import { ICreateRouteDTO } from "../dtos/ICreateRouteDTO"
 
 export interface IRoutesRepository {
   create(data: ICreateRouteDTO): Promise<Route>;
@@ -7,4 +7,5 @@ export interface IRoutesRepository {
   listByUser(userId: string): Promise<Route[] | null>;
   listAll(): Promise<Route[] | null>;
   listByNeighborhood(neighborhood: string): Promise<Route[] | null>;
+  updateRoute(id: string, originName?: string, destinationName?: string, distance?: number, duration?: number, origin?: string[], destination?: string[], originNeighborhood?: string, originNeighborhoodSlug?: string): Promise<Route | null>;
 }
