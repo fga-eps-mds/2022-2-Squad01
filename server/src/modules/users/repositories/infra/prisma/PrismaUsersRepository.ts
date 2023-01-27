@@ -16,8 +16,6 @@ class PrismaUsersRepository implements IUsersRepository {
         cellphone,
         instagram,
         verificationCode,
-        instagram,
-        cellphone
       },
     })
 
