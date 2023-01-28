@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/shared/infra/http/server.ts",
+    "dev": "tsx watch --no-cache src/shared/infra/http/server.ts",
     "test": "vitest",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
     "coverage": "vitest run --coverage"
