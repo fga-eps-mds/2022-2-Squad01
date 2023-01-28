@@ -33,6 +33,7 @@ model User {
   rideId String?
 
   RefreshToken RefreshToken?
+  Car          Car[]
 
   @@map("users")
 }
@@ -71,7 +72,8 @@ model Car {
   year          Int
   color         String
   license_plate String
-  Ride          Ride[]
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
 
   @@map("cars")
 }
@@ -83,7 +85,6 @@ model Ride {
   passangers      User[]
   driverId        String
   available_spots Int
-  car             Car      @relation(fields: [carId], references: [id])
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   carId           String
