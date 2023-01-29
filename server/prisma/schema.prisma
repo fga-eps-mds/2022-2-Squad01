@@ -74,6 +74,7 @@ model Car {
   license_plate String
   user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
+  Ride          Ride[]
 
   @@map("cars")
 }
@@ -87,6 +88,7 @@ model Ride {
   available_spots Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  car             Car      @relation(fields: [carId], references: [id])
   carId           String
 
   @@map("rides")
