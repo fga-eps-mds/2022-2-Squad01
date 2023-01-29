@@ -1,5 +1,6 @@
-import { ICarsRepository } from "@modules/car/repositories/ICarsRepository";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { Car } from "@prisma/client";
+import { AppError } from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 interface IRequest {
@@ -19,6 +20,10 @@ class CreateCarUseCase {
   ) { }
 
   async execute({ brand, model, year, color, license_plate, userId }: IRequest): Promise<Car> {
+    if (!brand || !model || !year || !color || !license_plate || !userId) {
+      throw new AppError("Missing parameters");
+    }
+
     const car = await this.carsRepository.create({
       brand,
       model,

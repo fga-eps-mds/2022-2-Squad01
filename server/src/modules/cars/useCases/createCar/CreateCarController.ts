@@ -4,7 +4,8 @@ import { CreateCarUseCase } from "./CreateCarUseCase";
 
 class CreateCarController {
   async handle(req: Request, res: Response) {
-    const { brand, model, year, color, license_plate, userId } = req.body;
+    const { brand, model, year, color, license_plate } = req.body;
+    const userId = req.user;
 
     const createCarUseCase = container.resolve(CreateCarUseCase);
 

@@ -41,7 +41,7 @@ class CreateUserUseCase {
       throw new AppError("User already exists!")
     }
 
-    const verificationCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0")
+    const verificationCode = Math.floor(100000 + Math.random() * 900000)
 
     const hashedPassword = await brcypt.hash(password, 10)
 
@@ -70,7 +70,7 @@ class CreateUserUseCase {
       password: hashedPassword,
       cellphone,
       instagram,
-      verificationCode: parseInt(verificationCode)
+      verificationCode
     })
 
     return user
