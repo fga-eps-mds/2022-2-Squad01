@@ -8,7 +8,6 @@ class PrismaRidesRepository implements IRidesRepository {
     const {
       carId,
       routeId,
-      passangers,
       driverId,
       available_spots
     } = data
@@ -19,11 +18,6 @@ class PrismaRidesRepository implements IRidesRepository {
           connect: {
             id: routeId
           }
-        },
-        passangers: {
-          connect: passangers.map(passanger => ({
-            id: passanger.id
-          }))
         },
         car: {
           connect: {
@@ -37,3 +31,5 @@ class PrismaRidesRepository implements IRidesRepository {
     return ride
   }
 }
+
+export { PrismaRidesRepository }

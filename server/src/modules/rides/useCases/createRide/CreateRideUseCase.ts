@@ -6,7 +6,6 @@ import { inject, injectable } from "tsyringe"
 interface IRequest {
   routeId: string;
   carId: string;
-  passangers: User[];
   driverId: string;
   available_spots: number;
 }
@@ -17,15 +16,14 @@ class CreateRideUseCase {
     @inject("RidesRepository")
     private ridesRepository: IRidesRepository,
   ) { }
-  async execute({ routeId, carId, passangers, driverId, available_spots }: IRequest) {
-    if (!routeId || !carId || !passangers || !driverId || !available_spots) {
+  async execute({ routeId, carId, driverId, available_spots }: IRequest) {
+    if (!routeId || !carId || !driverId || !available_spots) {
       throw new AppError("Missing parameters")
     }
 
     const Ride = await this.ridesRepository.create({
       routeId,
       carId,
-      passangers,
       driverId,
       available_spots,
     })
