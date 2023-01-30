@@ -83,7 +83,7 @@ model Ride {
   id              String   @id @default(uuid())
   route           Route    @relation(fields: [routeId], references: [id])
   routeId         String
-  passangers      User[]
+  passengers      User[]
   driverId        String
   available_spots Int
   createdAt       DateTime @default(now())

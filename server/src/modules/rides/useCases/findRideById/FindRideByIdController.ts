@@ -9,11 +9,11 @@ class FindRideByIdController {
 
   async handle(req: Request, res: Response) {
 
-    const { id } = req.params
+    const rideId = req.headers.ride_id
 
     const findRideByIdUseCase = container.resolve(FindRideByIdUseCase)
 
-    const ride = await findRideByIdUseCase.execute(id)
+    const ride = await findRideByIdUseCase.execute(rideId as string)
 
     return res.status(201).json({ ride })
 

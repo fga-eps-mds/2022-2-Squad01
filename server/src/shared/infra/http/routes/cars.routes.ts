@@ -1,9 +1,9 @@
-import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController";
-import { DeleteCarController } from "@modules/cars/useCases/deleteCar/DeleteCarController";
-import { ListCarByUserController } from "@modules/cars/useCases/listCarByUser/ListCarByUserController";
-import { UpdateCarController } from "@modules/cars/useCases/updateCar/UpdateCarController";
-import ensureAuthenticated from "@shared/middlewares/ensureAuthenticated";
-import { Router } from "express";
+import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController"
+import { DeleteCarController } from "@modules/cars/useCases/deleteCar/DeleteCarController"
+import { ListCarByUserController } from "@modules/cars/useCases/listCarByUser/ListCarByUserController"
+import { UpdateCarController } from "@modules/cars/useCases/updateCar/UpdateCarController"
+import ensureAuthenticated from "@shared/middlewares/ensureAuthenticated"
+import { Router } from "express"
 
 export const carsRoutes = Router()
 

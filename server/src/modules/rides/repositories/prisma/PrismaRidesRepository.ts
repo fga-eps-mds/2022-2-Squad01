@@ -49,6 +49,36 @@ class PrismaRidesRepository implements IRidesRepository {
     return ride
   }
 
+  async addPassenger(rideId: string, userId: string): Promise<void> {
+    await prisma.ride.update({
+      where: {
+        id: rideId
+      },
+      data: {
+        passengers: {
+          connect: {
+            id: userId
+          }
+        }
+      }
+    })
+  }
+
+  async removePassenger(rideId: string, userId: string): Promise<void> {
+    await prisma.ride.update({
+      where: {
+        id: rideId
+      },
+      data: {
+        passengers: {
+          disconnect: {
+            id: userId
+          }
+        }
+      }
+    })
+  }
+
 }
 
 export { PrismaRidesRepository }
