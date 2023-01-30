@@ -1,5 +1,6 @@
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository"
 import { IRidesRepository } from "@modules/rides/repositories/IRidesRepository"
+import { IRoutesRepository } from "@modules/routes/repositories/IRoutesRepository"
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository"
 import { Ride, User } from "@prisma/client"
 import { inject, injectable } from "tsyringe"
@@ -9,6 +10,8 @@ class ListRideByUserUseCase {
   constructor(
     @inject("RidesRepository")
     private ridesRepository: IRidesRepository,
+    @inject("RoutesRepository")
+    private routesRepository: IRoutesRepository,
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
     @inject("CarsRepository")
@@ -27,9 +30,12 @@ class ListRideByUserUseCase {
         return user
       }))
 
+      const route = await this.routesRepository.findById(ride.routeId)
+
       return {
         id: ride.id,
         driver,
+        route,
         car,
         available_spots: ride.available_spots,
         passengers
