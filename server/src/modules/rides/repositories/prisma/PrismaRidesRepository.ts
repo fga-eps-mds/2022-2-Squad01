@@ -30,6 +30,25 @@ class PrismaRidesRepository implements IRidesRepository {
     })
     return ride
   }
+
+  async listByUser(user_id: string): Promise<Ride[]> {
+    const rides = await prisma.ride.findMany({
+      where: {
+        driverId: user_id
+      }
+    })
+    return rides
+  }
+
+  async findById(id: string): Promise<Ride | null> {
+    const ride = await prisma.ride.findUnique({
+      where: {
+        id
+      }
+    })
+    return ride
+  }
+
 }
 
 export { PrismaRidesRepository }

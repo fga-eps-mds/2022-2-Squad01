@@ -1,5 +1,4 @@
 import { IRidesRepository } from "@modules/rides/repositories/IRidesRepository"
-import { User } from "@prisma/client"
 import { AppError } from "@shared/errors/AppError"
 import { inject, injectable } from "tsyringe"
 
