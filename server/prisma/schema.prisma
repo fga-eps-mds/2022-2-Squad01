@@ -83,13 +83,14 @@ model Ride {
   id              String   @id @default(uuid())
   route           Route    @relation(fields: [routeId], references: [id])
   routeId         String
-  passengers      User[]
+  passengers      String[]
   driverId        String
   available_spots Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   car             Car      @relation(fields: [carId], references: [id])
   carId           String
+  User            User[]
 
   @@map("rides")
 }

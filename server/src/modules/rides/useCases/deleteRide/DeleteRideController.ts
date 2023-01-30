@@ -3,9 +3,7 @@ import { container } from "tsyringe"
 import { DeleteRideUseCase } from "./DeleteRideUseCase"
 
 class DeleteRideController {
-
-  async handle (req: Request, res: Response) {
-    
+  async handle(req: Request, res: Response) {
     const rideId = req.headers.ride_id
     const userId = req.user
 
@@ -16,4 +14,4 @@ class DeleteRideController {
   }
 }
 
-export {DeleteRideController}
+export { DeleteRideController }

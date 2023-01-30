@@ -33,6 +33,16 @@ class PrismaCarsRepository implements ICarsRepository {
     return car
   }
 
+  async findById(car_id: string): Promise<Car | null> {
+    const car = await prisma.car.findFirst({
+      where: {
+        id: car_id
+      }
+    });
+
+    return car;
+  }
+
   async update(car_id: string, brand: string, model: string, year: number, color: string, license_plate: string): Promise<Car | null> {
     const car = await prisma.car.update({
       where: {

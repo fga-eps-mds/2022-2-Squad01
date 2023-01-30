@@ -1,4 +1,5 @@
 import { Ride } from "@prisma/client"
+import { AppError } from "@shared/errors/AppError"
 import { prisma } from "prisma"
 import { ICreateRideDTO } from "../../dtos/ICreateRideDTO"
 import { IRidesRepository } from "../IRidesRepository"
@@ -9,7 +10,8 @@ class PrismaRidesRepository implements IRidesRepository {
       carId,
       routeId,
       driverId,
-      available_spots
+      available_spots,
+      passengers
     } = data
 
     const ride = await prisma.ride.create({
@@ -25,7 +27,8 @@ class PrismaRidesRepository implements IRidesRepository {
           }
         },
         driverId,
-        available_spots
+        available_spots,
+        passengers: []
       }
     })
     return ride
@@ -37,6 +40,7 @@ class PrismaRidesRepository implements IRidesRepository {
         driverId: user_id
       }
     })
+
     return rides
   }
 
@@ -50,31 +54,37 @@ class PrismaRidesRepository implements IRidesRepository {
   }
 
   async addPassenger(rideId: string, userId: string): Promise<void> {
+    const ride = await this.findById(rideId)
+
+    if (!ride) {
+      throw new AppError("Ride not found")
+    }
+
     await prisma.ride.update({
       where: {
         id: rideId
       },
       data: {
-        passengers: {
-          connect: {
-            id: userId
-          }
-        }
+        passengers: [...ride.passengers, userId],
+        available_spots: ride.available_spots - 1
       }
     })
   }
 
   async removePassenger(rideId: string, userId: string): Promise<void> {
+    const ride = await this.findById(rideId)
+
+    if (!ride) {
+      throw new AppError("Ride not found")
+    }
+
     await prisma.ride.update({
       where: {
         id: rideId
       },
       data: {
-        passengers: {
-          disconnect: {
-            id: userId
-          }
-        }
+        passengers: ride.passengers.filter(passenger => passenger !== userId),
+        available_spots: ride.available_spots + 1
       }
     })
   }

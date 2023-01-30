@@ -5,4 +5,5 @@ export interface ICreateRideDTO {
   carId: string;
   driverId: string;
   available_spots: number;
+  passengers: string[];
 }
