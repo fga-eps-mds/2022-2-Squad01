@@ -1,5 +1,5 @@
 import { Ride } from "@prisma/client"
-import { ICreateRideDTO } from "./dtos/ICreateRideDTO"
+import { ICreateRideDTO } from "../dtos/ICreateRideDTO"
 
 
 

@@ -1,7 +1,6 @@
-import { Route, User } from "@prisma/client"
+import { User } from "@prisma/client"
 
 export interface ICreateRideDTO {
-  id: string;
   routeId: string;
   carId: string;
   passangers: User[];

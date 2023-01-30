@@ -1,12 +1,11 @@
 import { Ride } from "@prisma/client"
 import { prisma } from "prisma"
-import { ICreateRideDTO } from "../dtos/ICreateRideDTO"
-import { IRidesRepository } from "../IRideRepository"
+import { ICreateRideDTO } from "../../dtos/ICreateRideDTO"
+import { IRidesRepository } from "../IRidesRepository"
 
 class PrismaRidesRepository implements IRidesRepository {
   async create(data: ICreateRideDTO): Promise<Ride> {
     const {
-      id,
       carId,
       routeId,
       passangers,
@@ -16,7 +15,6 @@ class PrismaRidesRepository implements IRidesRepository {
 
     const ride = await prisma.ride.create({
       data: {
-        id,
         route: {
           connect: {
             id: routeId
