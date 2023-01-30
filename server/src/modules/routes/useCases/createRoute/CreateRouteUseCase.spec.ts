@@ -24,13 +24,10 @@ describe("Create Route Use Case", () => {
       origin: ["4321", "4321"],
       destination: ["123123", "1234124"],
       originNeighborhood: "Origin Neighborhood",
-      originNeighborhoodSlug: "Origin Neighborhood",
     })
-
 
     // expect(route).toHaveProperty("id")
 
-    
     expect(true).toBe(true)
   })
 
@@ -45,7 +42,6 @@ describe("Create Route Use Case", () => {
         origin: ["12312", "123124"],
         destination: ["12312", "123124"],
         originNeighborhood: "Origin Neighborhood",
-        originNeighborhoodSlug: "Origin Neighborhood",
       })
     ).rejects.toThrow()
   })
