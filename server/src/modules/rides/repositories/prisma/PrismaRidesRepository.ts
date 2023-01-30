@@ -79,6 +79,13 @@ class PrismaRidesRepository implements IRidesRepository {
     })
   }
 
+  async deleteRide(rideId: string): Promise<void> {
+    await prisma.ride.delete({
+      where: {
+        id: rideId
+      }
+    })
+  }
 }
 
 export { PrismaRidesRepository }

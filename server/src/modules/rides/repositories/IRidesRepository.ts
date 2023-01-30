@@ -7,4 +7,5 @@ export interface IRidesRepository {
   findById(id: string): Promise<Ride | null>;
   addPassenger(rideId: string, userId: string): Promise<void>;
   removePassenger(rideId: string, userId: string): Promise<void>;
+  deleteRide(rideId: string): Promise<void>
 }
