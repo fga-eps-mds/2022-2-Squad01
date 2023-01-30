@@ -26,7 +26,6 @@ describe("Create Route Use Case", () => {
       origin: ["4321", "4321"],
       destination: ["123123", "1234124"],
       originNeighborhood: "Origin Neighborhood",
-      originNeighborhoodSlug: "Origin Neighborhood",
     })
 
     const updatedRoute = await updateRouteUseCase.execute({

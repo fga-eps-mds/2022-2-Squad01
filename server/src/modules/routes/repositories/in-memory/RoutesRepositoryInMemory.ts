@@ -35,6 +35,10 @@ class RoutesRepostoryInMemory implements IRoutesRepository {
     else return null
   }
 
+  async listAll(): Promise<Route[] | null> {
+    return this.routesRepository
+  }
+
   async listByUser(userId: string): Promise<Route[] | null> {
     const routes = this.routesRepository.filter((route) => {
       return route.createdBy === userId

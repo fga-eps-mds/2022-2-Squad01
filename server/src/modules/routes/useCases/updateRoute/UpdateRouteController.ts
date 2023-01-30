@@ -3,21 +3,21 @@ import { container } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
 import { UpdateRouteUseCase } from "./UpdateRouteUseCase";
 
-
 class UpdateRouteController {
   async handle(req: Request, res: Response) {
-    const routeId = req.params.id;
     const { originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug } = req.body;
+    let { route_id } = req.headers
 
-    if (!routeId) {
+    route_id = String(route_id)
+
+    if (!route_id) {
       throw new AppError('Invalid parameters');
     }
 
     const updateRouteUseCase = container.resolve(UpdateRouteUseCase)
+    const route = await updateRouteUseCase.execute({ route_id, destination, destinationName, distance, duration, origin, originName, originNeighborhood, originNeighborhoodSlug });
 
-    const route = await updateRouteUseCase.execute({ routeId, destination, destinationName, distance, duration, origin, originName, originNeighborhood, originNeighborhoodSlug});
-
-    res.status(200).json(route)
+    return res.status(200).json(route)
   }
 }
 
