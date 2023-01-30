@@ -29,7 +29,7 @@ describe("Create Route Use Case", () => {
     })
 
     const updatedRoute = await updateRouteUseCase.execute({
-      routeId: route.id,
+      route_id: route.id,
       originName: "Updated Origin",
       destinationName: "Route Destination",
       distance: 10,
