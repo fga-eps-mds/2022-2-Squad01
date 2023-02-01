@@ -16,6 +16,7 @@ const deleteRideController = new DeleteRideController()
 
 ridesRoutes.post("/", ensureAuthenticated, createRideController.handle)
 ridesRoutes.get("/user", ensureAuthenticated, listRidesController.handle)
+ridesRoutes.get("/all", ensureAuthenticated, listRidesController.handle)
 ridesRoutes.get("/", ensureAuthenticated, findRideByIdController.handle)
 ridesRoutes.patch("/", ensureAuthenticated, subscribeUserToRideController.handle)
 ridesRoutes.delete("/", ensureAuthenticated, deleteRideController.handle)

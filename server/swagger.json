@@ -772,6 +772,112 @@
           }
         }
       }
+    },
+    "/ride": {
+      "post": {
+        "summary": "create a ride",
+        "tags": [
+          "Ride"
+        ],
+        "description": "create a ride",
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "routeId": {
+                    "type":"string"
+                  },
+                  "carId": {
+                    "type":"string"
+                  },
+                  "driverId": {
+                    "type":"string"
+                  },
+                  "available_spots": {
+                    "type":"number"
+                  },
+                  "passengers": {
+                    "type":"array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Neighborhood route sucessfully listed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "route": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string"
+                        },
+                        "originName": {
+                          "type": "string"
+                        },
+                        "destinationName": {
+                          "type": "string"
+                        },
+                        "distance": {
+                          "type": "number"
+                        },
+                        "duration": {
+                          "type": "number"
+                        },
+                        "origin": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "destination": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "originNeighborhood": {
+                          "type": "string"
+                        },
+                        "originNeighborhoodSlug": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route found"
+          }
+        }
+      }
     }
   }
-}

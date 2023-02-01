@@ -13,7 +13,7 @@ class PrismaRidesRepository implements IRidesRepository {
       available_spots,
       passengers
     } = data
-
+    
     const ride = await prisma.ride.create({
       data: {
         route: {
@@ -34,6 +34,11 @@ class PrismaRidesRepository implements IRidesRepository {
     return ride
   }
 
+  async listAll(): Promise<Ride[]> {
+    const rides = await prisma.ride.findMany()
+    return rides
+  }
+  
   async listByUser(user_id: string): Promise<Ride[]> {
     const rides = await prisma.ride.findMany({
       where: {
