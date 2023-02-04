@@ -57,7 +57,7 @@ class RoutesRepostoryInMemory implements IRoutesRepository {
     else return null
   }
 
-  async updateRoute(id: string, originName?: string | undefined, destinationName?: string | undefined, distance?: number | undefined, duration?: number | undefined, origin?: string[] | undefined, destination?: string[] | undefined, originNeighborhood?: string | undefined, originNeighborhoodSlug?: string | undefined): Promise<Route | null> {
+  async updateRoute(id: string, originName?: string | undefined, destinationName?: string | undefined, distance?: number | undefined, duration?: number | undefined, origin?: number[] | undefined, destination?: number[] | undefined, originNeighborhood?: string | undefined, originNeighborhoodSlug?: string | undefined): Promise<Route | null> {
     const newRoute = this.routesRepository.find((route) => {
       if (route.id === id) {
         route.originName = originName || route.originName

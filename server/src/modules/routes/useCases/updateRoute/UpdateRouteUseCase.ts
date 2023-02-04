@@ -9,10 +9,9 @@ interface IRequest {
   destinationName?: string,
   distance?: number,
   duration?: number,
-  origin?: string[],
-  destination?: string[],
+  origin?: number[],
+  destination?: number[],
   originNeighborhood?: string,
-  originNeighborhoodSlug?: string,
 }
 
 @injectable()
@@ -22,14 +21,14 @@ class UpdateRouteUseCase {
     private routesRepository: IRoutesRepository
   ) { }
 
-  async execute({ route_id, originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug }: IRequest): Promise<Route | null> {
+  async execute({ route_id, originName, destinationName, distance, duration, origin, destination, originNeighborhood }: IRequest): Promise<Route | null> {
     const route = await this.routesRepository.findById(route_id)
 
     if (!route) {
       throw new AppError("Route does not exist!", 404)
     }
 
-    const updatedUser = await this.routesRepository.updateRoute(route_id, originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug)
+    const updatedUser = await this.routesRepository.updateRoute(route_id, originName, destinationName, distance, duration, origin, destination, originNeighborhood)
 
     return updatedUser;
   }

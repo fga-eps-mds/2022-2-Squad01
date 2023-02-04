@@ -1,21 +1,21 @@
-import { Button } from "../../components/Button";
-import { TextGlobal } from "../../components/Global";
 import {
   Container,
-  Form,
-  Title,
-  InputText,
-  NoRegisterText,
-  LinkText,
-  ScrollContainer,
+  ContentContainer,
   Inputs,
+  InputText,
+  LinkText,
+  NoRegisterText,
+  RegisterTitle,
+  Title,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { ActivityIndicator, Platform, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { api } from "../../services/api";
+import { ActivityIndicator } from "react-native";
+import { Button } from "../../components/Button";
 import { Modal } from "../../components/Modal";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Register() {
   const navigation = useNavigation<any>();
@@ -124,8 +124,16 @@ export default function Register() {
     setIsButtonDisabled(false);
   }
 
+  function handleInstagram(e: any) {
+    if (e.length > 0) {
+      setInstagram(e);
+    } else {
+      setInstagram("@");
+    }
+  }
+
   return (
-    <Container behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <Container>
       {isErrorModalOpen && (
         <Modal
           setIsErrorModalOpen={setIsErrorModalOpen}
@@ -133,63 +141,55 @@ export default function Register() {
           description={errorMessage}
         />
       )}
-      <SafeAreaView>
-        <ScrollContainer>
-          <Form>
-            <TextGlobal weight="600" size={48}>
-              Registrar-se
-            </TextGlobal>
-            <Inputs>
-              <Title>Nome Completo *</Title>
-              <InputText
-                onChangeText={setName}
-                autoComplete="off"
-                autoCorrect={false}
-              />
-              <Title>Matrícula *</Title>
-              <InputText
-                keyboardType="number-pad"
-                onChangeText={(e) => fillEmail(e)}
-              />
-              <Title>E-mail institucional *</Title>
-              <InputText
-                keyboardType="email-address"
-                onChangeText={setEmail}
-                value={email}
-                autoCorrect={false}
-              />
-              <Title>Senha *</Title>
-              <InputText onChangeText={setPassword} secureTextEntry={true} />
-              <Title>Telefone *</Title>
-              <InputText
-                onChangeText={maskCellphone}
-                value={cellphone}
-                autoCorrect={false}
-              />
-              <Title>Instagram</Title>
-              <InputText
-                onChangeText={setInstagram}
-                value={instagram}
-                autoCorrect={false}
-              />
-              <NoRegisterText>
-                Já Possui Conta?
-                <LinkText onPress={handleNavigationToLogin}>
-                  {" "}
-                  Fazer Login
-                </LinkText>
-              </NoRegisterText>
-            </Inputs>
-            <Button disabled={isButtonDisabled} onPress={handleRegister}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                "Cadastrar"
-              )}
-            </Button>
-          </Form>
-        </ScrollContainer>
-      </SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }} />
+      <ContentContainer>
+        <RegisterTitle>Registro</RegisterTitle>
+        <Inputs>
+          <Title>Nome Completo *</Title>
+          <InputText
+            onChangeText={setName}
+            autoComplete="off"
+            autoCorrect={false}
+          />
+          <Title>Matrícula *</Title>
+          <InputText
+            keyboardType="number-pad"
+            onChangeText={(e) => fillEmail(e)}
+          />
+          <Title>E-mail institucional *</Title>
+          <InputText
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
+            autoCorrect={false}
+          />
+          <Title>Senha *</Title>
+          <InputText onChangeText={setPassword} secureTextEntry={true} />
+          <Title>Telefone *</Title>
+          <InputText
+            onChangeText={maskCellphone}
+            value={cellphone}
+            autoCorrect={false}
+          />
+          <Title>Instagram</Title>
+          <InputText
+            onChangeText={handleInstagram}
+            value={instagram}
+            autoCorrect={false}
+          />
+          <NoRegisterText>
+            Já Possui Conta?
+            <LinkText onPress={handleNavigationToLogin}> Fazer Login</LinkText>
+          </NoRegisterText>
+        </Inputs>
+        <Button disabled={isButtonDisabled} onPress={handleRegister}>
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#fff" />
+          ) : (
+            "Cadastrar"
+          )}
+        </Button>
+      </ContentContainer>
     </Container>
   );
 }

@@ -71,7 +71,10 @@ export default function SingIn() {
       const isFirstTime = await api.get("/route/user");
 
       if (isFirstTime.data.route.length === 0) {
-        navigation.navigate("FirstRoute");
+        navigation.navigate("CreateRoute", {
+          action: "create",
+          returnTo: "BottomTabs",
+        });
       } else {
         navigation.navigate("BottomTabs");
       }

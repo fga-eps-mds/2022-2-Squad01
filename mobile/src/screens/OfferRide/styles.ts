@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
 import { isIphoneX, getStatusBarHeight, getBottomSpace } from "react-native-iphone-x-helper";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export const Container = styled.ScrollView`
+export const Container = styled(KeyboardAwareScrollView)`
   background-color: #1A1A1A;
   flex: 1;
   padding: 24px ;
@@ -90,8 +91,8 @@ export const AboutCarContainer = styled.View`
 
 export const AboutCarTitle = styled.Text`
   font-family: "Inter-700";
-  color: #FFF;
-  font-size: 20px;
+  color: #7E46FF;
+  font-size: 24px;
 `;
 
 export const AboutCarSubTitle = styled.Text`
@@ -106,20 +107,20 @@ export const InfoCarForm = styled.View`
 
 export const AboutCarText = styled.Text`
   color: #fff;
-  font-family: "Inter-600";
-  font-size: 18px;
-  margin-top: 10px;
+  font-family: "Inter-700";
+  font-size: 20px;
+  margin-top: 20px;
 `;
 
 export const CarInfo = styled.Text``;
 
 export const CarInfoInput = styled.TextInput`
-  color: #fff;
+  color: #eee;
   font-family: "Inter-500";
   font-size: 15px;
   border-bottom-width: 2px;
   border-color: #ABABAB80;
-  padding: 3px 0;
+  padding: 8px 0;
 `;
 
 export const CreateRouteButton = styled.View`

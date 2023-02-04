@@ -12,16 +12,6 @@ import {
   MapContainer,
   Title,
   TitleText,
-  TrajectContent,
-  TrajectContentTexts,
-  TrajectEditText,
-  TrajectSubTextTitle,
-  TrajectTextTitle,
-  UserTrajectContainer,
-  UserTrajectEdit,
-  UserTrajectText,
-  UserTrajectTitle,
-  Overlay,
 } from "./styles";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useEffect, useRef, useState } from "react";
@@ -31,16 +21,30 @@ import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
 import MapViewDirections from "react-native-maps-directions";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Button } from "../../components/Button";
 import { TextGlobal } from "../../components/Global";
-import { Platform } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
+import { Traject } from "../../components/Traject";
 
 export function OfferRide() {
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
-  const height = useHeaderHeight();
+  const [car, setCar] = useState({
+    brand: "",
+    model: "",
+    year: "",
+    color: "",
+    license_plate: "",
+  });
+  const [availableSpots, setAvailableSpots] = useState("");
+  const [route, setRoute] = useState({
+    id: "",
+    destinationName: "",
+    distance: "",
+    duration: "",
+    originNeighborhood: "",
+    originNeighborhoodSlug: "",
+  });
 
   const [origin, setOrigin] = useState({
     latitude: 0,
@@ -50,6 +54,7 @@ export function OfferRide() {
     latitude: 0,
     longitude: 0,
   });
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     async function getUserRoute() {
@@ -67,13 +72,74 @@ export function OfferRide() {
           latitude: defaultRoute.destination[0],
           longitude: defaultRoute.destination[1],
         });
+
+        setRoute({
+          id: defaultRoute.id,
+          destinationName: defaultRoute.destinationName,
+          distance: defaultRoute.distance,
+          duration: defaultRoute.duration,
+          originNeighborhood: defaultRoute.originNeighborhood,
+          originNeighborhoodSlug: defaultRoute.originNeighborhoodSlug,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    async function getUserCar() {
+      try {
+        const response = await api.get("/car");
+
+        if (response.data) {
+          setCar({
+            brand: response.data.brand,
+            model: response.data.model,
+            year: response.data.year.toString(),
+            color: response.data.color,
+            license_plate: response.data.license_plate,
+          });
+        }
       } catch (error) {
         console.log(error.message);
       }
     }
 
     getUserRoute();
-  }, []);
+    getUserCar();
+  }, [isFocused]);
+
+  async function handleCreateRide() {
+    if (
+      !car.brand ||
+      !car.model ||
+      !car.year ||
+      !car.color ||
+      !car.license_plate ||
+      !availableSpots
+    ) {
+      alert("Preencha todos os campos!");
+    }
+
+    try {
+      const createdCar = await api.post("/car", {
+        brand: car.brand,
+        model: car.model,
+        year: parseInt(car.year),
+        color: car.color,
+        license_plate: car.license_plate,
+      });
+
+      await api.post("/ride", {
+        carId: createdCar.data.id,
+        routeId: route.id,
+        available_spots: parseInt(availableSpots),
+      });
+
+      navigation.navigate("BottomTabs");
+    } catch (error) {
+      console.log(JSON.stringify(error.response, null, 2));
+    }
+  }
 
   useEffect(() => {
     if (!origin || (destination.latitude === 0 && destination.longitude === 0))
@@ -150,81 +216,76 @@ export function OfferRide() {
           />
         </MapView>
       </MapContainer>
-
-      <UserTrajectContainer>
-        <UserTrajectTitle>
-          <UserTrajectText>Seu Trajeto</UserTrajectText>
-          <UserTrajectEdit>
-            <TrajectEditText>Editar</TrajectEditText>
-            <MaterialCommunityIcons
-              name="home-edit"
-              color="#FFFFFFBF"
-              size={30}
-            />
-          </UserTrajectEdit>
-        </UserTrajectTitle>
-        <TrajectContent>
-          <MaterialCommunityIcons name="home" color="#fff" size={35} />
-          <TrajectContentTexts>
-            <TrajectTextTitle>Casa</TrajectTextTitle>
-            <TrajectSubTextTitle>Gama</TrajectSubTextTitle>
-          </TrajectContentTexts>
-        </TrajectContent>
-        <TrajectContent>
-          <MaterialCommunityIcons name="school" color="#fff" size={35} />
-          <TrajectContentTexts>
-            <TrajectTextTitle>Universidade de Brasilia</TrajectTextTitle>
-            <TrajectSubTextTitle>Campus Gama</TrajectSubTextTitle>
-          </TrajectContentTexts>
-        </TrajectContent>
-        <TrajectContent>
-          <MaterialCommunityIcons
-            name="map-marker-distance"
-            color="#fff"
-            size={35}
-          />
-          <TrajectContentTexts>
-            <TrajectTextTitle>Distancia</TrajectTextTitle>
-            <TrajectSubTextTitle>6 km</TrajectSubTextTitle>
-          </TrajectContentTexts>
-        </TrajectContent>
-        <TrajectContent>
-          <MaterialCommunityIcons
-            name="progress-clock"
-            color="#fff"
-            size={35}
-          />
-          <TrajectContentTexts>
-            <TrajectTextTitle>Duração Media</TrajectTextTitle>
-            <TrajectSubTextTitle>15 min</TrajectSubTextTitle>
-          </TrajectContentTexts>
-        </TrajectContent>
-      </UserTrajectContainer>
+      <Traject route={route} returnTo="offer" />
       <AboutCarContainer>
         <AboutCarTitle>Informações sobre o carro</AboutCarTitle>
         <AboutCarSubTitle>
           Coletamos essas informações para uma maior segurança tanto do
-          motorista quanto dos passageiros.
+          motorista quanto dos passageiros. Não se preocupe, a placa do carro
+          não poderá ser vista por outros usuários.
         </AboutCarSubTitle>
         <InfoCarForm>
-          <Overlay behavior={Platform.OS == "ios" ? "padding" : "height"}>
-            <AboutCarText>Marca</AboutCarText>
-            <CarInfoInput></CarInfoInput>
-            <AboutCarText>Modelo</AboutCarText>
-            <CarInfoInput></CarInfoInput>
-            <AboutCarText>Ano</AboutCarText>
-            <CarInfoInput keyboardType="number-pad"> </CarInfoInput>
-            <AboutCarText>Cor</AboutCarText>
-            <CarInfoInput></CarInfoInput>
-            <AboutCarText>Placa</AboutCarText>
-            <CarInfoInput></CarInfoInput>
-            <AboutCarText>Assentos livres</AboutCarText>
-            <CarInfoInput keyboardType="number-pad"></CarInfoInput>
-          </Overlay>
+          <AboutCarText>Marca</AboutCarText>
+          <CarInfoInput
+            value={car.brand}
+            onChangeText={(text) =>
+              setCar({
+                ...car,
+                brand: text,
+              })
+            }
+          />
+          <AboutCarText>Modelo</AboutCarText>
+          <CarInfoInput
+            value={car.model}
+            onChangeText={(text) =>
+              setCar({
+                ...car,
+                model: text,
+              })
+            }
+          />
+          <AboutCarText>Ano</AboutCarText>
+          <CarInfoInput
+            keyboardType="number-pad"
+            value={car.year}
+            onChangeText={(text) =>
+              setCar({
+                ...car,
+                year: text,
+              })
+            }
+          />
+          <AboutCarText>Cor</AboutCarText>
+          <CarInfoInput
+            value={car.color}
+            onChangeText={(text) =>
+              setCar({
+                ...car,
+                color: text,
+              })
+            }
+          />
+          <AboutCarText>Placa</AboutCarText>
+          <CarInfoInput
+            value={car.license_plate}
+            onChangeText={(text) =>
+              setCar({
+                ...car,
+                license_plate: text,
+              })
+            }
+          />
+          <AboutCarText>Assentos livres</AboutCarText>
+          <CarInfoInput
+            keyboardType="number-pad"
+            value={availableSpots}
+            onChangeText={(text) => setAvailableSpots(text)}
+          />
         </InfoCarForm>
       </AboutCarContainer>
       <CreateRouteButton>
-        <Button onPress={() => alert("Teste")}>
+        <Button onPress={handleCreateRide}>
           <TextGlobal color="#fff" size={23} weight="700">
             Criar Carona
           </TextGlobal>

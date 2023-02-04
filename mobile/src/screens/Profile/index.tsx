@@ -24,7 +24,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export function Profile() {
   const [email, setEmail] = useState("");
@@ -58,6 +60,12 @@ export function Profile() {
     await AsyncStorage.removeItem("@vambora:user");
 
     navigation.navigate("SignIn");
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      })
+    );
   }
 
   return (
@@ -107,6 +115,7 @@ export function Profile() {
         <LogOutText>Sair</LogOutText>
         <MaterialCommunityIcons name="logout" size={24} color="red" />
       </LogOutContainer>
+      <SafeAreaView />
     </Container>
   );
 }

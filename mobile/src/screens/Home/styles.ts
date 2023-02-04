@@ -4,9 +4,8 @@ import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
 export const Container = styled.ScrollView`
   background-color: #1A1A1A;
   flex: 1;
-  padding: 24px ;
+  padding: 24px;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
-
 `;
 
 export const MapContainer = styled.View`
@@ -14,13 +13,23 @@ export const MapContainer = styled.View`
   border-radius: 10px;
 `;
 
-
 export const TrajectContainer = styled.TouchableOpacity`
+  flex: 1;
  background-color : #7E46FF;
  border-radius: 10px;
  margin-top: 32px;
  flex-direction: column;
  padding: 20px 14px;
+`;
+
+export const MyTrajectsContainer = styled.TouchableOpacity`
+  flex: 1;
+  border-radius: 10px;
+  background-color : #222;
+  margin-top: 32px;
+  flex-direction: column;
+  padding: 20px 14px;
+  border: 1px solid #7E46FF;
 `;
 
 export const TrajectTitle = styled.Text`
@@ -99,4 +108,16 @@ export const RideTypeText = styled.Text`
   font-size: 15px;
   color: #fafafa;
   opacity : 0.7;
+`;
+
+export const MarkerContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MarkerText = styled.Text`
+  font-family: "Inter-600";
+  font-size: 8px;
+  color: #fafafa;
+  text-align: center;
 `;

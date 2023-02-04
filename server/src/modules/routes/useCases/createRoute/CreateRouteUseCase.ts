@@ -8,8 +8,8 @@ interface IRequest {
   destinationName: string,
   distance: number,
   duration: number,
-  origin: string[],
-  destination: string[],
+  origin: number[],
+  destination: number[],
   originNeighborhood: string,
 }
 

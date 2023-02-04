@@ -5,6 +5,7 @@ import { Container } from "./styles";
 import { Logo } from "../../assets/Logo";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../../services/api";
 
 export default function Welcome() {
   const navigation = useNavigation<any>();
@@ -15,7 +16,17 @@ export default function Welcome() {
     );
 
     if (user.token) {
-      navigation.navigate("BottomTabs");
+      try {
+        const response = await api.get("/route/user");
+
+        if (response.data.route.length === 0) {
+          navigation.navigate("CreateRoute");
+        } else {
+          navigation.navigate("BottomTabs");
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
     } else {
       navigation.navigate("SignIn");
     }

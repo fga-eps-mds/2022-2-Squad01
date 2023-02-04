@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { StatusBar, View } from "react-native";
+import React, { StatusBar, Text, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import {
   Container,
@@ -10,31 +10,31 @@ import {
   LocationTexts,
   Traject,
   MapContainer,
-  LastMatchsText,
-  LastMatchContainer,
-  LastMathsContainerText,
-  Separator,
-  LastRideText,
-  RideTypeText,
+  MyTrajectsContainer,
+  MarkerContainer,
+  MarkerText,
 } from "./styles";
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
 import CarLupa from "../../assets/carLupa";
 import Volante from "../../assets/volante";
-import ClockIcon from "../../assets/clock";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { api } from "../../services/api";
-import MapViewDirections from "react-native-maps-directions";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { GOOGLE_MAPS_API_KEY } from "@env";
-import { useNavigation } from "@react-navigation/native";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { TextGlobal } from "../../components/Global";
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Home() {
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
+  const isFocused = useIsFocused();
 
   const [origin, setOrigin] = useState({
     latitude: 0,
@@ -71,21 +71,25 @@ export function Home() {
       try {
         const response = await api.get("/route/all");
 
-        response.data.routes.forEach((route) => {
-          setAllUsers((oldArray) => [
-            ...oldArray,
-            {
-              origin: {
-                latitude: route.origin[0],
-                longitude: route.origin[1],
-              },
-              destination: {
-                latitude: route.destination[0],
-                longitude: route.destination[1],
-              },
+        const user = await AsyncStorage.getItem("@vambora:user");
+
+        let allUsersRoutes = response.data.routes.map((route) => {
+          if (route.createdBy === JSON.parse(user).id) return;
+
+          return {
+            origin: {
+              latitude: route.origin[0],
+              longitude: route.origin[1],
             },
-          ]);
+            destination: {
+              latitude: route.destination[0],
+              longitude: route.destination[1],
+            },
+          };
         });
+        allUsersRoutes = allUsersRoutes.filter((route) => route !== undefined);
+
+        setAllUsers(allUsersRoutes);
       } catch (error) {
         console.log(error.message);
       }
@@ -93,7 +97,7 @@ export function Home() {
 
     getUserRoute();
     getAllUsers();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (!origin || (destination.latitude === 0 && destination.longitude === 0))
@@ -134,51 +138,101 @@ export function Home() {
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         >
-          {destination.latitude !== 0 &&
-            destination.longitude !== 0 &&
-            origin.latitude !== 0 &&
-            origin.longitude !== 0 && (
-              <MapViewDirections
-                origin={{
-                  latitude: parseFloat(origin.latitude.toString()),
-                  longitude: parseFloat(origin.longitude.toString()),
-                }}
-                destination={{
-                  latitude: parseFloat(destination.latitude.toString()),
-                  longitude: parseFloat(destination.longitude.toString()),
-                }}
-                apikey={GOOGLE_MAPS_API_KEY}
-                strokeWidth={3}
-                strokeColor="#8257E6"
-              />
-            )}
           <Marker
             coordinate={{
               latitude: origin.latitude,
               longitude: origin.longitude,
             }}
-            title="Origem"
+            title="Você"
             identifier="origin"
-          />
+          >
+            <MarkerContainer>
+              <View
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: 20,
+                  backgroundColor: "#8257e6",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+            </MarkerContainer>
+          </Marker>
           <Marker
             coordinate={{
-              latitude: destination.latitude,
-              longitude: destination.longitude,
+              latitude: -15.98928,
+              longitude: -48.04454,
             }}
-            title="Destino"
+            title="UnB - Gama"
             identifier="destination"
-          />
-          {allUsers.map((user, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: user.origin.latitude,
-                longitude: user.origin.longitude,
-              }}
-              title={`Usuário ${index + 1}`}
-              identifier={`user${index + 1}`}
-            />
-          ))}
+          >
+            <MarkerContainer>
+              <MaterialIcons name="engineering" size={24} color="#d5ef2a" />
+              <MarkerText>FGA</MarkerText>
+            </MarkerContainer>
+          </Marker>
+          <Marker
+            coordinate={{
+              latitude: -15.757995,
+              longitude: -47.871353,
+            }}
+            title="UnB - Darcy Ribeiro"
+            identifier="destination"
+          >
+            <MarkerContainer>
+              <Ionicons name="school" size={24} color="#0064fa" />
+              <MarkerText>Darcy</MarkerText>
+            </MarkerContainer>
+          </Marker>
+          <Marker
+            coordinate={{
+              latitude: -15.845021,
+              longitude: -48.099459,
+            }}
+            title="UnB - Ceilândia"
+            identifier="destination"
+          >
+            <MarkerContainer>
+              <FontAwesome name="ambulance" size={24} color="#d60000" />
+              <MarkerText>FCE</MarkerText>
+            </MarkerContainer>
+          </Marker>
+          <Marker
+            coordinate={{
+              latitude: -15.600754,
+              longitude: -47.65857,
+            }}
+            title="UnB - Planaltina"
+            identifier="destination"
+          >
+            <MarkerContainer>
+              <MaterialCommunityIcons name="tree" size={30} color="#00ab50" />
+              <MarkerText>FUP</MarkerText>
+            </MarkerContainer>
+          </Marker>
+          {allUsers.length > 0 &&
+            allUsers.map((user, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: user.origin.latitude,
+                  longitude: user.origin.longitude,
+                }}
+                identifier={`user${index + 1}`}
+              >
+                <View
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: 20,
+                    backgroundColor: "#fff",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              </Marker>
+            ))}
         </MapView>
       </MapContainer>
       <TrajectContainer onPress={() => navigation.navigate("OfferRide")}>
@@ -214,14 +268,28 @@ export function Home() {
           />
         </Traject>
       </TrajectContainer>
-
+      {/* <MyTrajectsContainer onPress={() => navigation.navigate("ReceiveRide")}>
+        <Traject>
+          <Ionicons name="car" size={44} color="#fafafa" />
+          <LocationTexts>
+            <TrajectText>Suas Caronas</TrajectText>
+            <TrajectSubText>
+              Veja o status das suas caronas ativas.
+            </TrajectSubText>
+          </LocationTexts>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color="#fafafa"
+          />
+        </Traject>
+      </MyTrajectsContainer> */}
       <View
         style={{
-          marginBottom: 40 + getBottomSpace(),
+          marginBottom: 60 + getBottomSpace(),
         }}
-      >
-        <LastMatchsText>Suas ultimas caronas</LastMatchsText>
-
+      />
+      {/* <LastMatchsText>Suas ultimas caronas</LastMatchsText>
         <LastMatchContainer>
           <ClockIcon />
           <LastMathsContainerText>
@@ -253,8 +321,7 @@ export function Home() {
             <RideTypeText>Motorista</RideTypeText>
           </LastMathsContainerText>
         </LastMatchContainer>
-        <Separator />
-      </View>
+        <Separator /> */}
     </Container>
   );
 }

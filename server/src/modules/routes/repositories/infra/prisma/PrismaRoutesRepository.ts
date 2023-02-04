@@ -64,7 +64,7 @@ class PrismaRoutesRepository implements IRoutesRepository {
     return routes
   }
 
-  async updateRoute(id: string, originName?: string, destinationName?: string, distance?: number, duration?: number, origin?: string[], destination?: string[], originNeighborhood?: string, originNeighborhoodSlug?: string): Promise<Route | null> {
+  async updateRoute(id: string, originName?: string, destinationName?: string, distance?: number, duration?: number, origin?: number[], destination?: number[], originNeighborhood?: string): Promise<Route | null> {
     const route = await prisma.route.update({
       where: {
         id
@@ -77,7 +77,7 @@ class PrismaRoutesRepository implements IRoutesRepository {
         origin,
         destination,
         originNeighborhood,
-        originNeighborhoodSlug
+        originNeighborhoodSlug: originNeighborhood!.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(" ").join("-")
       }
     })
     return route

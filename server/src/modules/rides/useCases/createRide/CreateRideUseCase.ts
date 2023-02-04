@@ -1,5 +1,4 @@
 import { IRidesRepository } from "@modules/rides/repositories/IRidesRepository"
-import { User } from "@prisma/client";
 import { AppError } from "@shared/errors/AppError"
 import { inject, injectable } from "tsyringe"
 
@@ -8,7 +7,7 @@ interface IRequest {
   carId: string;
   driverId: string;
   available_spots: number;
-  passengers: string[];
+  passengers: User[];
 }
 
 @injectable()
@@ -22,7 +21,7 @@ class CreateRideUseCase {
       throw new AppError("Missing parameters")
     }
 
-    const ride = await this.ridesRepository.create({
+    const Ride = await this.ridesRepository.create({
       routeId,
       carId,
       driverId,
@@ -30,7 +29,7 @@ class CreateRideUseCase {
       passengers
     })
 
-    return ride
+    return Ride
   }
 }
 

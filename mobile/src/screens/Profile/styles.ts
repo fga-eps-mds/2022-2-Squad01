@@ -1,12 +1,15 @@
 import styled from "styled-components/native";
 import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
 
-export const Container = styled.View`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    alignItems: "center",
+  }
+})`
   background-color: #1A1A1A;
   flex: 1;
   padding: 24px 0px 0px 0px;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
-  align-items: center;
 `;
 
 export const UserInfoContainer = styled.View`
@@ -58,6 +61,7 @@ export const ContactsUserContent = styled.View`
   flex-direction : row;
   margin-top : 20px;
   align-items : center;
+  justify-content: space-between;
 `;
 
 export const ContactUser = styled.Text`
@@ -65,12 +69,14 @@ export const ContactUser = styled.Text`
   font-family : "Inter-600";
   font-size : 18px;
   margin-left : 20px;
+  width: 80%;
 `;
 
 export const ContactContainer = styled.View`
   flex : 1;
   flex-direction: row;
   align-items : center;
+  width: 80%;
 `;
 
 export const LogOutContainer = styled.TouchableOpacity`
@@ -78,7 +84,7 @@ export const LogOutContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 40px;
+  margin: 40px 0px;
   border: 1px solid #FF0000;
   padding: 8px 10px;
   border-radius: 5px;
@@ -90,4 +96,6 @@ export const LogOutText = styled.Text`
   font-size : 18px;
 `;
 
-export const IconCopy = styled.TouchableOpacity``;
+export const IconCopy = styled.TouchableOpacity`
+
+`;

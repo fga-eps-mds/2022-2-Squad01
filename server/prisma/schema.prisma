@@ -54,8 +54,8 @@ model Route {
   destinationName        String
   distance               Int
   duration               Int
-  destination            String[]
-  origin                 String[]
+  destination            Float[]
+  origin                 Float[]
   originNeighborhoodSlug String
   originNeighborhood     String
   createdAt              DateTime @default(now())

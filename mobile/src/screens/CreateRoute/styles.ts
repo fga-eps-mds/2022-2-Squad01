@@ -26,7 +26,7 @@ export const Title = styled.Text`
 
 export const RoutesContainer = styled.ScrollView`
   flex: 1;
-  padding: 40px;
+  padding: 24px;
 `
 
 export const Label = styled.Text`
@@ -67,7 +67,7 @@ export const CampusText = styled.Text<CampusProps>`
   font-weight: 600;
   font-size: 16px;
   text-align: center;
-  color: #fff
+  color: #fff;
 `
 
 export const ContinueButton = styled.TouchableOpacity<ButtonProps>`
@@ -78,6 +78,8 @@ export const ContinueButton = styled.TouchableOpacity<ButtonProps>`
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  flex: 1;
+  width: 100%;
 `
 
 export const ContinueButtonText = styled.Text`
@@ -86,3 +88,23 @@ export const ContinueButtonText = styled.Text`
   font-weight: bold;
 `
 
+export const DescriptionContainer = styled.View`
+  flex: 1;
+  margin: 10px 0 20px 0;
+`
+
+export const DescriptionInput = styled.TextInput`
+  flex: 1;
+  background: #333;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+`
+
+export const Observation = styled.Text`
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-family: 'Inter-500';
+  color: #ababab;
+`

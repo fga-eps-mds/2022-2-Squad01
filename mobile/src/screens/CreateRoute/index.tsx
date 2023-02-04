@@ -8,9 +8,12 @@ import {
   Container,
   ContinueButton,
   ContinueButtonText,
+  DescriptionContainer,
+  DescriptionInput,
   HalfContainer,
   Input,
   Label,
+  Observation,
   RoutesContainer,
   Title,
 } from "./styles";
@@ -36,9 +39,11 @@ import { api } from "../../services/api";
 import Geocoder from "react-native-geocoding";
 import { SafeAreaView } from "react-native-safe-area-context";
 import mapStyle from "../mapStyle.json";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { allNeighborhoods } from "../../utils/allNeighborhoods";
+import { Constants } from "expo-constants";
 
-export function FirstRoute() {
+export function CreateRoute({ route }) {
   const [origin, setOrigin] = useState({
     latitude: 0,
     longitude: 0,
@@ -47,6 +52,7 @@ export function FirstRoute() {
     latitude: 0,
     longitude: 0,
   });
+  const [description, setDescription] = useState("");
   const [campus, setCampus] = useState("");
   const [hasSelectedRoute, setHasSelectedRoute] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -54,6 +60,37 @@ export function FirstRoute() {
   const [originNeighborhood, setOriginNeighborhood] = useState("");
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
+  const isFocused = useIsFocused();
+
+  function hasMatchingSubstring(neighborhood: string) {
+    return allNeighborhoods.some((str) => {
+      return str.indexOf(neighborhood) > -1;
+    });
+  }
+
+  function updateLocation(location) {
+    setOrigin({
+      latitude: location.latitude,
+      longitude: location.longitude,
+    });
+    Geocoder.from(location.latitude, location.longitude).then((info) => {
+      let neighborhood = "";
+
+      info.results[0].address_components.forEach((r) => {
+        if (hasMatchingSubstring(r.long_name)) {
+          neighborhood = r.long_name;
+        }
+      });
+
+      if (neighborhood === "") {
+        alert("Selecione um local válido para continuar!");
+        return;
+      }
+
+      setOriginNeighborhood(neighborhood);
+      setDescription(info.results[0].formatted_address);
+    });
+  }
 
   useEffect(() => {
     Geocoder.init(GOOGLE_MAPS_API_KEY);
@@ -77,6 +114,8 @@ export function FirstRoute() {
             longitude: userPosition.coords.longitude,
           });
 
+          updateLocation(userPosition.coords);
+
           Geocoder.from(
             userPosition.coords.latitude,
             userPosition.coords.longitude
@@ -86,17 +125,40 @@ export function FirstRoute() {
                 info.results[0].address_components.length - 5
               ].long_name
             );
+
+            setDescription(info.results[0].formatted_address);
           });
         }
       }
     }
 
     getUserLocationPermissions();
-  }, []);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, [isFocused]);
 
   useEffect(() => {
-    if (!origin || (destination.latitude === 0 && destination.longitude === 0))
+    if (!origin) return;
+
+    if (destination.latitude === 0 && destination.longitude === 0) {
+      mapRef.current?.fitToSuppliedMarkers(["origin"], {
+        edgePadding: {
+          top: 50,
+          right: 50,
+          bottom: 50,
+          left: 50,
+        },
+      });
+
+      mapRef.current?.animateCamera({
+        center: {
+          latitude: origin.latitude,
+          longitude: origin.longitude,
+        },
+        zoom: 15,
+      });
+
       return;
+    }
 
     mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: {
@@ -106,8 +168,6 @@ export function FirstRoute() {
         left: 50,
       },
     });
-
-    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
   }, [origin, destination]);
 
   function handleSelection(campus: string) {
@@ -137,31 +197,59 @@ export function FirstRoute() {
   }
 
   async function handleContinue() {
-    const formattedOrigin = [
-      origin.latitude.toString(),
-      origin.longitude.toString(),
-    ];
-    const formattedDestination = [
-      destination.latitude.toString(),
-      destination.longitude.toString(),
-    ];
+    if (!originNeighborhood) {
+      alert("Selecione um local válido para continuar!");
+    }
+
+    const formattedOrigin = [origin.latitude, origin.longitude];
+    const formattedDestination = [destination.latitude, destination.longitude];
 
     try {
-      await api.post("/route", {
-        originName: "Rota Default",
-        distance: parseInt(distance.toFixed(2)),
-        duration: parseInt(duration.toFixed(2)),
-        origin: formattedOrigin,
-        destination: formattedDestination,
-        originNeighborhood,
-        originNeighborhoodSlug: originNeighborhood,
-        destinationName: campus,
-      });
+      const userHasRoute = await api.get("/route/user");
 
-      navigation.navigate("BottomTabs");
+      if (userHasRoute.data.route.length > 0) {
+        await api.patch(
+          "/route",
+          {
+            originName: description,
+            distance: parseInt(distance.toFixed(2)),
+            duration: parseInt(duration.toFixed(2)),
+            origin: formattedOrigin,
+            destination: formattedDestination,
+            originNeighborhood,
+            originNeighborhoodSlug: originNeighborhood,
+            destinationName: campus,
+          },
+          {
+            headers: {
+              route_id: userHasRoute.data.route[0].id,
+            },
+          }
+        );
+      } else {
+        await api.post("/route", {
+          originName: description,
+          distance: parseInt(distance.toFixed(2)),
+          duration: parseInt(duration.toFixed(2)),
+          origin: formattedOrigin,
+          destination: formattedDestination,
+          originNeighborhood,
+          originNeighborhoodSlug: originNeighborhood,
+          destinationName: campus,
+        });
+      }
+
+      const returnToRoute =
+        route.params?.returnTo === "offer"
+          ? "OfferRide"
+          : route.params?.returnTo === "receive"
+          ? "ReceiveRide"
+          : "BottomTabs";
+
+      navigation.navigate(returnToRoute);
     } catch (error) {
       alert("Erro!");
-      console.log(error);
+      console.log(JSON.stringify(error.response.data, null, 2));
     }
   }
 
@@ -185,6 +273,9 @@ export function FirstRoute() {
                 provider={PROVIDER_GOOGLE}
                 customMapStyle={mapStyle}
                 loadingEnabled
+                onPress={(event) =>
+                  updateLocation(event.nativeEvent.coordinate)
+                }
               >
                 {destination.latitude !== 0 && destination.longitude !== 0 && (
                   <MapViewDirections
@@ -241,7 +332,9 @@ export function FirstRoute() {
               nestedScrollEnabled={true}
               keyboardShouldPersistTaps="handled"
             >
-              <Title>Vamos criar a sua primeira rota!</Title>
+              <Title>
+                Vamos {!route.params ? "editar" : "criar"} a sua rota padrão!
+              </Title>
               <Label>De onde você irá sair?</Label>
               <View style={{ marginBottom: 12 }}>
                 <GooglePlacesAutocomplete
@@ -274,13 +367,17 @@ export function FirstRoute() {
                   }}
                   enablePoweredByContainer={false}
                   onPress={(data: any, details = null) => {
+                    setDescription(data.description);
+
                     setOrigin({
                       latitude: details.geometry.location.lat,
                       longitude: details.geometry.location.lng,
                     });
-                    setOriginNeighborhood(
-                      data.terms[data.terms.length - 4].value
-                    );
+                    const coords = {
+                      latitude: details.geometry.location.lat,
+                      longitude: details.geometry.location.lng,
+                    };
+                    updateLocation(coords);
                   }}
                   fetchDetails={true}
                   GooglePlacesSearchQuery={{
@@ -324,6 +421,17 @@ export function FirstRoute() {
                   }}
                 />
               </View>
+              <Label>Detalhes</Label>
+              <Observation>
+                Você pode editar ou complementar a descrição de onde você está
+                saindo
+              </Observation>
+              <DescriptionContainer>
+                <DescriptionInput
+                  value={description}
+                  onChangeText={setDescription}
+                />
+              </DescriptionContainer>
               <Label>Para qual campus você vai?</Label>
               <CampusContainer>
                 <CampusRow>
@@ -360,13 +468,13 @@ export function FirstRoute() {
                     </CampusText>
                   </Campus>
                 </CampusRow>
+                <ContinueButton
+                  disabled={!hasSelectedRoute}
+                  onPress={handleContinue}
+                >
+                  <ContinueButtonText>Continuar</ContinueButtonText>
+                </ContinueButton>
               </CampusContainer>
-              <ContinueButton
-                disabled={!hasSelectedRoute}
-                onPress={handleContinue}
-              >
-                <ContinueButtonText>Continuar</ContinueButtonText>
-              </ContinueButton>
               <SafeAreaView />
             </RoutesContainer>
           </HalfContainer>
