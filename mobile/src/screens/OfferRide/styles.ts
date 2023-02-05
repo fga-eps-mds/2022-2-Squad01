@@ -112,6 +112,17 @@ export const AboutCarText = styled.Text`
   margin-top: 20px;
 `;
 
+export const ExpandMapButton = styled.TouchableOpacity`
+  background-color: #7E46FF;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  margin: 10px;
+`;
+
 export const CarInfo = styled.Text``;
 
 export const CarInfoInput = styled.TextInput`

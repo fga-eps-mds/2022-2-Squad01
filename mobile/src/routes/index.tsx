@@ -18,6 +18,7 @@ import { api } from "../services/api";
 import { OfferRide } from "../screens/OfferRide";
 import { ReceiveRide } from "../screens/ReceiveRide";
 import { AcceptRide } from "../screens/AcceptRide";
+import { About } from "../screens/About";
 // import Loading from "../pages/Loading";
 
 const Stack = createNativeStackNavigator();
@@ -64,6 +65,7 @@ function StackRoutes() {
       <Stack.Screen name="OfferRide" component={OfferRide} />
       <Stack.Screen name="ReceiveRide" component={ReceiveRide} />
       <Stack.Screen name="AcceptRide" component={AcceptRide} />
+      <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 }

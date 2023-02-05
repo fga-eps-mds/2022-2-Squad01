@@ -97,5 +97,4 @@ export const LogOutText = styled.Text`
 `;
 
 export const IconCopy = styled.TouchableOpacity`
-
 `;

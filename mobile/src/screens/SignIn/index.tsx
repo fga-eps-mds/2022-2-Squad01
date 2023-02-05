@@ -8,6 +8,8 @@ import {
   InputText,
   NoRegisterText,
   LinkText,
+  AboutButton,
+  AboutButtonText,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -15,6 +17,7 @@ import { api } from "../../services/api";
 import { ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "../../components/Modal";
+import { Feather } from "@expo/vector-icons";
 
 export default function SingIn() {
   const [email, setEmail] = useState("");
@@ -130,6 +133,10 @@ export default function SingIn() {
             "Entrar"
           )}
         </Button>
+        <AboutButton onPress={() => navigation.navigate("About")}>
+          <AboutButtonText>Sobre o Vambora</AboutButtonText>
+          <Feather name="info" size={24} color="#ddd" />
+        </AboutButton>
       </Form>
     </Container>
   );

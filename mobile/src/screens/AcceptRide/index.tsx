@@ -35,8 +35,6 @@ export function AcceptRide(navigation) {
   const mapRef = useRef(null);
 
   useEffect(() => {
-    console.log(ride);
-
     setDestination({
       latitude: ride.route.destination[0],
       longitude: ride.route.destination[1],
@@ -254,10 +252,10 @@ export function AcceptRide(navigation) {
             <SectionTitle>Ano:</SectionTitle>
             <SectionDescription>{ride.car.year}</SectionDescription>
           </InfoContainer>
-          <InfoContainer>
+          {/* <InfoContainer>
             <SectionTitle>Assentos livres:</SectionTitle>
             <SectionDescription>{ride.available_spots}</SectionDescription>
-          </InfoContainer>
+          </InfoContainer> */}
         </SectionContainer>
         <Button
           onPress={() => {

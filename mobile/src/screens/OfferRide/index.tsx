@@ -8,6 +8,7 @@ import {
   CarInfoInput,
   Container,
   CreateRouteButton,
+  ExpandMapButton,
   InfoCarForm,
   MapContainer,
   Title,
@@ -28,6 +29,8 @@ import { Traject } from "../../components/Traject";
 
 export function OfferRide() {
   const mapRef = useRef(null);
+  const [mapHeight, setMapHeight] = useState(270);
+
   const navigation = useNavigation<any>();
   const [car, setCar] = useState({
     brand: "",
@@ -167,8 +170,8 @@ export function OfferRide() {
       <MapContainer>
         <MapView
           style={{
-            height: 270,
-            borderRadius: 20,
+            height: mapHeight,
+            borderRadius: 10,
           }}
           ref={mapRef}
           initialRegion={{

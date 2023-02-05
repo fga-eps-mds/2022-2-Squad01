@@ -13,6 +13,18 @@ export const MapContainer = styled.View`
   border-radius: 10px;
 `;
 
+export const ExpandMapButton = styled.TouchableOpacity`
+  background-color: #7E46FF;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+`;
+
 export const TrajectContainer = styled.TouchableOpacity`
   flex: 1;
  background-color : #7E46FF;

@@ -118,10 +118,10 @@ export function ReceiveRideCard({ ride, origin }: ReceiveRideCardProps) {
         <AvailableRideFromToSubTitle>
           {distanceFromUser.toFixed(2)} km
         </AvailableRideFromToSubTitle>
-        <AvailableRideFromToTitle>Vagas disponíveis:</AvailableRideFromToTitle>
+        {/* <AvailableRideFromToTitle>Vagas disponíveis:</AvailableRideFromToTitle>
         <AvailableRideFromToSubTitle>
           {ride.available_spots}
-        </AvailableRideFromToSubTitle>
+        </AvailableRideFromToSubTitle> */}
         <AvailableRideFromToTitle>Criado em:</AvailableRideFromToTitle>
         <AvailableRideFromToSubTitle>
           {new Date(ride.createdAt).toLocaleDateString("pt-BR", {

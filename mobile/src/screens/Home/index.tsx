@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { StatusBar, Text, View } from "react-native";
+import React, { Dimensions, StatusBar, Text, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import {
   Container,
@@ -13,6 +13,7 @@ import {
   MyTrajectsContainer,
   MarkerContainer,
   MarkerText,
+  ExpandMapButton,
 } from "./styles";
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps";
@@ -35,6 +36,7 @@ export function Home() {
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
+  const [mapHeight, setMapHeight] = useState(270);
 
   const [origin, setOrigin] = useState({
     latitude: 0,
@@ -125,8 +127,8 @@ export function Home() {
       <MapContainer>
         <MapView
           style={{
-            height: 270,
-            borderRadius: 20,
+            height: mapHeight,
+            borderRadius: 10,
           }}
           ref={mapRef}
           initialRegion={{
@@ -138,6 +140,34 @@ export function Home() {
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         >
+          <ExpandMapButton
+            onPress={() => {
+              if (mapHeight === 600) setMapHeight(270);
+              else setMapHeight(600);
+            }}
+          >
+            {mapHeight === 600 ? (
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Inter-600",
+                  color: "#fff",
+                }}
+              >
+                -
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Inter-600",
+                  color: "#fff",
+                }}
+              >
+                +
+              </Text>
+            )}
+          </ExpandMapButton>
           <Marker
             coordinate={{
               latitude: origin.latitude,

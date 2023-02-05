@@ -42,3 +42,22 @@ export const LinkText = styled.Text`
   font-weight: 600;
   font-size: 16px
 `;
+
+export const AboutButton = styled.TouchableOpacity`
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #8257E5;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-horizontal: 20px;
+`;
+
+export const AboutButtonText = styled.Text`
+  color: #ddd;
+  font-size: 16px;
+  font-weight: 600;
+`;
