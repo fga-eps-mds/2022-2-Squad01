@@ -9,7 +9,7 @@ if (!LOCALHOST) {
 }
 
 export const api = axios.create({
-  baseURL: `http://${LOCALHOST}:3333`,
+  baseURL: `https://${LOCALHOST}`,
 });
 
 api.interceptors.request.use(async (req) => {

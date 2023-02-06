@@ -8,7 +8,6 @@ import {
   CarInfoInput,
   Container,
   CreateRouteButton,
-  ExpandMapButton,
   InfoCarForm,
   MapContainer,
   Title,
@@ -26,6 +25,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Button } from "../../components/Button";
 import { TextGlobal } from "../../components/Global";
 import { Traject } from "../../components/Traject";
+import { View } from "react-native";
 
 export function OfferRide() {
   const mapRef = useRef(null);
@@ -208,7 +208,16 @@ export function OfferRide() {
             }}
             title="Origem"
             identifier="origin"
-          />
+          >
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 15,
+                backgroundColor: "#8257E6",
+              }}
+            />
+          </Marker>
           <Marker
             coordinate={{
               latitude: destination.latitude,
@@ -216,7 +225,16 @@ export function OfferRide() {
             }}
             title="Destino"
             identifier="destination"
-          />
+          >
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 15,
+                backgroundColor: "#32CD32",
+              }}
+            />
+          </Marker>
         </MapView>
       </MapContainer>
       <Traject route={route} returnTo="offer" />
@@ -287,6 +305,7 @@ export function OfferRide() {
           />
         </InfoCarForm>
       </AboutCarContainer>
+
       <CreateRouteButton>
         <Button onPress={handleCreateRide}>
           <TextGlobal color="#fff" size={23} weight="700">

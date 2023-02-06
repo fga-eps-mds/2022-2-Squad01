@@ -271,7 +271,16 @@ export function ReceiveRide() {
               }}
               title="Destino"
               identifier="destination"
-            />
+            >
+              <View
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 15,
+                  backgroundColor: "#32CD32",
+                }}
+              />
+            </Marker>
             {rides.length > 0 &&
               rides.map((userRide) => (
                 <Marker

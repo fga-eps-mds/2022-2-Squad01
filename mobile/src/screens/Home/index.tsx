@@ -140,34 +140,15 @@ export function Home() {
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         >
-          <ExpandMapButton
-            onPress={() => {
-              if (mapHeight === 600) setMapHeight(270);
-              else setMapHeight(600);
-            }}
-          >
-            {mapHeight === 600 ? (
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: "Inter-600",
-                  color: "#fff",
-                }}
-              >
-                -
-              </Text>
-            ) : (
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: "Inter-600",
-                  color: "#fff",
-                }}
-              >
-                +
-              </Text>
-            )}
-          </ExpandMapButton>
+          {mapHeight === 270 ? (
+            <ExpandMapButton onPress={() => setMapHeight(600)}>
+              <Ionicons name="expand" size={22} color="#fff" />
+            </ExpandMapButton>
+          ) : (
+            <ExpandMapButton onPress={() => setMapHeight(270)}>
+              <Ionicons name="contract" size={22} color="#fff" />
+            </ExpandMapButton>
+          )}
           <Marker
             coordinate={{
               latitude: origin.latitude,
