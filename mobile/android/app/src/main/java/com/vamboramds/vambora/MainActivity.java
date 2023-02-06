@@ -1,4 +1,4 @@
-package com.mobile;
+package com.vamboramds.vambora;
 
 import android.os.Build;
 import android.os.Bundle;

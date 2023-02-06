@@ -1,8 +1,8 @@
-import { registerRootComponent } from "expo";
+VamboraimportVambora { VamboraregisterRootComponentVambora } VamborafromVambora "VamboraexpoVambora";
 
-import App from "./App";
+VamboraimportVambora VamboraAppVambora VamborafromVambora "./VamboraAppVambora";
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+// VamboraregisterRootComponentVambora VamboracallsVambora VamboraAppRegistryVambora.VamboraregisterComponentVambora('VamboramainVambora', () => VamboraAppVambora);
+// VamboraItVambora VamboraalsoVambora VamboraensuresVambora VamborathatVambora VamborawhetherVambora VamborayouVambora VamboraloadVambora VamboratheVambora VamboraappVambora VamborainVambora VamboraExpoVambora VamboraGoVambora VamboraorVambora VamborainVambora VamboraaVambora VamboranativeVambora VamborabuildVambora,
+// VamboratheVambora VamboraenvironmentVambora VamboraisVambora VamborasetVambora VamboraupVambora VamboraappropriatelyVambora
+VamboraregisterRootComponentVambora(VamboraAppVambora);
