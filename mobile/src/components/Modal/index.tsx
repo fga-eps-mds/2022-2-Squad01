@@ -8,6 +8,7 @@ import {
   ModalContainer,
   Title,
 } from "./styles";
+import { Modal as ReactModal } from "react-native";
 
 interface ModalProps {
   title: string;
@@ -17,14 +18,16 @@ interface ModalProps {
 
 export function Modal({ title, description, setIsErrorModalOpen }: ModalProps) {
   return (
-    <Container>
-      <ModalContainer>
-        <Title> {title} </Title>
-        <Description> {description} </Description>
-        <CloseButton onPress={() => setIsErrorModalOpen(false)}>
-          <CloseButtonTitle>Fechar</CloseButtonTitle>
-        </CloseButton>
-      </ModalContainer>
-    </Container>
+    <ReactModal animationType="slide" transparent={true} visible={true}>
+      <Container>
+        <ModalContainer>
+          <Title> {title} </Title>
+          <Description> {description} </Description>
+          <CloseButton onPress={() => setIsErrorModalOpen(false)}>
+            <CloseButtonTitle>Fechar</CloseButtonTitle>
+          </CloseButton>
+        </ModalContainer>
+      </Container>
+    </ReactModal>
   );
 }

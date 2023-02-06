@@ -47,10 +47,12 @@ export const CloseButton = styled.TouchableOpacity`
   padding: 10px 50px;
   border-radius: 8px;
   margin-bottom: 8px;
+  width: 100%;
 `;
 
 export const CloseButtonTitle = styled.Text`
   font-size: 20px;
   color: #8257E5;
   font-weight: bold;
+  text-align: center;
 `;

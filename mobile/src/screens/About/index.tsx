@@ -33,7 +33,7 @@ export function About() {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: "#8257e6",
+          backgroundColor: "#222",
         }}
       />
       <Header>
@@ -62,7 +62,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Ana} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Ana Rocha
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -74,7 +74,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Bruno} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Bruno Medeiros
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -86,7 +86,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Guga} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Gustavo Henrique
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -98,7 +98,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Kenzo} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Gustavo Kenzo
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -112,7 +112,7 @@ export function About() {
               source={{ uri: "https://github.com/typejulio.png" }}
             />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Julio Cesar
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -123,7 +123,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Leo} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Leonardo Lago Moreno
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>
@@ -135,7 +135,7 @@ export function About() {
           <CreatorContent>
             <CreatorsImage source={Samuel} />
             <CreatorsTextAbout>
-              <CreatorAbout style={{ fontWeight: "bold" }}>
+              <CreatorAbout style={{ fontFamily: "Inter-700" }}>
                 Samuel Ricardo
               </CreatorAbout>
               <CreatorAbout style={{ marginTop: 10 }}>

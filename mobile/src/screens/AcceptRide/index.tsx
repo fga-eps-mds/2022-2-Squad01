@@ -24,12 +24,15 @@ import mapStyle from "../mapStyle.json";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { Linking, View } from "react-native";
+import { Modal } from "../../components/Modal";
+import { AcceptRideModal } from "../../components/AcceptRideModal";
 
 export function AcceptRide(navigation) {
   const [destination, setDestination] = useState({
     latitude: 0,
     longitude: 0,
   });
+  const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
 
   const { ride, origin, distanceFromUser } = navigation.route.params;
   const mapRef = useRef(null);
@@ -57,6 +60,14 @@ export function AcceptRide(navigation) {
 
   return (
     <Container>
+      {isAcceptModalOpen && (
+        <AcceptRideModal
+          setIsAcceptModalOpen={setIsAcceptModalOpen}
+          email={ride.driver.email}
+          instagram={ride.driver.instagram}
+          cellphone={ride.driver.cellphone}
+        />
+      )}
       <SafeAreaView
         style={{
           flex: 1,
@@ -204,10 +215,12 @@ export function AcceptRide(navigation) {
             <SectionTitle>Telefone:</SectionTitle>
             <SectionDescription>{ride.driver.cellphone}</SectionDescription>
           </InfoContainer>
-          <InfoContainer>
-            <SectionTitle>Instagram:</SectionTitle>
-            <SectionDescription>{ride.driver.instagram}</SectionDescription>
-          </InfoContainer>
+          {ride.driver.instagram.length > 1 && (
+            <InfoContainer>
+              <SectionTitle>Instagram:</SectionTitle>
+              <SectionDescription>{ride.driver.instagram}</SectionDescription>
+            </InfoContainer>
+          )}
         </SectionContainer>
         <SectionContainer>
           <InfoTitle>Trajeto</InfoTitle>
@@ -259,7 +272,8 @@ export function AcceptRide(navigation) {
         </SectionContainer>
         <Button
           onPress={() => {
-            Linking.openURL(`mailto:${ride.driver.email}`);
+            // Linking.openURL(`mailto:${ride.driver.email}`);
+            setIsAcceptModalOpen(true);
           }}
         >
           <ButtonText>Entrar em contato</ButtonText>
