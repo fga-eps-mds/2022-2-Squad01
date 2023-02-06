@@ -14,7 +14,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { api } from "../../services/api";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, LogBox } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Modal } from "../../components/Modal";
 import { Feather } from "@expo/vector-icons";

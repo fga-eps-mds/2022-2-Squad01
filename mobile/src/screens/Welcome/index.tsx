@@ -19,13 +19,16 @@ export default function Welcome() {
       try {
         const response = await api.get("/route/user");
 
-        if (response.data.route.length === 0) {
+        if (response.data === undefined) {
+          navigation.navigate("SignIn");
+        } else if (response.data.route.length === 0) {
           navigation.navigate("CreateRoute");
         } else {
           navigation.navigate("BottomTabs");
         }
       } catch (error) {
         console.log(error.response);
+        navigation.navigate("SignIn");
       }
     } else {
       navigation.navigate("SignIn");

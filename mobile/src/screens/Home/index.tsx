@@ -140,7 +140,7 @@ export function Home() {
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         >
-          {mapHeight === 270 ? (
+          {/* {mapHeight === 270 ? (
             <ExpandMapButton onPress={() => setMapHeight(600)}>
               <Ionicons name="expand" size={22} color="#fff" />
             </ExpandMapButton>
@@ -148,7 +148,7 @@ export function Home() {
             <ExpandMapButton onPress={() => setMapHeight(270)}>
               <Ionicons name="contract" size={22} color="#fff" />
             </ExpandMapButton>
-          )}
+          )} */}
           <Marker
             coordinate={{
               latitude: origin.latitude,
