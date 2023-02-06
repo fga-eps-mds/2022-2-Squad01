@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Vambora.app"
-               BlueprintName = "Vambora"
-               ReferencedContainer = "container:Vambora.xcodeproj">
+               BuildableName = "vambora.app"
+               BlueprintName = "vambora"
+               ReferencedContainer = "container:vambora.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "VamboraTests.xctest"
-               BlueprintName = "VamboraTests"
-               ReferencedContainer = "container:Vambora.xcodeproj">
+               BuildableName = "vamboraTests.xctest"
+               BlueprintName = "vamboraTests"
+               ReferencedContainer = "container:vambora.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Vambora.app"
-            BlueprintName = "Vambora"
-            ReferencedContainer = "container:Vambora.xcodeproj">
+            BuildableName = "vambora.app"
+            BlueprintName = "vambora"
+            ReferencedContainer = "container:vambora.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Vambora.app"
-            BlueprintName = "Vambora"
-            ReferencedContainer = "container:Vambora.xcodeproj">
+            BuildableName = "vambora.app"
+            BlueprintName = "vambora"
+            ReferencedContainer = "container:vambora.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

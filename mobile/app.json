@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Vambora",
-    "slug": "Vambora",
+    "name": "vambora",
+    "slug": "vambora",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
