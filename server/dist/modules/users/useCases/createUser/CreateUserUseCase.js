@@ -43,7 +43,7 @@ let CreateUserUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (t
     if (userExists) {
       throw new _AppError.AppError("User already exists!");
     }
-    const verificationCode = Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
+    const verificationCode = Math.floor(100000 + Math.random() * 900000);
     const hashedPassword = await brcypt.hash(password, 10);
     console.log("Tentando enviar o e-mail");
     await this.mailAdapter.sendMail({
@@ -59,7 +59,7 @@ let CreateUserUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (t
       password: hashedPassword,
       cellphone,
       instagram,
-      verificationCode: parseInt(verificationCode)
+      verificationCode
     });
     return user;
   }

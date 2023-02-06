@@ -23,11 +23,10 @@ let updateRouteUseCase;
       duration: 10,
       origin: ["4321", "4321"],
       destination: ["123123", "1234124"],
-      originNeighborhood: "Origin Neighborhood",
-      originNeighborhoodSlug: "Origin Neighborhood"
+      originNeighborhood: "Origin Neighborhood"
     });
     const updatedRoute = await updateRouteUseCase.execute({
-      routeId: route.id,
+      route_id: route.id,
       originName: "Updated Origin",
       destinationName: "Route Destination",
       distance: 10,

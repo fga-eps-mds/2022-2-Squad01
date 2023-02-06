@@ -39,7 +39,7 @@ let CreateRouteUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (
       destination,
       originNeighborhood: originNeighborhood,
       destinationName,
-      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").split(" ").join("-")
+      originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(" ").join("-")
     });
     return route;
   }

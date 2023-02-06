@@ -39,11 +39,19 @@ class JwtTokenAdapter {
     return refreshToken;
   }
   async deleteUserRefreshToken(user_id) {
-    await _prisma.prisma.refreshToken.deleteMany({
+    console.log(user_id);
+    const count = await _prisma.prisma.refreshToken.count({
       where: {
         userId: user_id
       }
     });
+    if (count > 0) {
+      await _prisma.prisma.refreshToken.deleteMany({
+        where: {
+          userId: user_id
+        }
+      });
+    }
   }
 }
 exports.JwtTokenAdapter = JwtTokenAdapter;

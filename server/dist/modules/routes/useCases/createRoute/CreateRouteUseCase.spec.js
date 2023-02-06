@@ -20,8 +20,7 @@ let createRouteUseCase;
       duration: 10,
       origin: ["4321", "4321"],
       destination: ["123123", "1234124"],
-      originNeighborhood: "Origin Neighborhood",
-      originNeighborhoodSlug: "Origin Neighborhood"
+      originNeighborhood: "Origin Neighborhood"
     });
 
     // expect(route).toHaveProperty("id")
@@ -37,8 +36,7 @@ let createRouteUseCase;
       duration: 10,
       origin: ["12312", "123124"],
       destination: ["12312", "123124"],
-      originNeighborhood: "Origin Neighborhood",
-      originNeighborhoodSlug: "Origin Neighborhood"
+      originNeighborhood: "Origin Neighborhood"
     })).rejects.toThrow();
   });
 });

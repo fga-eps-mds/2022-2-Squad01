@@ -41,6 +41,9 @@ class RoutesRepostoryInMemory {
     });
     if (route) return route;else return null;
   }
+  async listAll() {
+    return this.routesRepository;
+  }
   async listByUser(userId) {
     const routes = this.routesRepository.filter(route => {
       return route.createdBy === userId;

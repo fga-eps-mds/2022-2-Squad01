@@ -57,7 +57,7 @@ class PrismaRoutesRepository {
     });
     return routes;
   }
-  async updateRoute(id, originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug) {
+  async updateRoute(id, originName, destinationName, distance, duration, origin, destination, originNeighborhood) {
     const route = await _prisma.prisma.route.update({
       where: {
         id
@@ -70,7 +70,7 @@ class PrismaRoutesRepository {
         origin,
         destination,
         originNeighborhood,
-        originNeighborhoodSlug
+        originNeighborhoodSlug: originNeighborhood.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(" ").join("-")
       }
     });
     return route;

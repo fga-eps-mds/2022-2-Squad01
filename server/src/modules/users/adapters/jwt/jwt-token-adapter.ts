@@ -38,11 +38,19 @@ class JwtTokenAdapter implements ITokenAdapter {
   }
 
   async deleteUserRefreshToken(user_id: string): Promise<void> {
-    await prisma.refreshToken.deleteMany({
+    const count = await prisma.refreshToken.count({
       where: {
         userId: user_id
       }
     })
+
+    if (count > 0) {
+      await prisma.refreshToken.deleteMany({
+        where: {
+          userId: user_id
+        }
+      })
+    }
   }
 }
 

@@ -15,21 +15,20 @@ let UpdateRouteUseCase = (_dec = (0, _tsyringe.injectable)(), _dec2 = function (
     this.routesRepository = routesRepository;
   }
   async execute({
-    routeId,
+    route_id,
     originName,
     destinationName,
     distance,
     duration,
     origin,
     destination,
-    originNeighborhood,
-    originNeighborhoodSlug
+    originNeighborhood
   }) {
-    const route = await this.routesRepository.findById(routeId);
+    const route = await this.routesRepository.findById(route_id);
     if (!route) {
       throw new _AppError.AppError("Route does not exist!", 404);
     }
-    const updatedUser = await this.routesRepository.updateRoute(routeId, originName, destinationName, distance, duration, origin, destination, originNeighborhood, originNeighborhoodSlug);
+    const updatedUser = await this.routesRepository.updateRoute(route_id, originName, destinationName, distance, duration, origin, destination, originNeighborhood);
     return updatedUser;
   }
 }) || _class) || _class) || _class) || _class);

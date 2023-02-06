@@ -7,14 +7,15 @@ exports.DeleteRouteController = void 0;
 var _tsyringe = require("tsyringe");
 var _DeleteRouteUseCase = require("./DeleteRouteUseCase");
 class DeleteRouteController {
-  async handle(request, response) {
-    const {
+  async handle(req, res) {
+    let {
       id
-    } = request.params;
-    const user_id = request.user;
+    } = req.headers;
+    const user_id = req.user;
+    id = String(id);
     const deleteRouteUseCase = _tsyringe.container.resolve(_DeleteRouteUseCase.DeleteRouteUseCase);
     await deleteRouteUseCase.execute(id, user_id);
-    return response.status(204).send();
+    return res.status(204).send();
   }
 }
 exports.DeleteRouteController = DeleteRouteController;
