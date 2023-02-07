@@ -70,7 +70,7 @@ Quantidade de Tarefas(Issues) criadas: 6.
 |Protótipo de baixa fidelidade|Ana, Júlio, Bruno e Samuel |2, 5, 3 e 5|x|2|
 |Criar o MER e o DER|Samuel e Leonardo|5 e 3|x|1|
 |Criar GitHub Pages|Júlio e Gustavo Kenzo|1 e 3|x|2|
-|Front-end: Tela de Login|Ana, Gustavo Henrique e Júlio|3, 1 e 2|2|
+|Front-end: Tela de Login|Ana, Gustavo Henrique e Júlio|3, 1 e 2||2|
 |Back-end: CRUD de Login|Bruno, Samuel, Gustavo Kenzo, Leonardo|3, 5, 2 e 5|FT01|2|
 
 <br>
@@ -125,36 +125,49 @@ Data da Sprint: 20/12/2022 a 26/12/2022.
 Quantidade de Tarefas(Issues) criadas: 5.
 |Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
 |--|--|--|--|--|
-|Spike para estudarmos Google Maps|Todos|x|FT4|5|
+|Spike para estudarmos Google Maps|Todos|5|FT4|5|
 Observações: Essa foi a semana do natal, então fizemos uma Spike Issue, estudamos pequenos detalhes da implementação do Google Maps.
 
 ## Sprint 6
 Data da Sprint: 27/12/2022 a 02/12/2022. 
 |Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
 |--|--|--|--|--|
-|Spike para estudarmos Google Maps|Todos|x|FT4|6|
+|Spike para estudarmos Google Maps|Todos|5|FT4|6|
 Observações: Essa foi a semana do ano novo, então fizemos uma Spike Issue, estudamos pequenos detalhes da implementação do Google Maps.
 
 ## Sprint 7
 Data da Sprint: 03/01/2022 a 09/01/2022.
 |Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
 |--|--|--|--|--|
-|Back-end: CRUD de Rota|Gustavo kenzo, Leonardo, Bruno, Samuel|x|FT4|x|
-|Front-end: Tela Home|Gustavo Henrique, Julio, Ana|x|FT4|x|
+|Back-end: CRUD de Rota|Gustavo kenzo, Leonardo, Bruno, Samuel|x|FT4|8|
+|Front-end: Tela Home|Gustavo Henrique, Julio, Ana|2 e 8|FT4|7|
 Observações: Essas issues estão previstas para durar mais de uma Sprint.
 
 ## Sprint 8
 Data da Sprint: 10/01/2022 a 16/01/2022.
-Observações: Nesta Sprint estamos fazendo as issues previstas na Sprint 7 e implementando a Git Pages.
+Observações: Nesta Sprint estamos fazendo as issues previstas na Sprint 7.
 
 ## Sprint 9
 Data da Sprint: 17/01/2022 a 23/01/2022. 
+|Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
+|--|--|--|--|--|
+|Criar fluxos de CI/CD|Gustavo kenzo, Leonardo, Bruno, Samuel|8|FT4|10|
+|Front-end: Tela Perfil|Gustavo Henrique|2 e 5|FT4|9|
+
 
 ## Sprint 10
-Data da Sprint: 24/01/2022 a 30/01/2022. 
+Data da Sprint: 24/01/2022 a 30/01/2022.
+|Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
+|--|--|--|--|--|
+|Front-end: Bug Google Maps|Gustavo Henrique|5 e 8|FT4|10|
+|Front-end: Ajustar Front para fazer refresh dos JWT|Gustavo Henrique, Gustavo Kenzo|5|FT4|10|
 
 ## Sprint 11
-Data da Sprint: 31/01/2022 a 06/02/2022. 
+Data da Sprint: 31/01/2022 a 06/02/2022.
+|Tarefa|Responsáveis|Planning Poker|Backlog|Sprint de Conclusão|
+|--|--|--|--|--|
+|Implementar Geolocalização Reversa|Gustavo kenzo, Leonardo, Bruno, Samuel|8|FT4|11|
+|Deploy do Back-End|Gustavo kenzo, Leonardo, Bruno, Samuel|5 e 8|FT4|10|
 
 ## Sprint 12
 Data da Sprint: 07/02/2022 a 13/02/2022. 
