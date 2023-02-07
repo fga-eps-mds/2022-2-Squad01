@@ -13,7 +13,8 @@ import {
   Title,
   TitleText,
 } from "./styles";
-import { GOOGLE_MAPS_API_KEY } from "@env";
+import Constants from "expo-constants";
+
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import MapView, { Marker } from "react-native-maps";
@@ -28,6 +29,8 @@ import { Traject } from "../../components/Traject";
 import { View } from "react-native";
 
 export function OfferRide() {
+  const GOOGLE_MAPS_API_KEY = Constants.manifest.extra.GOOGLE_MAPS_API_KEY;
+
   const mapRef = useRef(null);
   const [mapHeight, setMapHeight] = useState(270);
 
@@ -84,6 +87,8 @@ export function OfferRide() {
           originNeighborhood: defaultRoute.originNeighborhood,
           originNeighborhoodSlug: defaultRoute.originNeighborhoodSlug,
         });
+
+        fitToMarkers(defaultRoute.origin, defaultRoute.destination);
       } catch (error) {
         console.log(error.message);
       }
@@ -144,19 +149,28 @@ export function OfferRide() {
     }
   }
 
-  useEffect(() => {
-    if (!origin || (destination.latitude === 0 && destination.longitude === 0))
-      return;
-
-    mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
-      edgePadding: {
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 50,
-      },
-    });
-  }, [origin, destination]);
+  function fitToMarkers(origin: any, destination: any) {
+    mapRef.current?.fitToCoordinates(
+      [
+        {
+          latitude: origin[0],
+          longitude: origin[1],
+        },
+        {
+          latitude: destination[0],
+          longitude: destination[1],
+        },
+      ],
+      {
+        edgePadding: {
+          top: 50,
+          right: 50,
+          bottom: 50,
+          left: 50,
+        },
+      }
+    );
+  }
 
   return (
     <Container>

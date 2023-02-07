@@ -22,12 +22,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import mapStyle from "../mapStyle.json";
 import MapViewDirections from "react-native-maps-directions";
-import { GOOGLE_MAPS_API_KEY } from "@env";
+import Constants from "expo-constants";
 import { Linking, View } from "react-native";
 import { Modal } from "../../components/Modal";
 import { AcceptRideModal } from "../../components/AcceptRideModal";
 
 export function AcceptRide(navigation) {
+  const GOOGLE_MAPS_API_KEY = Constants.expoConfig.extra.GOOGLE_MAPS_API_KEY;
+
   const [destination, setDestination] = useState({
     latitude: 0,
     longitude: 0,

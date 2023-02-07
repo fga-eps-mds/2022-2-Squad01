@@ -80,6 +80,7 @@ export const ContinueButton = styled.TouchableOpacity<ButtonProps>`
   margin-top: 10px;
   flex: 1;
   width: 100%;
+  margin-bottom: 50px;
 `
 
 export const ContinueButtonText = styled.Text`

@@ -21,7 +21,6 @@ import {
   SliderContainer,
   SliderRangeText,
 } from "./styles";
-import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../services/api";
 import MapView, { Circle, Marker } from "react-native-maps";
@@ -34,8 +33,10 @@ import { Traject } from "../../components/Traject";
 import { ScrollView, View } from "react-native";
 import Slider from "@react-native-community/slider";
 import { ReceiveRideCard } from "../../components/ReceiveRideCard";
+import Constants from "expo-constants";
 
 export function ReceiveRide() {
+  const GOOGLE_MAPS_API_KEY = Constants.manifest.extra.GOOGLE_MAPS_API_KEY;
   const mapRef = useRef(null);
   const navigation = useNavigation<any>();
   const isFocused = useIsFocused();
@@ -101,6 +102,7 @@ export function ReceiveRide() {
       });
 
       getAllRides(defaultRoute.id);
+      fitToMarkers(defaultRoute.origin, defaultRoute.destination);
     } catch (error) {
       console.log(error.message);
     }
@@ -181,6 +183,29 @@ export function ReceiveRide() {
     });
 
     setFilters(newFilters);
+  }
+
+  function fitToMarkers(origin: any, destination: any) {
+    mapRef.current?.fitToCoordinates(
+      [
+        {
+          latitude: origin[0],
+          longitude: origin[1],
+        },
+        {
+          latitude: destination[0],
+          longitude: destination[1],
+        },
+      ],
+      {
+        edgePadding: {
+          top: 50,
+          right: 50,
+          bottom: 50,
+          left: 50,
+        },
+      }
+    );
   }
 
   return (

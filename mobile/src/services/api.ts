@@ -1,15 +1,17 @@
 import axios from "axios";
-import { LOCALHOST } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
 
 const port = "3333";
+
+const LOCALHOST = Constants.expoConfig.extra.LOCALHOST;
 
 if (!LOCALHOST) {
   console.log("Lembre-se de colocar o IP gerado pelo expo no .env com o nome LOCALHOST=seuip");
 }
 
 export const api = axios.create({
-  baseURL: `https://${LOCALHOST}`,
+  baseURL: `https://vambora.tech`,
 });
 
 api.interceptors.request.use(async (req) => {

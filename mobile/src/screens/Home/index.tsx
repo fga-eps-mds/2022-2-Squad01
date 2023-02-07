@@ -27,7 +27,11 @@ import {
   MaterialIcons,
   FontAwesome,
 } from "@expo/vector-icons";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import {
+  CommonActions,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import { TextGlobal } from "../../components/Global";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -64,6 +68,8 @@ export function Home() {
           latitude: defaultRoute.destination[0],
           longitude: defaultRoute.destination[1],
         });
+
+        fitToMarkers(defaultRoute.origin, defaultRoute.destination);
       } catch (error) {
         console.log(error.message);
       }
@@ -101,19 +107,28 @@ export function Home() {
     getAllUsers();
   }, [isFocused]);
 
-  useEffect(() => {
-    if (!origin || (destination.latitude === 0 && destination.longitude === 0))
-      return;
-
-    mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
-      edgePadding: {
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 50,
-      },
-    });
-  }, [origin, destination]);
+  function fitToMarkers(origin: any, destination: any) {
+    mapRef.current?.fitToCoordinates(
+      [
+        {
+          latitude: origin[0],
+          longitude: origin[1],
+        },
+        {
+          latitude: destination[0],
+          longitude: destination[1],
+        },
+      ],
+      {
+        edgePadding: {
+          top: 50,
+          right: 50,
+          bottom: 50,
+          left: 50,
+        },
+      }
+    );
+  }
 
   return (
     <Container>

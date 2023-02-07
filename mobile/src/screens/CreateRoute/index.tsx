@@ -33,7 +33,6 @@ import {
 } from "expo-location";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLE_MAPS_API_KEY } from "@env";
 import MapViewDirections from "react-native-maps-directions";
 import { api } from "../../services/api";
 import Geocoder from "react-native-geocoding";
@@ -41,9 +40,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import mapStyle from "../mapStyle.json";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { allNeighborhoods } from "../../utils/allNeighborhoods";
-import { Constants } from "expo-constants";
+import Constants from "expo-constants";
 
 export function CreateRoute({ route }) {
+  const GOOGLE_MAPS_API_KEY = Constants.manifest.extra.GOOGLE_MAPS_API_KEY;
+
   const [origin, setOrigin] = useState({
     latitude: 0,
     longitude: 0,
@@ -81,11 +82,6 @@ export function CreateRoute({ route }) {
           neighborhood = r.long_name;
         }
       });
-
-      if (neighborhood === "") {
-        alert("Selecione um local válido para continuar!");
-        return;
-      }
 
       setOriginNeighborhood(neighborhood);
       setDescription(info.results[0].formatted_address);
@@ -159,16 +155,30 @@ export function CreateRoute({ route }) {
 
       return;
     }
-
-    mapRef.current?.fitToSuppliedMarkers(["origin", "destination"], {
-      edgePadding: {
-        top: 50,
-        right: 50,
-        bottom: 50,
-        left: 50,
-      },
-    });
   }, [origin, destination]);
+
+  function fitMarkers(latitude, longitude) {
+    mapRef.current?.fitToCoordinates(
+      [
+        {
+          latitude: origin.latitude,
+          longitude: origin.longitude,
+        },
+        {
+          latitude: latitude,
+          longitude: longitude,
+        },
+      ],
+      {
+        edgePadding: {
+          top: 50,
+          right: 50,
+          bottom: 50,
+          left: 50,
+        },
+      }
+    );
+  }
 
   function handleSelection(campus: string) {
     setCampus(campus);
@@ -178,21 +188,29 @@ export function CreateRoute({ route }) {
         latitude: -15.757995,
         longitude: -47.871353,
       });
+
+      fitMarkers(-15.757995, -47.871353);
     } else if (campus === "Gama") {
       setDestination({
         latitude: -15.98928,
         longitude: -48.04454,
       });
+
+      fitMarkers(-15.98928, -48.04454);
     } else if (campus === "Ceilândia") {
       setDestination({
         latitude: -15.845021,
         longitude: -48.099459,
       });
+
+      fitMarkers(-15.845021, -48.099459);
     } else {
       setDestination({
         latitude: -15.600754,
         longitude: -47.65857,
       });
+
+      fitMarkers(-15.600754, -47.65857);
     }
   }
 

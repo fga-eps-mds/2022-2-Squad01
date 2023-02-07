@@ -6,6 +6,7 @@ export const Container = styled.View`
   flex: 1;
   padding: 24px;
   padding-top: ${isIphoneX() ? getStatusBarHeight(true) + 24 : 24}px;
+  padding-bottom: 0px;
 `;
 
 export const Separator = styled.View`
@@ -43,6 +44,7 @@ export const BackIcon = styled.TouchableOpacity`
 
 export const AvailableRideContainer = styled.View`
   flex: 1;
+  margin-bottom: 24px;
 `;
 
 export const AvailableRideFilterContent = styled.View`

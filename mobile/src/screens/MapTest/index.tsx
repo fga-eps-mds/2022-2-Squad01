@@ -9,7 +9,8 @@ import { Container, HalfContainer } from "./styles";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 
-import { GOOGLE_MAPS_API_KEY } from "@env";
+import Constants from "expo-constants";
+
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 interface Coordinate {
@@ -18,6 +19,7 @@ interface Coordinate {
 }
 
 export function MapTest() {
+  const GOOGLE_MAPS_API_KEY = Constants.expoConfig.extra.GOOGLE_MAPS_API_KEY;
   const [origin, setOrigin] = useState({
     latitude: 0,
     longitude: 0,
