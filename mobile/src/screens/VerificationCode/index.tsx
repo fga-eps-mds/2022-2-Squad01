@@ -63,7 +63,7 @@ export function VerificationCode() {
   async function handleVerificationCode() {
     if (!verificationCode || verificationCode.length !== 6) {
       setErrorTitle("Erro");
-      setErrorMessage("Preencha todos os campos!");
+      setErrorMessage("O código inserido está incorreto!");
       setIsErrorModalOpen(true);
       setVerificationCode("");
       return;
