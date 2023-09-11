@@ -104,7 +104,7 @@
       </td>
       <td valign="top">
         <a href="http://github.com/gustavohenriquers">
-          <img align="center" src="http://github.com/gustavohenrique23.png" height="100" />
+          <img align="center" src="http://github.com/gustavohenriquers.png" height="100" />
           <p align="center"> Gustavo Henrique </p>
         </a>
       </td>
